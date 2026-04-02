@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HouseCheck — Street-level price intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --ink: #0f0e0d;
+    --paper: #f5f2ee;
+    --cream: #ede9e3;
+    --accent: #c8401a;
+    --muted: #7a7570;
+    --border: #d4cfc9;
+    --up: #2d5a3d;
+    --down: #c8401a;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  header {
+    border-bottom: 1.5px solid var(--ink);
+    padding: 0 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    background: var(--paper);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    letter-spacing: -0.02em;
+  }
+  .logo span { color: var(--accent); font-style: italic; }
+
+  .tagline {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .hero {
+    padding: 4rem 2.5rem 2.5rem;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 4.5vw, 3.4rem);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+
+  h1 em { font-style: italic; color: var(--accent); }
+
+  .hero p {
+    font-size: 1rem;
+    color: var(--muted);
+    font-weight: 300;
+    max-width: 480px;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  .search-wrap {
+    display: flex;
+    max-width: 520px;
+    border: 1.5px solid var(--ink);
+    background: white;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .search-wrap:focus-within { box-shadow: 4px 4px 0 var(--ink); }
+
+  #searchInput {
+    flex: 1;
+    padding: 0.9rem 1.2rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+    background: transparent;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+  }
+  #searchInput::placeholder {
+    text-transform: none;
+    letter-spacing: 0;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .search-btn {
+    padding: 0.9rem 1.4rem;
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    transition: background 0.15s;
+  }
+  .search-btn:hover { background: var(--accent); }
+
+  .search-hint {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--muted);
+    margin-top: 0.5rem;
+  }
+
+  /* results */
+  #results {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 2.5rem 5rem;
+  }
+
+  .search-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1.5px solid var(--ink);
+  }
+
+  /* street card */
+  .street-card {
+    border: 1.5px solid var(--ink);
+    margin-bottom: 2rem;
+    background: white;
+  }
+
+  .street-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1.5px solid var(--ink);
+    gap: 1rem;
+  }
+
+  .street-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .street-location {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 0.2rem;
+    font-weight: 300;
+  }
+
+  .street-sector {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.7rem;
+    white-space: nowrap;
+    margin-top: 0.25rem;
+  }
+
+  /* headline metrics */
+  .metrics-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-bottom: 1.5px solid var(--ink);
+  }
+
+  .metric {
+    padding: 1.25rem 1.5rem;
+    border-right: 1.5px solid var(--ink);
+  }
+  .metric:last-child { border-right: none; }
+
+  .metric-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .metric-value {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.7rem;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  .metric-sub {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 0.3rem;
+    font-weight: 300;
+  }
+
+  .yoy-badge {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 500;
+    padding: 0.15rem 0.45rem;
+    margin-top: 0.3rem;
+  }
+  .badge-up   { background: #e6f0ea; color: var(--up); }
+  .badge-down { background: #fae9e5; color: var(--down); }
+  .badge-flat { background: var(--cream); color: var(--muted); }
+
+  /* chart */
+  .chart-wrap {
+    padding: 1.25rem 1.5rem;
+    height: 220px;
+    border-bottom: 1.5px solid var(--ink);
+    position: relative;
+  }
+
+  /* year table */
+  .year-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+  }
+
+  .year-table th {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--paper);
+    background: var(--ink);
+    padding: 0.6rem 1rem;
+    text-align: left;
+    font-weight: 400;
+  }
+
+  .year-table td {
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid var(--border);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--ink);
+  }
+
+  .year-table tr:last-child td { border-bottom: none; }
+  .year-table tr:hover td { background: var(--cream); }
+
+  .up   { color: var(--up);   font-weight: 500; }
+  .down { color: var(--down); font-weight: 500; }
+
+  /* loading / error */
+  .loading {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+  .spinner {
+    width: 28px; height: 28px;
+    border: 2px solid var(--border);
+    border-top-color: var(--ink);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    margin: 0 auto 1rem;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .error-box {
+    background: #fae9e5;
+    border: 1.5px solid var(--accent);
+    padding: 1rem 1.5rem;
+    color: var(--accent);
+    font-size: 0.88rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .no-results {
+    padding: 3rem 1.5rem;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.9rem;
+    border: 1.5px solid var(--border);
+  }
+
+  .hidden { display: none; }
+
+  .data-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 600px) {
+    header, .hero, #results { padding-left: 1.2rem; padding-right: 1.2rem; }
+    .metrics-row { grid-template-columns: 1fr 1fr; }
+    .metric:nth-child(3) { border-right: none; grid-column: 1 / -1; }
+    .street-header { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">House<span>Check</span></div>
+  <div class="tagline">HM Land Registry · Street level · 2018–2025</div>
+</header>
+
+<div class="hero">
+  <div class="hero-eyebrow">UK House Price Intelligence</div>
+  <h1>How much are houses selling for <em>on your street?</em></h1>
+  <p>Search by full postcode or street name. See year-on-year sold prices at street level — not regional averages.</p>
+
+  <div class="search-wrap">
+    <input id="searchInput" type="text" placeholder="e.g. SW6 2LE or Holmead Road" maxlength="60" autocomplete="off">
+    <button class="search-btn" onclick="doSearch()">Search</button>
+  </div>
+  <div class="search-hint">Full postcode · postcode sector · or street name</div>
+</div>
+
+<div id="results" class="hidden"></div>
+
+<script>
+// ── CONFIG ─────────────────────────────────────────────────────────────────
+// Change this to your FastAPI URL when deployed
+// For local dev: http://localhost:8000
+const API_BASE = 'http://localhost:8000';
+
+// ── UTILS ──────────────────────────────────────────────────────────────────
+const fmt  = n => n == null ? '—' : '£' + Math.round(n).toLocaleString('en-GB');
+const fmtK = n => n == null ? '—' : '£' + (n >= 1000000 ? (n/1000000).toFixed(1)+'m' : Math.round(n/1000)+'k');
+
+function yoyBadge(pct) {
+  if (pct == null) return '<span class="yoy-badge badge-flat">—</span>';
+  const sign = pct >= 0 ? '+' : '';
+  const cls  = pct > 0.5 ? 'badge-up' : pct < -0.5 ? 'badge-down' : 'badge-flat';
+  return `<span class="yoy-badge ${cls}">${sign}${pct.toFixed(1)}%</span>`;
+}
+
+function yoyClass(pct) {
+  if (pct == null) return '';
+  return pct > 0.5 ? 'up' : pct < -0.5 ? 'down' : '';
+}
+
+// ── SEARCH ─────────────────────────────────────────────────────────────────
+document.getElementById('searchInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doSearch();
+});
+
+async function doSearch() {
+  const q = document.getElementById('searchInput').value.trim();
+  if (!q) return;
+
+  const el = document.getElementById('results');
+  el.classList.remove('hidden');
+  el.innerHTML = `<div class="loading"><div class="spinner"></div>Searching Land Registry data…</div>`;
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  try {
+    const res  = await fetch(`${API_BASE}/search?q=${encodeURIComponent(q)}`);
+    if (!res.ok) throw new Error(`API error ${res.status}`);
+    const data = await res.json();
+    renderResults(data, q);
+  } catch (err) {
+    el.innerHTML = `
+      <div class="error-box">
+        Could not connect to the API. Make sure FastAPI is running at <strong>${API_BASE}</strong>.<br>
+        Run: <code>uvicorn main:app --reload</code> in your backend folder.
+      </div>`;
+  }
+}
+
+// ── RENDER ─────────────────────────────────────────────────────────────────
+let chartInstances = {};
+
+function renderResults(data, q) {
+  const el = document.getElementById('results');
+
+  if (!data.streets || data.streets.length === 0) {
+    el.innerHTML = `
+      <div class="search-meta">0 results for "${q}"</div>
+      <div class="no-results">No sold price records found for this postcode or street name.<br>Try a nearby street or check the spelling.</div>`;
+    return;
+  }
+
+  const modeLabel = data.search_mode === 'postcode'
+    ? `postcode sector ${data.sector}`
+    : `street name "${q}"`;
+
+  let html = `<div class="search-meta">${data.streets.length} street${data.streets.length > 1 ? 's' : ''} found · matched on ${modeLabel}</div>`;
+
+  data.streets.forEach((street, idx) => {
+    const years = street.years.sort((a, b) => a.year - b.year);
+    const latest = years[years.length - 1];
+    const prev   = years[years.length - 2];
+
+    // headline metrics
+    const latestMedian = latest?.median_price;
+    const prevMedian   = prev?.median_price;
+    const overallYoY   = latest?.yoy_pct;
+    const latestVol    = latest?.transaction_count;
+    const nbPremium    = years.slice().reverse().find(y => y.newbuild_premium_pct != null)?.newbuild_premium_pct;
+
+    html += `
+    <div class="street-card">
+      <div class="street-header">
+        <div>
+          <div class="street-name">${street.street}</div>
+          <div class="street-location">${street.town_city}${street.district ? ' · ' + street.district : ''}</div>
+        </div>
+        <div class="street-sector">${street.postcode_sector || '—'}</div>
+      </div>
+
+      <div class="metrics-row">
+        <div class="metric">
+          <div class="metric-label">Latest median price</div>
+          <div class="metric-value">${fmtK(latestMedian)}</div>
+          <div class="metric-sub">${latest?.year ?? '—'} · ${latestVol ?? 0} sales</div>
+          ${yoyBadge(overallYoY)}
+        </div>
+        <div class="metric">
+          <div class="metric-label">Previous year median</div>
+          <div class="metric-value">${fmtK(prevMedian)}</div>
+          <div class="metric-sub">${prev?.year ?? '—'}</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">New build premium</div>
+          <div class="metric-value">${nbPremium != null ? nbPremium.toFixed(1) + '%' : '—'}</div>
+          <div class="metric-sub">above existing stock</div>
+        </div>
+      </div>
+
+      <div class="chart-wrap">
+        <canvas id="chart-${idx}"></canvas>
+      </div>
+
+      <table class="year-table">
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Median price</th>
+            <th>Avg price</th>
+            <th>YoY change</th>
+            <th>3yr rolling avg</th>
+            <th>Sales</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${years.slice().reverse().map(y => `
+          <tr>
+            <td>${y.year}</td>
+            <td>${fmt(y.median_price)}</td>
+            <td>${fmt(y.avg_price)}</td>
+            <td class="${yoyClass(y.yoy_pct)}">${y.yoy_pct != null ? (y.yoy_pct >= 0 ? '+' : '') + y.yoy_pct.toFixed(1) + '%' : '—'}</td>
+            <td>${fmt(y.rolling_3yr_avg)}</td>
+            <td>${y.transaction_count ?? 0}</td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>`;
+  });
+
+  html += `<div class="data-note">Source: HM Land Registry Price Paid Data · Street-level granularity · Filled prices used where transaction count = 0</div>`;
+  el.innerHTML = html;
+
+  // draw charts after DOM update
+  setTimeout(() => {
+    data.streets.forEach((street, idx) => {
+      const years = street.years.sort((a, b) => a.year - b.year);
+      const ctx = document.getElementById(`chart-${idx}`);
+      if (!ctx) return;
+      if (chartInstances[idx]) chartInstances[idx].destroy();
+      chartInstances[idx] = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: years.map(y => y.year),
+          datasets: [
+            {
+              label: 'Median price',
+              data: years.map(y => y.median_price),
+              borderColor: '#0f0e0d',
+              borderWidth: 2,
+              pointBackgroundColor: '#0f0e0d',
+              pointRadius: 3,
+              fill: true,
+              backgroundColor: ctx2 => {
+                const g = ctx2.chart.ctx.createLinearGradient(0, 0, 0, 200);
+                g.addColorStop(0, 'rgba(15,14,13,0.07)');
+                g.addColorStop(1, 'rgba(15,14,13,0)');
+                return g;
+              },
+              tension: 0.35,
+            },
+            {
+              label: '3yr rolling avg',
+              data: years.map(y => y.rolling_3yr_avg),
+              borderColor: '#c8401a',
+              borderWidth: 1.5,
+              borderDash: [4, 3],
+              pointRadius: 0,
+              fill: false,
+              tension: 0.35,
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#0f0e0d',
+              titleColor: '#f5f2ee',
+              bodyColor: '#ede9e3',
+              padding: 10,
+              titleFont: { family: 'DM Mono', size: 10 },
+              bodyFont: { family: 'DM Sans', size: 13 },
+              callbacks: { label: ctx => '  ' + ctx.dataset.label + ': ' + fmt(ctx.raw) }
+            }
+          },
+          scales: {
+            x: {
+              grid: { display: false },
+              border: { color: '#d4cfc9' },
+              ticks: { font: { family: 'DM Mono', size: 10 }, color: '#7a7570' }
+            },
+            y: {
+              grid: { color: '#ede9e3' },
+              border: { display: false },
+              ticks: {
+                font: { family: 'DM Mono', size: 10 },
+                color: '#7a7570',
+                callback: v => '£' + (v >= 1000000 ? (v/1000000).toFixed(1)+'m' : Math.round(v/1000)+'k')
+              }
+            }
+          }
+        }
+      });
+    });
+  }, 50);
+}
+</script>
+</body>
+</html>
