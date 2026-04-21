@@ -368,7 +368,7 @@
 // ── CONFIG ─────────────────────────────────────────────────────────────────
 // Change this to your FastAPI URL when deployed
 // For local dev: http://localhost:8000
-const API_BASE = 'http://localhost:8000';
+const API_BASE = 'https://housecheck-api-580723587126.europe-west2.run.app';
 
 // ── UTILS ──────────────────────────────────────────────────────────────────
 const fmt  = n => n == null ? '—' : '£' + Math.round(n).toLocaleString('en-GB');
@@ -408,8 +408,7 @@ async function doSearch() {
   } catch (err) {
     el.innerHTML = `
       <div class="error-box">
-        Could not connect to the API. Make sure FastAPI is running at <strong>${API_BASE}</strong>.<br>
-        Run: <code>uvicorn main:app --reload</code> in your backend folder.
+        Could not connect to the API (<strong>${API_BASE}</strong>). Please try again.
       </div>`;
   }
 }
