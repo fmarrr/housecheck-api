@@ -40,6 +40,12 @@ def postcode_to_sector(postcode: str) -> Optional[str]:
     return None
 
 
+def is_full_postcode(q: str) -> bool:
+    """Returns True for a full postcode like SW6 2LE (not just a sector SW6 2)."""
+    pc = q.strip().upper().replace("  ", " ")
+    return bool(re.match(r'^[A-Z]{1,2}\d{1,2}[A-Z]?\s\d[A-Z]{2}$', pc))
+
+
 @app.get("/search")
 def search(q: str = Query(..., min_length=2)):
     """
@@ -49,40 +55,81 @@ def search(q: str = Query(..., min_length=2)):
     """
     client = get_client()
     sector = postcode_to_sector(q)
+    full_postcode = is_full_postcode(q)
 
     rows = []
     search_mode = None
 
-    # --- attempt 1: postcode sector search ---
+    # --- attempt 1: postcode search ---
     if sector:
         search_mode = "postcode"
-        sql = f"""
-        SELECT
-            t.sale_year,
-            t.street,
-            t.postcode_sector,
-            t.town_city,
-            t.district,
-            t.transaction_count,
-            t.median_sale_price_gbp_filled  AS median_price,
-            t.avg_sale_price_gbp_filled     AS avg_price,
-            t.yoy_avg_price_change_pct      AS yoy_pct,
-            t.prev_year_avg_price_gbp       AS prev_year_avg,
-            t.rolling_3yr_avg_price_gbp     AS rolling_3yr_avg,
-            n.avg_premium_pct               AS newbuild_premium_pct,
-            n.avg_premium_gbp               AS newbuild_premium_gbp
-        FROM `{PROJECT_ID}.{DATASET}.mart_price_trends` t
-        LEFT JOIN `{PROJECT_ID}.{DATASET}.mart_newbuild_premium` n
-            ON  t.postcode_sector = n.postcode_sector
-            AND t.sale_year       = n.sale_year
-            AND t.street          = n.street
-        WHERE t.postcode_sector = @sector
-          AND t.has_postcode = true
-        ORDER BY t.street, t.sale_year
-        """
-        job_config = bigquery.QueryJobConfig(
-            query_parameters=[bigquery.ScalarQueryParameter("sector", "STRING", sector)]
-        )
+        if full_postcode:
+            # exact postcode: only streets that have transactions at that postcode
+            postcode_normalised = q.strip().upper().replace("  ", " ")
+            sql = f"""
+            SELECT
+                t.sale_year,
+                t.street,
+                t.postcode_sector,
+                t.town_city,
+                t.district,
+                t.transaction_count,
+                t.median_sale_price_gbp_filled  AS median_price,
+                t.avg_sale_price_gbp_filled     AS avg_price,
+                t.yoy_avg_price_change_pct      AS yoy_pct,
+                t.prev_year_avg_price_gbp       AS prev_year_avg,
+                t.rolling_3yr_avg_price_gbp     AS rolling_3yr_avg,
+                n.avg_premium_pct               AS newbuild_premium_pct,
+                n.avg_premium_gbp               AS newbuild_premium_gbp
+            FROM `{PROJECT_ID}.{DATASET}.mart_price_trends` t
+            LEFT JOIN `{PROJECT_ID}.{DATASET}.mart_newbuild_premium` n
+                ON  t.postcode_sector = n.postcode_sector
+                AND t.sale_year       = n.sale_year
+                AND t.street          = n.street
+            WHERE t.postcode_sector = @sector
+              AND t.has_postcode = true
+              AND t.street IN (
+                SELECT DISTINCT street
+                FROM `{PROJECT_ID}.{DATASET}.mart_transactions`
+                WHERE postcode = @postcode
+              )
+            ORDER BY t.street, t.sale_year
+            """
+            job_config = bigquery.QueryJobConfig(
+                query_parameters=[
+                    bigquery.ScalarQueryParameter("sector", "STRING", sector),
+                    bigquery.ScalarQueryParameter("postcode", "STRING", postcode_normalised),
+                ]
+            )
+        else:
+            # sector-level search: all streets in the sector
+            sql = f"""
+            SELECT
+                t.sale_year,
+                t.street,
+                t.postcode_sector,
+                t.town_city,
+                t.district,
+                t.transaction_count,
+                t.median_sale_price_gbp_filled  AS median_price,
+                t.avg_sale_price_gbp_filled     AS avg_price,
+                t.yoy_avg_price_change_pct      AS yoy_pct,
+                t.prev_year_avg_price_gbp       AS prev_year_avg,
+                t.rolling_3yr_avg_price_gbp     AS rolling_3yr_avg,
+                n.avg_premium_pct               AS newbuild_premium_pct,
+                n.avg_premium_gbp               AS newbuild_premium_gbp
+            FROM `{PROJECT_ID}.{DATASET}.mart_price_trends` t
+            LEFT JOIN `{PROJECT_ID}.{DATASET}.mart_newbuild_premium` n
+                ON  t.postcode_sector = n.postcode_sector
+                AND t.sale_year       = n.sale_year
+                AND t.street          = n.street
+            WHERE t.postcode_sector = @sector
+              AND t.has_postcode = true
+            ORDER BY t.street, t.sale_year
+            """
+            job_config = bigquery.QueryJobConfig(
+                query_parameters=[bigquery.ScalarQueryParameter("sector", "STRING", sector)]
+            )
         rows = list(client.query(sql, job_config=job_config).result())
 
     # --- attempt 2: street name fallback ---
