@@ -67,7 +67,7 @@ def _build_postcode_sql(project, dataset, sector, full_postcode, property_type):
             p.median_sale_price_gbp_filled  AS median_price,
             p.avg_sale_price_gbp_filled     AS avg_price,
             p.yoy_avg_price_change_pct      AS yoy_pct,
-            CAST(NULL AS FLOAT64)           AS rolling_3yr_avg,
+            p.rolling_3yr_avg_price_gbp     AS rolling_3yr_avg,
             CAST(NULL AS FLOAT64)           AS newbuild_premium_pct,
             p.new_build_count,
             p.established_count
@@ -137,7 +137,7 @@ def _build_street_sql(project, dataset, property_type):
             p.median_sale_price_gbp_filled  AS median_price,
             p.avg_sale_price_gbp_filled     AS avg_price,
             p.yoy_avg_price_change_pct      AS yoy_pct,
-            CAST(NULL AS FLOAT64)           AS rolling_3yr_avg,
+            p.rolling_3yr_avg_price_gbp     AS rolling_3yr_avg,
             CAST(NULL AS FLOAT64)           AS newbuild_premium_pct,
             p.new_build_count,
             p.established_count

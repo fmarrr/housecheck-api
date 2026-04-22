@@ -540,9 +540,8 @@ function renderResults(data, q) {
             <th>Median price</th>
             <th>Avg price</th>
             <th>YoY change</th>
-            ${data.property_type
-              ? '<th>New builds</th><th>Established</th>'
-              : '<th>3yr rolling avg</th>'}
+            <th>3yr rolling avg</th>
+            ${data.property_type ? '<th>New builds</th><th>Established</th>' : ''}
             <th>Sales</th>
           </tr>
         </thead>
@@ -553,9 +552,8 @@ function renderResults(data, q) {
             <td>${fmt(y.median_price)}</td>
             <td>${fmt(y.avg_price)}</td>
             <td class="${yoyClass(y.yoy_pct)}">${y.yoy_pct != null ? (y.yoy_pct >= 0 ? '+' : '') + y.yoy_pct.toFixed(1) + '%' : '—'}</td>
-            ${data.property_type
-              ? `<td>${y.new_build_count ?? '—'}</td><td>${y.established_count ?? '—'}</td>`
-              : `<td>${fmt(y.rolling_3yr_avg)}</td>`}
+            <td>${fmt(y.rolling_3yr_avg)}</td>
+            ${data.property_type ? `<td>${y.new_build_count ?? '—'}</td><td>${y.established_count ?? '—'}</td>` : ''}
             <td>${y.transaction_count ?? 0}</td>
           </tr>`).join('')}
         </tbody>
