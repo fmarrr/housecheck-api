@@ -142,6 +142,29 @@
     margin-top: 0.5rem;
   }
 
+  .type-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+  }
+
+  .type-pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.35rem 0.85rem;
+    border: 1.5px solid var(--border);
+    background: white;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .type-pill:hover { border-color: var(--ink); color: var(--ink); }
+  .type-pill.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
   /* results */
   #results {
     max-width: 860px;
@@ -360,15 +383,36 @@
     <button class="search-btn" onclick="doSearch()">Search</button>
   </div>
   <div class="search-hint">Full postcode · postcode sector · or street name</div>
+
+  <div class="type-pills">
+    <div class="type-pill active" data-type="">All types</div>
+    <div class="type-pill" data-type="Detached">Detached</div>
+    <div class="type-pill" data-type="Semi-Detached">Semi-Detached</div>
+    <div class="type-pill" data-type="Terraced">Terraced</div>
+    <div class="type-pill" data-type="Flat/Maisonette">Flat / Maisonette</div>
+    <div class="type-pill" data-type="Other">Other</div>
+  </div>
 </div>
 
 <div id="results" class="hidden"></div>
 
 <script>
 // ── CONFIG ─────────────────────────────────────────────────────────────────
-// Change this to your FastAPI URL when deployed
-// For local dev: http://localhost:8000
 const API_BASE = 'https://housecheck-api-580723587126.europe-west2.run.app';
+
+// ── PROPERTY TYPE PILLS ────────────────────────────────────────────────────
+let selectedType = '';
+
+document.querySelectorAll('.type-pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    document.querySelectorAll('.type-pill').forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+    selectedType = pill.dataset.type;
+    // re-run search if there's already a query
+    const q = document.getElementById('searchInput').value.trim();
+    if (q) doSearch();
+  });
+});
 
 // ── UTILS ──────────────────────────────────────────────────────────────────
 const fmt  = n => n == null ? '—' : '£' + Math.round(n).toLocaleString('en-GB');
@@ -401,7 +445,10 @@ async function doSearch() {
   el.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
   try {
-    const res  = await fetch(`${API_BASE}/search?q=${encodeURIComponent(q)}`);
+    const url = selectedType
+      ? `${API_BASE}/search?q=${encodeURIComponent(q)}&property_type=${encodeURIComponent(selectedType)}`
+      : `${API_BASE}/search?q=${encodeURIComponent(q)}`;
+    const res  = await fetch(url);
     if (!res.ok) throw new Error(`API error ${res.status}`);
     const data = await res.json();
     renderResults(data, q);
@@ -429,8 +476,9 @@ function renderResults(data, q) {
   const modeLabel = data.search_mode === 'postcode'
     ? `postcode sector ${data.sector}`
     : `street name "${q}"`;
+  const typeLabel = data.property_type ? ` · ${data.property_type}` : '';
 
-  let html = `<div class="search-meta">${data.streets.length} street${data.streets.length > 1 ? 's' : ''} found · matched on ${modeLabel}</div>`;
+  let html = `<div class="search-meta">${data.streets.length} street${data.streets.length > 1 ? 's' : ''} found · matched on ${modeLabel}${typeLabel}</div>`;
 
   data.streets.forEach((street, idx) => {
     const years = street.years.sort((a, b) => a.year - b.year);
@@ -438,11 +486,13 @@ function renderResults(data, q) {
     const prev   = years[years.length - 2];
 
     // headline metrics
-    const latestMedian = latest?.median_price;
-    const prevMedian   = prev?.median_price;
-    const overallYoY   = latest?.yoy_pct;
-    const latestVol    = latest?.transaction_count;
-    const nbPremium    = years.slice().reverse().find(y => y.newbuild_premium_pct != null)?.newbuild_premium_pct;
+    const latestMedian  = latest?.median_price;
+    const prevMedian    = prev?.median_price;
+    const overallYoY    = latest?.yoy_pct;
+    const latestVol     = latest?.transaction_count;
+    const nbPremium     = years.slice().reverse().find(y => y.newbuild_premium_pct != null)?.newbuild_premium_pct;
+    const newBuildCount = latest?.new_build_count;
+    const estCount      = latest?.established_count;
 
     html += `
     <div class="street-card">
@@ -466,11 +516,17 @@ function renderResults(data, q) {
           <div class="metric-value">${fmtK(prevMedian)}</div>
           <div class="metric-sub">${prev?.year ?? '—'}</div>
         </div>
+        ${data.property_type ? `
+        <div class="metric">
+          <div class="metric-label">New build / Established</div>
+          <div class="metric-value">${newBuildCount != null ? newBuildCount : '—'}</div>
+          <div class="metric-sub">${estCount != null ? estCount + ' established' : ''} · ${latest?.year ?? '—'}</div>
+        </div>` : `
         <div class="metric">
           <div class="metric-label">New build premium</div>
           <div class="metric-value">${nbPremium != null ? nbPremium.toFixed(1) + '%' : '—'}</div>
           <div class="metric-sub">above existing stock</div>
-        </div>
+        </div>`}
       </div>
 
       <div class="chart-wrap">
@@ -484,7 +540,9 @@ function renderResults(data, q) {
             <th>Median price</th>
             <th>Avg price</th>
             <th>YoY change</th>
-            <th>3yr rolling avg</th>
+            ${data.property_type
+              ? '<th>New builds</th><th>Established</th>'
+              : '<th>3yr rolling avg</th>'}
             <th>Sales</th>
           </tr>
         </thead>
@@ -495,7 +553,9 @@ function renderResults(data, q) {
             <td>${fmt(y.median_price)}</td>
             <td>${fmt(y.avg_price)}</td>
             <td class="${yoyClass(y.yoy_pct)}">${y.yoy_pct != null ? (y.yoy_pct >= 0 ? '+' : '') + y.yoy_pct.toFixed(1) + '%' : '—'}</td>
-            <td>${fmt(y.rolling_3yr_avg)}</td>
+            ${data.property_type
+              ? `<td>${y.new_build_count ?? '—'}</td><td>${y.established_count ?? '—'}</td>`
+              : `<td>${fmt(y.rolling_3yr_avg)}</td>`}
             <td>${y.transaction_count ?? 0}</td>
           </tr>`).join('')}
         </tbody>
