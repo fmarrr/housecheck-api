@@ -27,13 +27,21 @@ def get_client():
     return bigquery.Client(project=PROJECT_ID)
 
 
+def normalise_postcode(q: str) -> str:
+    """Insert missing space in a full postcode: SW62LE → SW6 2LE."""
+    pc = q.strip().upper().replace("  ", " ")
+    if " " not in pc and len(pc) >= 5:
+        return pc[:-3] + " " + pc[-3:]
+    return pc
+
+
 def postcode_to_sector(postcode: str) -> Optional[str]:
-    """SW6 2LE → SW6 2"""
-    pc = postcode.strip().upper().replace("  ", " ")
-    # already a sector e.g. SW6 2
+    """NW3 5TJ → NW3 5"""
+    pc = normalise_postcode(postcode)
+    # already a sector e.g. NW3 5
     if re.match(r'^[A-Z]{1,2}\d{1,2}[A-Z]?\s\d$', pc):
         return pc
-    # full postcode e.g. SW6 2LE → take everything except last 2 chars of inward
+    # full postcode e.g. NW3 5TJ → take everything except last 2 chars of inward
     m = re.match(r'^([A-Z]{1,2}\d{1,2}[A-Z]?)\s?(\d)', pc)
     if m:
         return f"{m.group(1)} {m.group(2)}"
@@ -41,8 +49,8 @@ def postcode_to_sector(postcode: str) -> Optional[str]:
 
 
 def is_full_postcode(q: str) -> bool:
-    """Returns True for a full postcode like SW6 2LE (not just a sector SW6 2)."""
-    pc = q.strip().upper().replace("  ", " ")
+    """Returns True for a full postcode like NW3 5TJ (with or without space)."""
+    pc = normalise_postcode(q)
     return bool(re.match(r'^[A-Z]{1,2}\d{1,2}[A-Z]?\s\d[A-Z]{2}$', pc))
 
 
@@ -184,7 +192,7 @@ def search(
     property_type: Optional[str] = Query(None),
 ):
     """
-    Search by full postcode (SW6 2LE), postcode sector (SW6 2), or street name.
+    Search by full postcode (NW3 5TJ), postcode sector (NW3 5), or street name.
     Optional property_type filter: Detached | Semi-Detached | Terraced | Flat/Maisonette | Other
     """
     if property_type and property_type not in VALID_PROPERTY_TYPES:
@@ -192,7 +200,7 @@ def search(
 
     client = get_client()
     sector = postcode_to_sector(q)
-    postcode_normalised = q.strip().upper().replace("  ", " ") if is_full_postcode(q) else None
+    postcode_normalised = normalise_postcode(q) if is_full_postcode(q) else None
 
     rows = []
     search_mode = None
