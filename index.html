@@ -376,13 +376,13 @@
 <div class="hero">
   <div class="hero-eyebrow">UK House Price Intelligence</div>
   <h1>How much are houses selling for <em>on your street?</em></h1>
-  <p>Search by full postcode or street name. See year-on-year sold prices at street level — not regional averages.</p>
+  <p>Search by full postcode or postcode sector. See year-on-year sold prices at street level — not regional averages.</p>
 
   <div class="search-wrap">
-    <input id="searchInput" type="text" placeholder="e.g. NW3 5TJ or Fitzjohn's Avenue" maxlength="60" autocomplete="off">
+    <input id="searchInput" type="text" placeholder="e.g. NW3 5TJ or NW3 5" maxlength="10" autocomplete="off">
     <button class="search-btn" onclick="doSearch()">Search</button>
   </div>
-  <div class="search-hint">Full postcode · postcode sector · or street name</div>
+  <div class="search-hint">Full postcode · or postcode sector</div>
 
   <div class="type-pills">
     <div class="type-pill active" data-type="">All types</div>
@@ -435,9 +435,18 @@ document.getElementById('searchInput').addEventListener('keydown', e => {
   if (e.key === 'Enter') doSearch();
 });
 
+const POSTCODE_RE = /^[A-Z]{1,2}[0-9][0-9A-Z]?(\s*[0-9]([A-Z]{2})?)?$/i;
+
 async function doSearch() {
   const q = document.getElementById('searchInput').value.trim();
   if (!q) return;
+
+  if (!POSTCODE_RE.test(q)) {
+    const el = document.getElementById('results');
+    el.classList.remove('hidden');
+    el.innerHTML = `<div class="error-box">Please enter a valid UK postcode or postcode sector (e.g. <strong>NW3 5TJ</strong> or <strong>NW3 5</strong>).</div>`;
+    return;
+  }
 
   const el = document.getElementById('results');
   el.classList.remove('hidden');
@@ -469,7 +478,7 @@ function renderResults(data, q) {
   if (!data.streets || data.streets.length === 0) {
     el.innerHTML = `
       <div class="search-meta">0 results for "${q}"</div>
-      <div class="no-results">No sold price records found for this postcode or street name.<br>Try a nearby street or check the spelling.</div>`;
+      <div class="no-results">No sold price records found for this postcode.<br>Try a nearby postcode or check the spelling.</div>`;
     return;
   }
 
