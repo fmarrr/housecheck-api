@@ -445,6 +445,28 @@
   </div>
 </footer>
 
+<!-- Cookie Notice -->
+<div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:var(--ink);color:var(--paper);padding:1rem 2.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;z-index:999;border-top:2px solid var(--accent);">
+  <p style="font-family:'DM Sans',sans-serif;font-size:0.82rem;color:#ede9e3;margin:0;line-height:1.5;max-width:680px;">
+    This site loads fonts and charts from Google Fonts and jsDelivr CDN. No tracking or advertising cookies are set.
+    <a href="/privacy" style="color:var(--accent);text-decoration:underline;margin-left:0.4rem;">Learn more</a>
+  </p>
+  <button onclick="dismissCookieBanner()" style="font-family:'DM Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;background:transparent;border:1.5px solid var(--paper);color:var(--paper);padding:0.5rem 1.2rem;cursor:pointer;white-space:nowrap;flex-shrink:0;">Got it</button>
+</div>
+
+<script>
+  (function() {
+    if (!localStorage.getItem('cookie_notice_dismissed')) {
+      document.getElementById('cookie-banner').style.display = 'flex';
+    }
+  })();
+
+  function dismissCookieBanner() {
+    localStorage.setItem('cookie_notice_dismissed', '1');
+    document.getElementById('cookie-banner').style.display = 'none';
+  }
+</script>
+
 <script>
 // ── CONFIG ─────────────────────────────────────────────────────────────────
 const API_BASE = 'https://housecheck-api-580723587126.europe-west2.run.app';
