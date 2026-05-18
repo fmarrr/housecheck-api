@@ -4,7 +4,13 @@
     {
       "source": "/(.*)",
       "has": [{ "type": "host", "value": "housecheck-api.vercel.app" }],
-      "destination": "https://housecheck.it.com/$1",
+      "destination": "https://soldbystreet.co.uk/$1",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "housecheck.it.com" }],
+      "destination": "https://soldbystreet.co.uk/$1",
       "permanent": true
     }
   ],
@@ -12,6 +18,13 @@
     {
       "source": "/(.*)",
       "has": [{ "type": "host", "value": "housecheck-api.vercel.app" }],
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "housecheck.it.com" }],
       "headers": [
         { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
       ]
