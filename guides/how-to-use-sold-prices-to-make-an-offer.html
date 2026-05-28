@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/7b30e2f2d9316ee4614729dbf30f3c60/script.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9WWR5FF5VK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-9WWR5FF5VK');
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to use sold prices to make an offer on a house — Houses SoldByStreet</title>
+<meta name="description" content="A step-by-step guide to finding comparable sales, reading market direction, and making a data-backed offer on a UK property using HM Land Registry data.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://soldbystreet.co.uk/guides/how-to-use-sold-prices-to-make-an-offer">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6325652833259788" crossorigin="anonymous"></script>
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://soldbystreet.co.uk/guides/how-to-use-sold-prices-to-make-an-offer">
+<meta property="og:site_name" content="Houses SoldByStreet">
+<meta property="og:title" content="How to use sold prices to make an offer on a house">
+<meta property="og:description" content="A step-by-step guide to finding comparable sales, reading market direction, and making a data-backed offer on a UK property using HM Land Registry data.">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How to use sold prices to make an offer on a house",
+  "description": "A step-by-step guide to finding comparable sales, reading market direction, and making a data-backed offer on a UK property using HM Land Registry data.",
+  "url": "https://soldbystreet.co.uk/guides/how-to-use-sold-prices-to-make-an-offer",
+  "datePublished": "2026-05-27",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Houses SoldByStreet",
+    "url": "https://soldbystreet.co.uk/"
+  }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0e0d;
+    --paper: #f5f2ee;
+    --cream: #ede9e3;
+    --accent: #c8401a;
+    --muted: #7a7570;
+    --border: #d4cfc9;
+    --up: #2d5a3d;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  a { color: inherit; }
+
+  header {
+    border-bottom: 1.5px solid var(--ink);
+    padding: 0 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    background: var(--paper);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .logo span { color: var(--accent); font-style: italic; }
+
+  .header-nav { display: flex; align-items: center; gap: 2rem; }
+
+  .nav-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .nav-link:hover { color: var(--ink); }
+
+  .article-wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 3.5rem 2.5rem 5rem;
+  }
+
+  .breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 2rem;
+  }
+  .breadcrumb a { text-decoration: none; }
+  .breadcrumb a:hover { color: var(--ink); }
+  .breadcrumb span { margin: 0 0.5rem; }
+
+  .article-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+
+  h1 em { font-style: italic; color: var(--accent); }
+
+  .article-intro {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--muted);
+    font-weight: 300;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1.5px solid var(--ink);
+  }
+
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    letter-spacing: -0.01em;
+    margin: 2.5rem 0 0.75rem;
+  }
+
+  .article-body p {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: #2a2826;
+    margin-bottom: 1.1rem;
+    font-weight: 300;
+  }
+
+  .article-body strong { font-weight: 500; color: var(--ink); }
+
+  .step-block {
+    border: 1.5px solid var(--ink);
+    background: white;
+    margin: 2rem 0;
+  }
+
+  .step-block-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    border-bottom: 1.5px solid var(--ink);
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .step-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    opacity: 0.6;
+  }
+
+  .step-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.05rem;
+  }
+
+  .step-body {
+    padding: 1.25rem;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: #2a2826;
+    font-weight: 300;
+  }
+
+  .callout {
+    background: var(--cream);
+    border-left: 3px solid var(--ink);
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+    line-height: 1.65;
+    color: var(--ink);
+  }
+
+  .callout strong { font-weight: 500; }
+
+  .signal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1.5px solid var(--ink);
+    margin: 1.5rem 0;
+  }
+
+  .signal-cell {
+    padding: 1.25rem;
+    border-right: 1.5px solid var(--ink);
+    border-bottom: 1.5px solid var(--ink);
+  }
+  .signal-cell:nth-child(2n) { border-right: none; }
+  .signal-cell:nth-last-child(-n+2) { border-bottom: none; }
+
+  .signal-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.4rem;
+  }
+  .signal-label.buyer { color: var(--up); }
+  .signal-label.seller { color: var(--accent); }
+
+  .signal-text {
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: #2a2826;
+    font-weight: 300;
+  }
+
+  .cta-box {
+    border: 1.5px solid var(--ink);
+    padding: 2rem;
+    margin-top: 3rem;
+    background: white;
+    text-align: center;
+  }
+
+  .cta-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .cta-heading {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+
+  .cta-sub {
+    font-size: 0.88rem;
+    color: var(--muted);
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    padding: 0.85rem 2rem;
+    background: var(--ink);
+    color: var(--paper);
+    text-decoration: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    transition: background 0.15s;
+  }
+  .cta-btn:hover { background: var(--accent); }
+
+  .guide-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .guide-nav a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .guide-nav a:hover { color: var(--ink); }
+
+  @media (max-width: 600px) {
+    header { padding-left: 1.2rem; padding-right: 1.2rem; }
+    .article-wrap { padding-left: 1.2rem; padding-right: 1.2rem; }
+    .signal-grid { grid-template-columns: 1fr; }
+    .signal-cell { border-right: none; }
+    .signal-cell:nth-last-child(-n+2) { border-bottom: 1.5px solid var(--ink); }
+    .signal-cell:last-child { border-bottom: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="/" class="logo">Houses SoldBy<span>Street</span></a>
+  <nav class="header-nav">
+    <a href="/guides" class="nav-link">Guides</a>
+  </nav>
+</header>
+
+<div class="article-wrap">
+
+  <div class="breadcrumb">
+    <a href="/guides">Guides</a><span>·</span> Buyers · Negotiation
+  </div>
+
+  <div class="article-tag">Buyers · Negotiation</div>
+  <h1>How to use sold prices to <em>make an offer</em></h1>
+
+  <p class="article-intro">Most buyers make offers based on instinct and what the agent tells them. The buyers who negotiate best go in with data — specific street medians, trend direction, comparable transactions. Here's how to build that picture before you pick up the phone.</p>
+
+  <div class="article-body">
+
+    <h2>Why sold prices, not asking prices</h2>
+    <p>Asking prices are set by the seller and their agent. They reflect optimism, anchoring strategy, and sometimes desperation — but not necessarily what the market will bear. <strong>Sold prices are the market</strong>. They're the price at which a buyer and seller, with full information and no gun to their heads, agreed to transact.</p>
+    <p>Building your offer from sold data reverses the psychology: instead of negotiating down from the seller's number, you're building up from evidence — which puts you in a fundamentally stronger position.</p>
+
+    <h2>Step 1: Pull your comparables</h2>
+    <p>Search the property's postcode. Find the specific street. Then filter by the same property type — terraced, semi-detached, detached, or flat — so you're comparing like-for-like.</p>
+    <p>Look at the last two to three years of sales on that street. Note the <strong>median price</strong> (more reliable than the average, which can be skewed by a single outlier) and how many transactions there were each year. More transactions = more confidence in the figure.</p>
+
+    <div class="callout">
+      <strong>Rule of thumb:</strong> If a street had fewer than 3 sales in a given year for your property type, treat that year's median with caution. Low transaction counts mean individual properties — not market conditions — are driving the number.
+    </div>
+
+    <h2>Step 2: Calculate your benchmark</h2>
+    <p>Your offer benchmark is the most recent street median for comparable properties, adjusted for any known material differences in the specific property. Work through it explicitly:</p>
+
+    <div class="step-block">
+      <div class="step-block-header">
+        <span class="step-num">The formula</span>
+        <span class="step-title">Street median ± condition adjustments</span>
+      </div>
+      <div class="step-body">
+        Start with the street median for your property type. Add a premium if the specific property has clear upside: a loft conversion, rear extension, recently fitted kitchen, south-facing garden. Subtract if it's in below-average condition or needs significant work. Be honest — adjustments you can't defend aren't adjustments, they're wishful thinking.
+      </div>
+    </div>
+
+    <h2>Step 3: Read the market direction</h2>
+    <p>The year-on-year trend is your negotiation context. It tells you which direction time is working.</p>
+
+    <div class="signal-grid">
+      <div class="signal-cell">
+        <div class="signal-label buyer">Buyer's market signals</div>
+        <div class="signal-text">YoY negative or flat two years running. Transaction volumes falling. Street median below the asking price. Time is on your side — a below-asking offer is rational.</div>
+      </div>
+      <div class="signal-cell">
+        <div class="signal-label seller">Seller's market signals</div>
+        <div class="signal-text">YoY consistently positive. Strong transaction volumes. Recent sold prices close to or above asking on comparable streets. Moving fast or offering at asking may be the right call.</div>
+      </div>
+      <div class="signal-cell">
+        <div class="signal-label buyer">Declining new-build premium</div>
+        <div class="signal-text">If the street's new-build premium is shrinking year on year, the broader market is softening. Gives you confidence to hold a firm position.</div>
+      </div>
+      <div class="signal-cell">
+        <div class="signal-label seller">Rising 3-year rolling average</div>
+        <div class="signal-text">A steadily rising 3yr average, even with a flat most recent year, suggests underlying long-term appreciation. Seller can reasonably argue for a forward premium.</div>
+      </div>
+    </div>
+
+    <h2>Step 4: Build your offer number</h2>
+    <p>You now have three inputs: the street median benchmark, your condition adjustment, and the market direction signal. Put them together into a specific number — not a round-number guess.</p>
+    <p>A £647,500 offer backed by data is more credible than £650,000 with no rationale. The specificity signals that you've done the work, and that the figure isn't arbitrary.</p>
+
+    <h2>What to say to the agent</h2>
+    <p>Agents respond to buyers who know their numbers. You don't need to be confrontational — just be specific. Something like: <em>"The most recent sold data for comparable terraced houses on this street puts the median at £638k. This property is in good condition so we're offering £648,000, which reflects a modest premium above comparable sales."</em></p>
+    <p>This works better than "we think it's worth less" or vague references to "doing our research." A specific data reference anchors the conversation around facts, not feelings.</p>
+
+    <h2>When to walk away</h2>
+    <p>If the asking price is materially above recent street-level comparables, the trend is negative, and the seller won't move — that's a signal to walk. An overprice in a falling market compounds: you pay too much at exchange, and the property may be worth less again by the time you need to sell. The data will still be there when a better opportunity comes.</p>
+
+    <div class="guide-nav">
+      <a href="/guides/am-i-overpaying-for-a-house">← Am I overpaying?</a>
+      <a href="/guides/what-did-houses-sell-for-on-my-street">Next: Reading the data →</a>
+    </div>
+  </div>
+
+  <div class="cta-box">
+    <div class="cta-label">Try it now</div>
+    <div class="cta-heading">Pull your comparables</div>
+    <div class="cta-sub">Search by postcode to see street-level medians, year-on-year trends, and transaction history from 2018–2025.</div>
+    <a href="/" class="cta-btn">Search a postcode</a>
+  </div>
+
+</div>
+
+<footer style="border-top:1.5px solid var(--border);padding:2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem;">
+  <div style="font-family:'DM Mono',monospace;font-size:0.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;">© 2026 Houses SoldByStreet · Data: HM Land Registry OGL v3</div>
+  <div style="display:flex;gap:1.5rem;">
+    <a href="/guides" style="font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);text-decoration:none;">Guides</a>
+    <a href="/privacy" style="font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);text-decoration:none;">Privacy</a>
+    <a href="/terms" style="font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);text-decoration:none;">Terms</a>
+  </div>
+</footer>
+
+</body>
+</html>

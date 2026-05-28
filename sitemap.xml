@@ -15,4 +15,24 @@
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+  <url>
+    <loc>https://soldbystreet.co.uk/guides</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soldbystreet.co.uk/guides/am-i-overpaying-for-a-house</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://soldbystreet.co.uk/guides/how-to-use-sold-prices-to-make-an-offer</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://soldbystreet.co.uk/guides/what-did-houses-sell-for-on-my-street</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
