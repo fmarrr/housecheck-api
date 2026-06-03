@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="UTF-8">
 <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/7b30e2f2d9316ee4614729dbf30f3c60/script.js"></script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9WWR5FF5VK"></script>
@@ -11,7 +12,6 @@
   gtag('config', 'G-9WWR5FF5VK');
 </script>
 <script defer src="/_vercel/insights/script.js"></script>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>House prices on your street — SoldByStreet</title>
 <meta name="description" content="Search UK house sold prices by postcode. See street-level median prices, year-on-year trends and transaction history from 2018–2025, powered by HM Land Registry data.">
@@ -62,6 +62,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
   :root {
     --ink: #0f0e0d;
@@ -416,6 +418,50 @@
 
   .hidden { display: none; }
 
+  /* map */
+  #map-panel {
+    height: 300px;
+    border: 1.5px solid var(--ink);
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .leaflet-popup-content-wrapper {
+    border-radius: 0;
+    border: 1.5px solid var(--ink);
+    box-shadow: 3px 3px 0 var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    padding: 0;
+  }
+  .leaflet-popup-content { margin: 0.75rem 1rem; }
+  .leaflet-popup-tip-container { display: none; }
+  .map-legend {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 1000;
+    background: white;
+    border: 1.5px solid var(--ink);
+    padding: 0.5rem 0.75rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--muted);
+    pointer-events: none;
+  }
+  .legend-bar {
+    width: 100px;
+    height: 6px;
+    background: linear-gradient(to right, #2d7d46, #e8b84b, #c8401a);
+    margin-top: 4px;
+    margin-bottom: 2px;
+  }
+  .legend-labels {
+    display: flex;
+    justify-content: space-between;
+  }
+
   .data-note {
     font-family: 'DM Mono', monospace;
     font-size: 0.62rem;
@@ -550,6 +596,112 @@ async function doSearch() {
   }
 }
 
+// ── MAP ────────────────────────────────────────────────────────────────────
+let mapInstance = null;
+
+function priceColor(price, minP, maxP) {
+  if (!price || minP === maxP) return '#0f0e0d';
+  const t = (price - minP) / (maxP - minP);
+  // green → amber → red
+  if (t < 0.5) {
+    const h = Math.round(140 - t * 2 * 60);  // 140→20
+    return `hsl(${h}, 60%, 38%)`;
+  } else {
+    const h = Math.round(20 - (t - 0.5) * 2 * 20);  // 20→0
+    return `hsl(${h}, 65%, 42%)`;
+  }
+}
+
+async function renderMap(streets, sector) {
+  // Remove existing map
+  if (mapInstance) { mapInstance.remove(); mapInstance = null; }
+  const existing = document.getElementById('map-panel');
+  if (existing) existing.remove();
+
+  // Create panel
+  const panel = document.createElement('div');
+  panel.id = 'map-panel';
+  const firstCard = document.querySelector('.street-card');
+  if (!firstCard) return;
+  firstCard.parentNode.insertBefore(panel, firstCard);
+
+  // Geocode: find a real postcode within this sector for accurate center
+  let center;
+  try {
+    const r = await fetch(`https://api.postcodes.io/postcodes?q=${encodeURIComponent(sector)}&limit=1`);
+    const j = await r.json();
+    if (j.result && j.result.length > 0) {
+      center = [j.result[0].latitude, j.result[0].longitude];
+    } else {
+      // Fallback: outward code
+      const outward = sector.split(' ')[0];
+      const r2 = await fetch(`https://api.postcodes.io/outcodes/${encodeURIComponent(outward)}`);
+      const j2 = await r2.json();
+      if (j2.result) center = [j2.result.latitude, j2.result.longitude];
+    }
+  } catch (e) { return; }
+  if (!center) return;
+
+  mapInstance = L.map('map-panel', { zoomControl: true, scrollWheelZoom: false })
+    .setView(center, 15);
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="https://carto.com/">CARTO</a>',
+    maxZoom: 19
+  }).addTo(mapInstance);
+
+  // Price range for colour scale
+  const latestPrices = streets
+    .map(s => s.years.slice().sort((a, b) => b.year - a.year)[0]?.median_price)
+    .filter(Boolean);
+  const minP = Math.min(...latestPrices);
+  const maxP = Math.max(...latestPrices);
+
+  const fmtK = n => n == null ? '—' : '£' + (n >= 1000000 ? (n/1000000).toFixed(1)+'m' : Math.round(n/1000)+'k');
+
+  streets.forEach((street, i) => {
+    const latest = street.years.slice().sort((a, b) => b.year - a.year)[0];
+    // Spread markers around the center in a small ring so they don't overlap
+    const angle  = (i / streets.length) * 2 * Math.PI;
+    const spread = streets.length > 1 ? 0.0015 + (i % 2) * 0.0008 : 0;
+    const lat = center[0] + spread * Math.sin(angle);
+    const lng = center[1] + spread * Math.cos(angle);
+
+    const color = priceColor(latest?.median_price, minP, maxP);
+
+    const marker = L.circleMarker([lat, lng], {
+      radius: 9,
+      fillColor: color,
+      color: '#0f0e0d',
+      weight: 1.5,
+      fillOpacity: 0.88,
+    }).addTo(mapInstance);
+
+    marker.bindPopup(`
+      <div style="font-family:'DM Serif Display',serif;font-size:1rem;margin-bottom:4px">${street.street}</div>
+      <div style="font-family:'DM Mono',monospace;font-size:0.7rem;color:#7a7570">
+        Median ${fmtK(latest?.median_price)} · ${latest?.year ?? '—'}
+      </div>
+    `);
+
+    marker.on('click', () => {
+      const cards = document.querySelectorAll('.street-card');
+      cards[i]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // Legend
+  panel.insertAdjacentHTML('beforeend', `
+    <div class="map-legend">
+      Price range
+      <div class="legend-bar"></div>
+      <div class="legend-labels">
+        <span>${fmtK(minP)}</span><span>${fmtK(maxP)}</span>
+      </div>
+    </div>
+  `);
+}
+
 // ── RENDER ─────────────────────────────────────────────────────────────────
 let chartInstances = {};
 
@@ -653,6 +805,11 @@ function renderResults(data, q) {
 
   html += `<div class="data-note">Source: HM Land Registry Price Paid Data · Street-level granularity · Filled prices used where transaction count = 0</div>`;
   el.innerHTML = html;
+
+  // draw map (postcode searches only, sector available)
+  if (data.search_mode === 'postcode' && data.sector) {
+    renderMap(data.streets, data.sector);
+  }
 
   // draw charts after DOM update
   setTimeout(() => {
