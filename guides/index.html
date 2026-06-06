@@ -74,17 +74,44 @@
   }
   .logo span { color: var(--accent); font-style: italic; }
 
-  .header-nav { display: flex; align-items: center; gap: 2rem; }
+    .header-nav { display: flex; align-items: center; gap: 1.5rem; }
 
   .nav-link {
     font-family: 'DM Mono', monospace;
-    font-size: 0.68rem;
+    font-size: 0.65rem;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--muted);
+    letter-spacing: 0.08em;
+    color: var(--ink);
     text-decoration: none;
+    border: 1px solid var(--border);
+    padding: 0.28rem 0.7rem;
+    transition: background 0.15s, border-color 0.15s;
   }
-  .nav-link:hover, .nav-link.active { color: var(--ink); }
+  .nav-link:hover { background: var(--cream); border-color: var(--ink); }
+  .nav-link.active { background: var(--ink); color: var(--paper); }
+
+  .lang-switcher {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .lang-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.28rem 0.55rem;
+    line-height: 1;
+    transition: background 0.15s, color 0.15s;
+  }
+  .lang-btn.active { color: var(--ink); background: var(--cream); }
+  .lang-btn:hover { color: var(--ink); }
+  .lang-divider { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--border); user-select: none; }
 
   .page-hero {
     padding: 4rem 2.5rem 3rem;
@@ -190,40 +217,46 @@
 <header>
   <a href="/" class="logo">Houses SoldBy<span>Street</span></a>
   <nav class="header-nav">
-    <a href="/guides" class="nav-link active">Guides</a>
+    <a href="/" class="nav-link" data-i18n="nav-back">← Search</a>
+    <a href="/guides" class="nav-link active" data-i18n="nav-guides">Guides</a>
+    <div class="lang-switcher">
+      <button class="lang-btn" data-lang="en" onclick="applyLang('en')">EN</button>
+      <span class="lang-divider">|</span>
+      <button class="lang-btn" data-lang="zh" onclick="applyLang('zh')">中文</button>
+    </div>
   </nav>
 </header>
 
 <div class="page-hero">
-  <div class="hero-eyebrow">Property Intelligence</div>
-  <h1>Property <em>guides.</em></h1>
-  <p>Data-driven insights for UK buyers and sellers. Powered by HM Land Registry sold price records — not estate agent valuations.</p>
+  <div class="hero-eyebrow" data-i18n="eyebrow">Property Intelligence</div>
+  <h1 data-i18n="hero-h1">Property <em>guides.</em></h1>
+  <p data-i18n="hero-p">Data-driven insights for UK buyers and sellers. Powered by HM Land Registry sold price records — not estate agent valuations.</p>
 </div>
 
 <div class="guides-grid">
   <a href="/guides/am-i-overpaying-for-a-house" class="guide-card">
     <div>
-      <div class="guide-tag">Buyers · Valuation</div>
-      <div class="guide-title">Am I overpaying for a house?</div>
-      <div class="guide-excerpt">How to use street-level sold price data to check whether an asking price is fair — before you make an offer or instruct a surveyor.</div>
+      <div class="guide-tag" data-i18n="card1-tag">Buyers · Valuation</div>
+      <div class="guide-title" data-i18n="card1-title">Am I overpaying for a house?</div>
+      <div class="guide-excerpt" data-i18n="card1-excerpt">How to use street-level sold price data to check whether an asking price is fair — before you make an offer or instruct a surveyor.</div>
     </div>
     <div class="guide-arrow">→</div>
   </a>
 
   <a href="/guides/how-to-use-sold-prices-to-make-an-offer" class="guide-card">
     <div>
-      <div class="guide-tag">Buyers · Negotiation</div>
-      <div class="guide-title">How to use sold prices to make an offer</div>
-      <div class="guide-excerpt">A step-by-step guide to finding comparable sales, reading market direction, and building a data-backed offer price.</div>
+      <div class="guide-tag" data-i18n="card2-tag">Buyers · Negotiation</div>
+      <div class="guide-title" data-i18n="card2-title">How to use sold prices to make an offer</div>
+      <div class="guide-excerpt" data-i18n="card2-excerpt">A step-by-step guide to finding comparable sales, reading market direction, and building a data-backed offer price.</div>
     </div>
     <div class="guide-arrow">→</div>
   </a>
 
   <a href="/guides/what-did-houses-sell-for-on-my-street" class="guide-card">
     <div>
-      <div class="guide-tag">Data · How it works</div>
-      <div class="guide-title">What did houses sell for on my street?</div>
-      <div class="guide-excerpt">How to find out exactly what properties sold for on any UK street — and what the numbers actually mean.</div>
+      <div class="guide-tag" data-i18n="card3-tag">Data · How it works</div>
+      <div class="guide-title" data-i18n="card3-title">What did houses sell for on my street?</div>
+      <div class="guide-excerpt" data-i18n="card3-excerpt">How to find out exactly what properties sold for on any UK street — and what the numbers actually mean.</div>
     </div>
     <div class="guide-arrow">→</div>
   </a>
@@ -232,11 +265,72 @@
 <footer style="border-top:1.5px solid var(--border);padding:2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem;">
   <div style="font-family:'DM Mono',monospace;font-size:0.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;">© 2026 Houses SoldByStreet · Data: HM Land Registry OGL v3</div>
   <div style="display:flex;gap:1.5rem;">
-    <a href="/guides" style="font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);text-decoration:none;">Guides</a>
-    <a href="/privacy" style="font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);text-decoration:none;">Privacy</a>
-    <a href="/terms" style="font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);text-decoration:none;">Terms</a>
+    <a href="/guides" style="font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);text-decoration:none;" data-i18n="footer-guides">Guides</a>
+    <a href="/privacy" style="font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);text-decoration:none;" data-i18n="footer-privacy">Privacy</a>
+    <a href="/terms" style="font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);text-decoration:none;" data-i18n="footer-terms">Terms</a>
   </div>
 </footer>
 
+<script>
+var i18n = {
+  en: {
+    'nav-back': '← Search',
+    'nav-guides': 'Guides',
+    'eyebrow': 'Property Intelligence',
+    'hero-h1': 'Property <em>guides.</em>',
+    'hero-p': 'Data-driven insights for UK buyers and sellers. Powered by HM Land Registry sold price records — not estate agent valuations.',
+    'card1-tag': 'Buyers · Valuation',
+    'card1-title': 'Am I overpaying for a house?',
+    'card1-excerpt': 'How to use street-level sold price data to check whether an asking price is fair — before you make an offer or instruct a surveyor.',
+    'card2-tag': 'Buyers · Negotiation',
+    'card2-title': 'How to use sold prices to make an offer',
+    'card2-excerpt': 'A step-by-step guide to finding comparable sales, reading market direction, and building a data-backed offer price.',
+    'card3-tag': 'Data · How it works',
+    'card3-title': 'What did houses sell for on my street?',
+    'card3-excerpt': 'How to find out exactly what properties sold for on any UK street — and what the numbers actually mean.',
+    'footer-guides': 'Guides',
+    'footer-privacy': 'Privacy',
+    'footer-terms': 'Terms'
+  },
+  zh: {
+    'nav-back': '← 搜索',
+    'nav-guides': '指南',
+    'eyebrow': '房产情报',
+    'hero-h1': '房产<em>指南。</em>',
+    'hero-p': '为英国房产买卖双方提供数据驱动的洞察。数据来源：英国土地登记局成交价格记录——而非房产中介估价。',
+    'card1-tag': '买家 · 估价',
+    'card1-title': '我买房是否出价过高？',
+    'card1-excerpt': '如何利用街道级成交价格数据，在出价或委托测量师之前，判断要价是否合理。',
+    'card2-tag': '买家 · 议价',
+    'card2-title': '如何利用成交价格出价',
+    'card2-excerpt': '一步步指导如何寻找可比成交案例、判断市场走向，并建立以数据为支撑的出价策略。',
+    'card3-tag': '数据 · 原理说明',
+    'card3-title': '我所在街道的房屋成交价是多少？',
+    'card3-excerpt': '如何查询英国任意街道的房产成交价格，以及如何理解这些数据。',
+    'footer-guides': '指南',
+    'footer-privacy': '隐私政策',
+    'footer-terms': '使用条款'
+  }
+};
+
+function applyLang(lang) {
+  document.documentElement.lang = lang === 'zh' ? 'zh-Hans' : 'en';
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    var t = i18n[lang][el.getAttribute('data-i18n')];
+    if (t !== undefined) el.innerHTML = t;
+  });
+  localStorage.setItem('lang', lang);
+  document.querySelectorAll('.lang-btn').forEach(function(btn) {
+    btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+  });
+}
+
+(function() {
+  applyLang(localStorage.getItem('lang') || 'en');
+  window.addEventListener('pageshow', function() {
+    applyLang(localStorage.getItem('lang') || 'en');
+  });
+})();
+</script>
 </body>
 </html>

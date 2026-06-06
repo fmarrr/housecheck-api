@@ -92,17 +92,44 @@
   }
   .logo span { color: var(--accent); font-style: italic; }
 
-  .header-nav { display: flex; align-items: center; gap: 2rem; }
+  .header-nav { display: flex; align-items: center; gap: 1.5rem; }
 
   .nav-link {
     font-family: 'DM Mono', monospace;
-    font-size: 0.68rem;
+    font-size: 0.65rem;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--muted);
+    letter-spacing: 0.08em;
+    color: var(--ink);
     text-decoration: none;
+    border: 1px solid var(--border);
+    padding: 0.28rem 0.7rem;
+    transition: background 0.15s, border-color 0.15s;
   }
-  .nav-link:hover { color: var(--ink); }
+  .nav-link:hover { background: var(--cream); border-color: var(--ink); }
+  .nav-link.active { background: var(--ink); color: var(--paper); }
+
+  .lang-switcher {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .lang-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.28rem 0.55rem;
+    line-height: 1;
+    transition: background 0.15s, color 0.15s;
+  }
+  .lang-btn.active { color: var(--ink); background: var(--cream); }
+  .lang-btn:hover { color: var(--ink); }
+  .lang-divider { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--border); user-select: none; }
 
   .article-wrap {
     max-width: 680px;
@@ -337,111 +364,117 @@
 <header>
   <a href="/" class="logo">Houses SoldBy<span>Street</span></a>
   <nav class="header-nav">
-    <a href="/guides" class="nav-link">Guides</a>
+    <a href="/guides" class="nav-link" data-i18n="nav-back">← All guides</a>
+    <a href="/guides" class="nav-link" data-i18n="nav-guides">Guides</a>
+    <div class="lang-switcher">
+      <button class="lang-btn" data-lang="en" onclick="applyLang('en')">EN</button>
+      <span class="lang-divider">|</span>
+      <button class="lang-btn" data-lang="zh" onclick="applyLang('zh')">中文</button>
+    </div>
   </nav>
 </header>
 
 <div class="article-wrap">
 
-  <div class="breadcrumb">
+  <div class="breadcrumb" data-i18n="breadcrumb">
     <a href="/guides">Guides</a><span>·</span> Data · How it works
   </div>
 
-  <div class="article-tag">Data · How it works</div>
-  <h1>What did houses sell for <em>on my street?</em></h1>
+  <div class="article-tag" data-i18n="article-tag">Data · How it works</div>
+  <h1 data-i18n="h1">What did houses sell for <em>on my street?</em></h1>
 
-  <p class="article-intro">Every residential property sale in England and Wales must be registered with HM Land Registry. That means every price paid — on your street, in your postcode, going back decades — is public record. Here's how to find it and what it actually tells you.</p>
+  <p class="article-intro" data-i18n="intro">Every residential property sale in England and Wales must be registered with HM Land Registry. That means every price paid — on your street, in your postcode, going back decades — is public record. Here's how to find it and what it actually tells you.</p>
 
   <div class="article-body">
 
-    <h2>The data source: HM Land Registry Price Paid</h2>
-    <p>When a property transaction completes in England or Wales, the solicitors are legally required to register the sale with HM Land Registry. That registration includes the full address, sale price, property type, whether it's a new build, and the date of completion.</p>
-    <p>The Land Registry publishes this as the <strong>Price Paid Dataset</strong> — updated monthly, free to access, and covering all residential sales since 1995. It's not a survey, an estimate, or a valuation: it's the actual price, at the actual completion date, on the actual property.</p>
+    <h2 data-i18n="h2-source">The data source: HM Land Registry Price Paid</h2>
+    <p data-i18n="p-source-1">When a property transaction completes in England or Wales, the solicitors are legally required to register the sale with HM Land Registry. That registration includes the full address, sale price, property type, whether it's a new build, and the date of completion.</p>
+    <p data-i18n="p-source-2">The Land Registry publishes this as the <strong>Price Paid Dataset</strong> — updated monthly, free to access, and covering all residential sales since 1995. It's not a survey, an estimate, or a valuation: it's the actual price, at the actual completion date, on the actual property.</p>
 
-    <div class="callout">
+    <div class="callout" data-i18n="callout-important">
       <strong>Important:</strong> The dataset covers England and Wales only. Scotland has a separate register (Registers of Scotland), and Northern Ireland uses the Land Registers of Northern Ireland.
     </div>
 
-    <h2>How to search</h2>
+    <h2 data-i18n="h2-search">How to search</h2>
 
     <div class="how-to-search">
-      <div class="how-to-header">Postcode · Full or sector</div>
-      <div class="how-to-body">
+      <div class="how-to-header" data-i18n="howto-header">Postcode · Full or sector</div>
+      <div class="how-to-body" data-i18n="howto-body">
         Enter a full postcode (e.g. <code>SW11 4PG</code>) to see all streets in that postcode area, or a postcode sector (e.g. <code>SW11 4</code>) to see a wider set of streets across the sector. Sectors cover roughly 3,000–5,000 addresses, so you'll typically see more streets but the same level of detail for each one.
       </div>
     </div>
 
-    <p>The results group data by street within the postcode, not by individual property. You see the aggregated picture for each street: median price, average, year-on-year change, transaction count, and optionally broken down by property type.</p>
+    <p data-i18n="p-results">The results group data by street within the postcode, not by individual property. You see the aggregated picture for each street: median price, average, year-on-year change, transaction count, and optionally broken down by property type.</p>
 
-    <h2>What each metric means</h2>
+    <h2 data-i18n="h2-metrics">What each metric means</h2>
 
     <div class="metric-explainer">
       <div class="metric-row">
         <div class="metric-name">
-          <div class="metric-name-label">Median price</div>
-          <div class="metric-name-sub">Anchor figure</div>
+          <div class="metric-name-label" data-i18n="m1-label">Median price</div>
+          <div class="metric-name-sub" data-i18n="m1-sub">Anchor figure</div>
         </div>
-        <div class="metric-desc">The midpoint of all sale prices on the street in a given year — half sold for more, half for less. More robust than the average because it isn't pulled up or down by a single unusual transaction. This is the figure to compare against an asking price.</div>
+        <div class="metric-desc" data-i18n="m1-desc">The midpoint of all sale prices on the street in a given year — half sold for more, half for less. More robust than the average because it isn't pulled up or down by a single unusual transaction. This is the figure to compare against an asking price.</div>
       </div>
       <div class="metric-row">
         <div class="metric-name">
-          <div class="metric-name-label">Average price</div>
-          <div class="metric-name-sub">Mean</div>
+          <div class="metric-name-label" data-i18n="m2-label">Average price</div>
+          <div class="metric-name-sub" data-i18n="m2-sub">Mean</div>
         </div>
-        <div class="metric-desc">The arithmetic mean of all sales. Useful as a secondary check, but can be skewed by outliers — one very expensive sale on an otherwise modest street can push the average up significantly. Compare median and average together: a large gap between them suggests a wide spread of property quality.</div>
+        <div class="metric-desc" data-i18n="m2-desc">The arithmetic mean of all sales. Useful as a secondary check, but can be skewed by outliers — one very expensive sale on an otherwise modest street can push the average up significantly. Compare median and average together: a large gap between them suggests a wide spread of property quality.</div>
       </div>
       <div class="metric-row">
         <div class="metric-name">
-          <div class="metric-name-label">YoY change</div>
-          <div class="metric-name-sub">Year on year</div>
+          <div class="metric-name-label" data-i18n="m3-label">YoY change</div>
+          <div class="metric-name-sub" data-i18n="m3-sub">Year on year</div>
         </div>
-        <div class="metric-desc">The percentage change in median price from the previous year to the current year. A positive figure means the street's median price rose; negative means it fell. This is your market direction signal — and three consecutive negative years is a meaningful trend, not noise.</div>
+        <div class="metric-desc" data-i18n="m3-desc">The percentage change in median price from the previous year to the current year. A positive figure means the street's median price rose; negative means it fell. This is your market direction signal — and three consecutive negative years is a meaningful trend, not noise.</div>
       </div>
       <div class="metric-row">
         <div class="metric-name">
-          <div class="metric-name-label">3yr rolling avg</div>
-          <div class="metric-name-sub">Smoothed trend</div>
+          <div class="metric-name-label" data-i18n="m4-label">3yr rolling avg</div>
+          <div class="metric-name-sub" data-i18n="m4-sub">Smoothed trend</div>
         </div>
-        <div class="metric-desc">The average of the median price over the current and previous two years. Smooths out single-year volatility — a year with only two or three sales can produce a median that looks like a crash or a spike. The rolling average tells you where the underlying trend is heading, not just what happened last year.</div>
+        <div class="metric-desc" data-i18n="m4-desc">The average of the median price over the current and previous two years. Smooths out single-year volatility — a year with only two or three sales can produce a median that looks like a crash or a spike. The rolling average tells you where the underlying trend is heading, not just what happened last year.</div>
       </div>
       <div class="metric-row">
         <div class="metric-name">
-          <div class="metric-name-label">Sales count</div>
-          <div class="metric-name-sub">Confidence level</div>
+          <div class="metric-name-label" data-i18n="m5-label">Sales count</div>
+          <div class="metric-name-sub" data-i18n="m5-sub">Confidence level</div>
         </div>
-        <div class="metric-desc">The number of registered transactions on the street in that year. Treat medians based on 1–2 sales as directional indicators, not benchmarks. 5+ sales in a single year for a single street gives you real statistical confidence in the figure.</div>
+        <div class="metric-desc" data-i18n="m5-desc">The number of registered transactions on the street in that year. Treat medians based on 1–2 sales as directional indicators, not benchmarks. 5+ sales in a single year for a single street gives you real statistical confidence in the figure.</div>
       </div>
       <div class="metric-row">
         <div class="metric-name">
-          <div class="metric-name-label">New build premium</div>
-          <div class="metric-name-sub">New vs established</div>
+          <div class="metric-name-label" data-i18n="m6-label">New build premium</div>
+          <div class="metric-name-sub" data-i18n="m6-sub">New vs established</div>
         </div>
-        <div class="metric-desc">Where available, the percentage by which new build properties sold above the median for existing (established) stock on the same street. Useful for understanding whether new build asking prices on the street represent genuine market value or developer premium.</div>
+        <div class="metric-desc" data-i18n="m6-desc">Where available, the percentage by which new build properties sold above the median for existing (established) stock on the same street. Useful for understanding whether new build asking prices on the street represent genuine market value or developer premium.</div>
       </div>
     </div>
 
-    <h2>Why street-level matters more than postcode average</h2>
-    <p>A postcode-level average price masks significant variation. Two streets in the same postcode can differ by £100,000 or more depending on proximity to a train station, school catchment, road noise, or simply the quality of housing stock. Street-level data tells you what <em>this</em> street trades at, not what the general area is doing.</p>
-    <p>This is especially important in dense urban postcodes — SW11, E1, N1 — where a single postcode can span dramatically different streets.</p>
+    <h2 data-i18n="h2-street">Why full-postcode data gives you street-level precision</h2>
+    <p data-i18n="p-street-1">Street level on SoldByStreet is defined by the full postcode — something like SW11 4PG typically covers just one or two streets. That's meaningful precision. A postcode district average (e.g. SW11 as a whole) spans dozens of streets and can hide £100,000+ price differences between neighbouring roads depending on proximity to a station, school catchment, or road noise.</p>
+    <p data-i18n="p-street-2">Searching a partial postcode — SW11 rather than SW11 4PG — won't give you the same granularity. You'll see more streets, but the data is spread across a broader area. For genuine street-level comparison, always use the full postcode.</p>
 
-    <h2>What the data doesn't show</h2>
-    <p>The Land Registry records the registered sale price, which is the price agreed at exchange (or sometimes renegotiated before completion). It doesn't record:</p>
-    <p><strong>Fixtures, fittings, and chattels</strong> — if a buyer paid separately for the kitchen or white goods, that amount doesn't appear in the Land Registry figure.</p>
-    <p><strong>Condition at sale</strong> — a price paid for a property in need of full renovation and one in pristine condition will look identical in the data.</p>
-    <p><strong>Developer incentives</strong> — cash-back schemes or part-exchange arrangements can mean the effective price paid was lower than the registered figure, especially for new builds.</p>
-    <p>These caveats don't undermine the data — they're just context for interpretation. The median across multiple transactions smooths most of this noise out.</p>
+    <h2 data-i18n="h2-limits">What the data doesn't show</h2>
+    <p data-i18n="p-limits-1">The Land Registry records the registered sale price, which is the price agreed at exchange (or sometimes renegotiated before completion). It doesn't record:</p>
+    <p data-i18n="p-limits-2"><strong>Fixtures, fittings, and chattels</strong> — if a buyer paid separately for the kitchen or white goods, that amount doesn't appear in the Land Registry figure.</p>
+    <p data-i18n="p-limits-3"><strong>Condition at sale</strong> — a price paid for a property in need of full renovation and one in pristine condition will look identical in the data.</p>
+    <p data-i18n="p-limits-4"><strong>Developer incentives</strong> — cash-back schemes or part-exchange arrangements can mean the effective price paid was lower than the registered figure, especially for new builds.</p>
+    <p data-i18n="p-limits-5">These caveats don't undermine the data — they're just context for interpretation. The median across multiple transactions smooths most of this noise out.</p>
 
     <div class="guide-nav">
-      <a href="/guides/how-to-use-sold-prices-to-make-an-offer">← Making an offer</a>
-      <a href="/guides">All guides →</a>
+      <a href="/guides/how-to-use-sold-prices-to-make-an-offer" data-i18n="nav-back">← Making an offer</a>
+      <a href="/guides" data-i18n="nav-next">All guides →</a>
     </div>
   </div>
 
   <div class="cta-box">
-    <div class="cta-label">Try it now</div>
-    <div class="cta-heading">See what sold on your street</div>
-    <div class="cta-sub">Search by postcode to see street-level medians, year-on-year trends, and transaction history from 2018–2025.</div>
-    <a href="/" class="cta-btn">Search a postcode</a>
+    <div class="cta-label" data-i18n="cta-label">Try it now</div>
+    <div class="cta-heading" data-i18n="cta-heading">See what sold on your street</div>
+    <div class="cta-sub" data-i18n="cta-sub">Search by postcode to see street-level medians, year-on-year trends, and transaction history from 2018–2025.</div>
+    <a href="/" class="cta-btn" data-i18n="cta-btn">Search a postcode</a>
   </div>
 
 </div>
@@ -449,11 +482,138 @@
 <footer style="border-top:1.5px solid var(--border);padding:2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem;">
   <div style="font-family:'DM Mono',monospace;font-size:0.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;">© 2026 Houses SoldByStreet · Data: HM Land Registry OGL v3</div>
   <div style="display:flex;gap:1.5rem;">
-    <a href="/guides" style="font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);text-decoration:none;">Guides</a>
-    <a href="/privacy" style="font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);text-decoration:none;">Privacy</a>
-    <a href="/terms" style="font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);text-decoration:none;">Terms</a>
+    <a href="/guides" style="font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);text-decoration:none;" data-i18n="footer-guides">Guides</a>
+    <a href="/privacy" style="font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);text-decoration:none;" data-i18n="footer-privacy">Privacy</a>
+    <a href="/terms" style="font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);text-decoration:none;" data-i18n="footer-terms">Terms</a>
   </div>
 </footer>
 
+<script>
+var i18n = {
+  en: {
+    'nav-guides': 'Guides',
+    'breadcrumb': '<a href="/guides">Guides</a><span>·</span> Data · How it works',
+    'article-tag': 'Data · How it works',
+    'h1': 'What did houses sell for <em>on my street?</em>',
+    'intro': 'Every residential property sale in England and Wales must be registered with HM Land Registry. That means every price paid — on your street, in your postcode, going back decades — is public record. Here\'s how to find it and what it actually tells you.',
+    'h2-source': 'The data source: HM Land Registry Price Paid',
+    'p-source-1': 'When a property transaction completes in England or Wales, the solicitors are legally required to register the sale with HM Land Registry. That registration includes the full address, sale price, property type, whether it\'s a new build, and the date of completion.',
+    'p-source-2': 'The Land Registry publishes this as the <strong>Price Paid Dataset</strong> — updated monthly, free to access, and covering all residential sales since 1995. It\'s not a survey, an estimate, or a valuation: it\'s the actual price, at the actual completion date, on the actual property.',
+    'callout-important': '<strong>Important:</strong> The dataset covers England and Wales only. Scotland has a separate register (Registers of Scotland), and Northern Ireland uses the Land Registers of Northern Ireland.',
+    'h2-search': 'How to search',
+    'howto-header': 'Postcode · Full or sector',
+    'howto-body': 'Enter a full postcode (e.g. <code>SW11 4PG</code>) to see all streets in that postcode area, or a postcode sector (e.g. <code>SW11 4</code>) to see a wider set of streets across the sector. Sectors cover roughly 3,000–5,000 addresses, so you\'ll typically see more streets but the same level of detail for each one.',
+    'p-results': 'The results group data by street within the postcode, not by individual property. You see the aggregated picture for each street: median price, average, year-on-year change, transaction count, and optionally broken down by property type.',
+    'h2-metrics': 'What each metric means',
+    'm1-label': 'Median price',
+    'm1-sub': 'Anchor figure',
+    'm1-desc': 'The midpoint of all sale prices on the street in a given year — half sold for more, half for less. More robust than the average because it isn\'t pulled up or down by a single unusual transaction. This is the figure to compare against an asking price.',
+    'm2-label': 'Average price',
+    'm2-sub': 'Mean',
+    'm2-desc': 'The arithmetic mean of all sales. Useful as a secondary check, but can be skewed by outliers — one very expensive sale on an otherwise modest street can push the average up significantly. Compare median and average together: a large gap between them suggests a wide spread of property quality.',
+    'm3-label': 'YoY change',
+    'm3-sub': 'Year on year',
+    'm3-desc': 'The percentage change in median price from the previous year to the current year. A positive figure means the street\'s median price rose; negative means it fell. This is your market direction signal — and three consecutive negative years is a meaningful trend, not noise.',
+    'm4-label': '3yr rolling avg',
+    'm4-sub': 'Smoothed trend',
+    'm4-desc': 'The average of the median price over the current and previous two years. Smooths out single-year volatility — a year with only two or three sales can produce a median that looks like a crash or a spike. The rolling average tells you where the underlying trend is heading, not just what happened last year.',
+    'm5-label': 'Sales count',
+    'm5-sub': 'Confidence level',
+    'm5-desc': 'The number of registered transactions on the street in that year. Treat medians based on 1–2 sales as directional indicators, not benchmarks. 5+ sales in a single year for a single street gives you real statistical confidence in the figure.',
+    'm6-label': 'New build premium',
+    'm6-sub': 'New vs established',
+    'm6-desc': 'Where available, the percentage by which new build properties sold above the median for existing (established) stock on the same street. Useful for understanding whether new build asking prices on the street represent genuine market value or developer premium.',
+    'h2-street': 'Why full-postcode data gives you street-level precision',
+    'p-street-1': 'Street level on SoldByStreet is defined by the full postcode — something like SW11 4PG typically covers just one or two streets. That\'s meaningful precision. A postcode district average (e.g. SW11 as a whole) spans dozens of streets and can hide £100,000+ price differences between neighbouring roads depending on proximity to a station, school catchment, or road noise.',
+    'p-street-2': 'Searching a partial postcode — SW11 rather than SW11 4PG — won\'t give you the same granularity. You\'ll see more streets, but the data is spread across a broader area. For genuine street-level comparison, always use the full postcode.',
+    'h2-limits': 'What the data doesn\'t show',
+    'p-limits-1': 'The Land Registry records the registered sale price, which is the price agreed at exchange (or sometimes renegotiated before completion). It doesn\'t record:',
+    'p-limits-2': '<strong>Fixtures, fittings, and chattels</strong> — if a buyer paid separately for the kitchen or white goods, that amount doesn\'t appear in the Land Registry figure.',
+    'p-limits-3': '<strong>Condition at sale</strong> — a price paid for a property in need of full renovation and one in pristine condition will look identical in the data.',
+    'p-limits-4': '<strong>Developer incentives</strong> — cash-back schemes or part-exchange arrangements can mean the effective price paid was lower than the registered figure, especially for new builds.',
+    'p-limits-5': 'These caveats don\'t undermine the data — they\'re just context for interpretation. The median across multiple transactions smooths most of this noise out.',
+    'nav-back': '← Making an offer',
+    'nav-next': 'All guides →',
+    'cta-label': 'Try it now',
+    'cta-heading': 'See what sold on your street',
+    'cta-sub': 'Search by postcode to see street-level medians, year-on-year trends, and transaction history from 2018–2025.',
+    'cta-btn': 'Search a postcode',
+    'footer-guides': 'Guides',
+    'footer-privacy': 'Privacy',
+    'footer-terms': 'Terms'
+  },
+  zh: {
+    'nav-guides': '指南',
+    'breadcrumb': '<a href="/guides">指南</a><span>·</span> 数据 · 原理说明',
+    'article-tag': '数据 · 原理说明',
+    'h1': '我所在街道的<em>成交价是多少？</em>',
+    'intro': '英格兰和威尔士的每一笔住宅交易都必须在英国土地登记局登记。这意味着你所在街道、邮政编码区域内的每一笔成交价格——追溯数十年——均为公开记录。以下介绍如何查询这些数据以及数据背后的含义。',
+    'h2-source': '数据来源：英国土地登记局价格支付数据集',
+    'p-source-1': '在英格兰或威尔士完成房产交易时，律师依法须向英国土地登记局登记该交易。登记内容包括完整地址、成交价格、房产类型、是否为新建房产及完成日期。',
+    'p-source-2': '土地登记局将这些数据公开发布为<strong>价格支付数据集</strong>——每月更新，免费获取，涵盖自1995年以来的所有住宅销售记录。这不是调查、估算或估价：而是实际房产在实际完成日期的实际成交价格。',
+    'callout-important': '<strong>重要提示：</strong>该数据集仅涵盖英格兰和威尔士。苏格兰有独立的登记系统（苏格兰登记处），北爱尔兰则使用北爱尔兰土地登记处。',
+    'h2-search': '如何搜索',
+    'howto-header': '邮政编码 · 完整或区段',
+    'howto-body': '输入完整邮政编码（例如 <code>SW11 4PG</code>）可查看该邮编区域内的所有街道；输入邮政编码区段（例如 <code>SW11 4</code>）则可查看该区段内更广泛的街道范围。区段约涵盖3,000至5,000个地址，因此你通常会看到更多街道，但每条街道的数据详细程度相同。',
+    'p-results': '结果按邮编内的街道分组显示，而非按单个房产。你将看到每条街道的汇总概况：中位价、平均价、同比变化、成交量，以及可选的房产类型细分。',
+    'h2-metrics': '各指标含义',
+    'm1-label': '中位价',
+    'm1-sub': '基准数值',
+    'm1-desc': '某年内该街道所有成交价的中间值——一半高于此价，一半低于此价。比平均价更稳健，因为单笔异常交易不会拉偏中位价。这是与要价进行比较的核心数字。',
+    'm2-label': '平均价',
+    'm2-sub': '算术平均值',
+    'm2-desc': '所有成交价的算术平均值。可作为辅助参考，但容易受异常值影响——一套价格偏高的房产就能显著拉高整体平均值。将中位价和平均价结合比较：两者差距大，说明街道内房产质量参差不齐。',
+    'm3-label': '同比变化',
+    'm3-sub': '年同比',
+    'm3-desc': '当年相对于上一年中位价的百分比变化。正值表示街道中位价上涨，负值表示下降。这是你的市场方向信号——连续三年为负是有意义的趋势，而非随机噪音。',
+    'm4-label': '三年滚动均价',
+    'm4-sub': '平滑趋势',
+    'm4-desc': '当年及前两年中位价的平均值。平滑单年波动——仅有两三笔成交的年份可能产生看似崩跌或暴涨的中位价。滚动平均价告诉你底层趋势的走向，而非仅仅是去年发生了什么。',
+    'm5-label': '成交量',
+    'm5-sub': '置信度',
+    'm5-desc': '该年内街道上登记的交易笔数。仅有1至2笔成交的中位价应视为方向性参考，而非基准数据。单条街道单年内5笔以上成交，才能赋予你真正的统计置信度。',
+    'm6-label': '新建房产溢价',
+    'm6-sub': '新房与二手房',
+    'm6-desc': '在有数据的情况下，新建房产成交价高于同街道二手房中位价的百分比。有助于判断该街道新建房产的要价是否反映真实市场价值，还是开发商溢价。',
+    'h2-street': '为何完整邮编能提供真正的街道级精确数据',
+    'p-street-1': 'SoldByStreet的街道级数据以完整邮政编码为单位——例如SW11 4PG通常仅覆盖一两条街道，精确度极高。而邮编区段均价（如整个SW11）则横跨数十条街道，可能掩盖相邻街道之间高达100,000英镑的价差，差异来源包括到车站的距离、学校划片范围或道路噪音等。',
+    'p-street-2': '搜索半邮编（如SW11）而非完整邮编（如SW11 4PG），所得数据的粒度将有所不同——你会看到更多街道，但数据是在更大范围内汇总的，并非真正的街道级精确数据。如需进行街道级对比，请始终使用完整邮政编码。',
+    'h2-limits': '数据无法显示的内容',
+    'p-limits-1': '土地登记局记录的是登记成交价，即签约时商定的价格（有时在完成前重新谈判）。它不记录以下内容：',
+    'p-limits-2': '<strong>固定装置、配件及动产</strong>——如果买方另行支付了厨房或白色家电的费用，该金额不会出现在土地登记局的数字中。',
+    'p-limits-3': '<strong>出售时的状况</strong>——需要全面翻新的房产与状况完好的房产，在数据中看起来可能完全相同。',
+    'p-limits-4': '<strong>开发商优惠</strong>——返现计划或以旧换新安排可能意味着实际支付价格低于登记数字，尤其是新建房产。',
+    'p-limits-5': '这些注意事项并不削弱数据的价值——它们只是解读的背景。多笔交易的中位价能平滑大部分此类干扰。',
+    'nav-back': '← 如何出价',
+    'nav-next': '所有指南 →',
+    'cta-label': '立即试用',
+    'cta-heading': '查看你所在街道的成交记录',
+    'cta-sub': '按邮政编码搜索，查看街道级中位价、同比趋势及2018年至2025年的成交历史。',
+    'cta-btn': '搜索邮政编码',
+    'footer-guides': '指南',
+    'footer-privacy': '隐私政策',
+    'footer-terms': '使用条款'
+  }
+};
+
+function applyLang(lang) {
+  document.documentElement.lang = lang === 'zh' ? 'zh-Hans' : 'en';
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    var t = i18n[lang][el.getAttribute('data-i18n')];
+    if (t !== undefined) el.innerHTML = t;
+  });
+  localStorage.setItem('lang', lang);
+  document.querySelectorAll('.lang-btn').forEach(function(btn) {
+    btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+  });
+}
+
+(function() {
+  applyLang(localStorage.getItem('lang') || 'en');
+  window.addEventListener('pageshow', function() {
+    applyLang(localStorage.getItem('lang') || 'en');
+  });
+})();
+</script>
 </body>
 </html>

@@ -92,17 +92,44 @@
   }
   .logo span { color: var(--accent); font-style: italic; }
 
-  .header-nav { display: flex; align-items: center; gap: 2rem; }
+  .header-nav { display: flex; align-items: center; gap: 1.5rem; }
 
   .nav-link {
     font-family: 'DM Mono', monospace;
-    font-size: 0.68rem;
+    font-size: 0.65rem;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--muted);
+    letter-spacing: 0.08em;
+    color: var(--ink);
     text-decoration: none;
+    border: 1px solid var(--border);
+    padding: 0.28rem 0.7rem;
+    transition: background 0.15s, border-color 0.15s;
   }
-  .nav-link:hover { color: var(--ink); }
+  .nav-link:hover { background: var(--cream); border-color: var(--ink); }
+  .nav-link.active { background: var(--ink); color: var(--paper); }
+
+  .lang-switcher {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .lang-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.28rem 0.55rem;
+    line-height: 1;
+    transition: background 0.15s, color 0.15s;
+  }
+  .lang-btn.active { color: var(--ink); background: var(--cream); }
+  .lang-btn:hover { color: var(--ink); }
+  .lang-divider { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--border); user-select: none; }
 
   .article-wrap {
     max-width: 680px;
@@ -333,92 +360,98 @@
 <header>
   <a href="/" class="logo">Houses SoldBy<span>Street</span></a>
   <nav class="header-nav">
-    <a href="/guides" class="nav-link">Guides</a>
+    <a href="/guides" class="nav-link" data-i18n="nav-back">← All guides</a>
+    <a href="/guides" class="nav-link" data-i18n="nav-guides">Guides</a>
+    <div class="lang-switcher">
+      <button class="lang-btn" data-lang="en" onclick="applyLang('en')">EN</button>
+      <span class="lang-divider">|</span>
+      <button class="lang-btn" data-lang="zh" onclick="applyLang('zh')">中文</button>
+    </div>
   </nav>
 </header>
 
 <div class="article-wrap">
 
-  <div class="breadcrumb">
+  <div class="breadcrumb" data-i18n="breadcrumb">
     <a href="/guides">Guides</a><span>·</span> Buyers · Negotiation
   </div>
 
-  <div class="article-tag">Buyers · Negotiation</div>
-  <h1>How to use sold prices to <em>make an offer</em></h1>
+  <div class="article-tag" data-i18n="article-tag">Buyers · Negotiation</div>
+  <h1 data-i18n="h1">How to use sold prices to <em>make an offer</em></h1>
 
-  <p class="article-intro">Most buyers make offers based on instinct and what the agent tells them. The buyers who negotiate best go in with data — specific street medians, trend direction, comparable transactions. Here's how to build that picture before you pick up the phone.</p>
+  <p class="article-intro" data-i18n="intro">Most buyers make offers based on instinct and what the agent tells them. The buyers who negotiate best go in with data — specific street medians, trend direction, comparable transactions. Here's how to build that picture before you pick up the phone.</p>
 
   <div class="article-body">
 
-    <h2>Why sold prices, not asking prices</h2>
-    <p>Asking prices are set by the seller and their agent. They reflect optimism, anchoring strategy, and sometimes desperation — but not necessarily what the market will bear. <strong>Sold prices are the market</strong>. They're the price at which a buyer and seller, with full information and no gun to their heads, agreed to transact.</p>
-    <p>Building your offer from sold data reverses the psychology: instead of negotiating down from the seller's number, you're building up from evidence — which puts you in a fundamentally stronger position.</p>
+    <h2 data-i18n="h2-why">Why sold prices, not asking prices</h2>
+    <p data-i18n="p-why-1">Asking prices are set by the seller and their agent. They reflect optimism, anchoring strategy, and sometimes desperation — but not necessarily what the market will bear. <strong>Sold prices are the market</strong>. They're the price at which a buyer and seller, with full information and no gun to their heads, agreed to transact.</p>
+    <p data-i18n="p-why-2">Building your offer from sold data reverses the psychology: instead of negotiating down from the seller's number, you're building up from evidence — which puts you in a fundamentally stronger position.</p>
 
-    <h2>Step 1: Pull your comparables</h2>
-    <p>Search the property's postcode. Find the specific street. Then filter by the same property type — terraced, semi-detached, detached, or flat — so you're comparing like-for-like.</p>
-    <p>Look at the last two to three years of sales on that street. Note the <strong>median price</strong> (more reliable than the average, which can be skewed by a single outlier) and how many transactions there were each year. More transactions = more confidence in the figure.</p>
+    <h2 data-i18n="h2-step1">Step 1: Pull your comparables</h2>
+    <p data-i18n="p-step1-1">Search the property's postcode. Find the specific street. Then filter by the same property type — terraced, semi-detached, detached, or flat — so you're comparing like-for-like.</p>
+    <p data-i18n="p-step1-2">Look at the last two to three years of sales on that street. Note the <strong>median price</strong> (more reliable than the average, which can be skewed by a single outlier) and how many transactions there were each year. More transactions = more confidence in the figure.</p>
 
-    <div class="callout">
+    <div class="callout" data-i18n="callout-rule">
       <strong>Rule of thumb:</strong> If a street had fewer than 3 sales in a given year for your property type, treat that year's median with caution. Low transaction counts mean individual properties — not market conditions — are driving the number.
     </div>
 
-    <h2>Step 2: Calculate your benchmark</h2>
-    <p>Your offer benchmark is the most recent street median for comparable properties, adjusted for any known material differences in the specific property. Work through it explicitly:</p>
+    <h2 data-i18n="h2-step2">Step 2: Calculate your benchmark</h2>
+    <p data-i18n="p-step2">Your offer benchmark is the most recent street median for comparable properties, adjusted for any known material differences in the specific property. Work through it explicitly:</p>
 
     <div class="step-block">
       <div class="step-block-header">
-        <span class="step-num">The formula</span>
-        <span class="step-title">Street median ± condition adjustments</span>
+        <span class="step-num" data-i18n="formula-label">The formula</span>
+        <span class="step-title" data-i18n="formula-title">Street median ± condition adjustments</span>
       </div>
-      <div class="step-body">
+      <div class="step-body" data-i18n="formula-body">
         Start with the street median for your property type. Add a premium if the specific property has clear upside: a loft conversion, rear extension, recently fitted kitchen, south-facing garden. Subtract if it's in below-average condition or needs significant work. Be honest — adjustments you can't defend aren't adjustments, they're wishful thinking.
       </div>
     </div>
 
-    <h2>Step 3: Read the market direction</h2>
-    <p>The year-on-year trend is your negotiation context. It tells you which direction time is working.</p>
+    <h2 data-i18n="h2-step3">Step 3: Read the market direction</h2>
+    <p data-i18n="p-step3">The year-on-year trend is your negotiation context. It tells you which direction time is working.</p>
 
     <div class="signal-grid">
       <div class="signal-cell">
-        <div class="signal-label buyer">Buyer's market signals</div>
-        <div class="signal-text">YoY negative or flat two years running. Transaction volumes falling. Street median below the asking price. Time is on your side — a below-asking offer is rational.</div>
+        <div class="signal-label buyer" data-i18n="sig1-label">Buyer's market signals</div>
+        <div class="signal-text" data-i18n="sig1-text">YoY negative or flat two years running. Transaction volumes falling. Street median below the asking price. Time is on your side — a below-asking offer is rational.</div>
       </div>
       <div class="signal-cell">
-        <div class="signal-label seller">Seller's market signals</div>
-        <div class="signal-text">YoY consistently positive. Strong transaction volumes. Recent sold prices close to or above asking on comparable streets. Moving fast or offering at asking may be the right call.</div>
+        <div class="signal-label seller" data-i18n="sig2-label">Seller's market signals</div>
+        <div class="signal-text" data-i18n="sig2-text">YoY consistently positive. Strong transaction volumes. Recent sold prices close to or above asking on comparable streets. Moving fast or offering at asking may be the right call.</div>
       </div>
       <div class="signal-cell">
-        <div class="signal-label buyer">Declining new-build premium</div>
-        <div class="signal-text">If the street's new-build premium is shrinking year on year, the broader market is softening. Gives you confidence to hold a firm position.</div>
+        <div class="signal-label buyer" data-i18n="sig3-label">Declining new-build premium</div>
+        <div class="signal-text" data-i18n="sig3-text">If the street's new-build premium is shrinking year on year, the broader market is softening. Gives you confidence to hold a firm position.</div>
       </div>
       <div class="signal-cell">
-        <div class="signal-label seller">Rising 3-year rolling average</div>
-        <div class="signal-text">A steadily rising 3yr average, even with a flat most recent year, suggests underlying long-term appreciation. Seller can reasonably argue for a forward premium.</div>
+        <div class="signal-label seller" data-i18n="sig4-label">Rising 3-year rolling average</div>
+        <div class="signal-text" data-i18n="sig4-text">A steadily rising 3yr average, even with a flat most recent year, suggests underlying long-term appreciation. Seller can reasonably argue for a forward premium.</div>
       </div>
     </div>
 
-    <h2>Step 4: Build your offer number</h2>
-    <p>You now have three inputs: the street median benchmark, your condition adjustment, and the market direction signal. Put them together into a specific number — not a round-number guess.</p>
-    <p>A £647,500 offer backed by data is more credible than £650,000 with no rationale. The specificity signals that you've done the work, and that the figure isn't arbitrary.</p>
+    <h2 data-i18n="h2-step4">Step 4: Build your offer number</h2>
+    <p data-i18n="p-step4-1">You now have three inputs: the street median benchmark, your condition adjustment, and the market direction signal. Put them together into a specific number — not a round-number guess.</p>
+    <p data-i18n="p-step4-2">A £647,500 offer backed by data is more credible than £650,000 with no rationale. The specificity signals that you've done the work, and that the figure isn't arbitrary.</p>
 
-    <h2>What to say to the agent</h2>
-    <p>Agents respond to buyers who know their numbers. You don't need to be confrontational — just be specific. Something like: <em>"The most recent sold data for comparable terraced houses on this street puts the median at £638k. This property is in good condition so we're offering £648,000, which reflects a modest premium above comparable sales."</em></p>
-    <p>This works better than "we think it's worth less" or vague references to "doing our research." A specific data reference anchors the conversation around facts, not feelings.</p>
+    <h2 data-i18n="h2-agent">What to say to the agent</h2>
+    <p data-i18n="p-agent-1">Agents respond to buyers who know their numbers. You don't need to be confrontational — just be specific. Something like: <em>"The most recent sold data for comparable terraced houses on this street puts the median at £638k. This property is in good condition so we're offering £648,000, which reflects a modest premium above comparable sales."</em></p>
+    <p data-i18n="p-agent-2">This works better than "we think it's worth less" or vague references to "doing our research." A specific data reference anchors the conversation around facts, not feelings.</p>
 
-    <h2>When to walk away</h2>
-    <p>If the asking price is materially above recent street-level comparables, the trend is negative, and the seller won't move — that's a signal to walk. An overprice in a falling market compounds: you pay too much at exchange, and the property may be worth less again by the time you need to sell. The data will still be there when a better opportunity comes.</p>
+    <h2 data-i18n="h2-walkaway">When to walk away</h2>
+    <p data-i18n="p-walkaway">If the asking price is materially above recent street-level comparables, the trend is negative, and the seller won't move — that's a signal to walk. An overprice in a falling market compounds: you pay too much at exchange, and the property may be worth less again by the time you need to sell. The data will still be there when a better opportunity comes.</p>
 
     <div class="guide-nav">
-      <a href="/guides/am-i-overpaying-for-a-house">← Am I overpaying?</a>
-      <a href="/guides/what-did-houses-sell-for-on-my-street">Next: Reading the data →</a>
+      <a href="/guides/am-i-overpaying-for-a-house" data-i18n="nav-back">← Am I overpaying?</a>
+      <a href="/guides/what-did-houses-sell-for-on-my-street" data-i18n="nav-next">Next: Reading the data →</a>
     </div>
   </div>
 
   <div class="cta-box">
-    <div class="cta-label">Try it now</div>
-    <div class="cta-heading">Pull your comparables</div>
-    <div class="cta-sub">Search by postcode to see street-level medians, year-on-year trends, and transaction history from 2018–2025.</div>
-    <a href="/" class="cta-btn">Search a postcode</a>
+    <div class="cta-label" data-i18n="cta-label">Try it now</div>
+    <div class="cta-heading" data-i18n="cta-heading">Pull your comparables</div>
+    <div class="cta-sub" data-i18n="cta-sub">Search by postcode to see street-level medians, year-on-year trends, and transaction history from 2018–2025.</div>
+    <a href="/" class="cta-btn" data-i18n="cta-btn">Search a postcode</a>
   </div>
 
 </div>
@@ -426,11 +459,126 @@
 <footer style="border-top:1.5px solid var(--border);padding:2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem;">
   <div style="font-family:'DM Mono',monospace;font-size:0.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;">© 2026 Houses SoldByStreet · Data: HM Land Registry OGL v3</div>
   <div style="display:flex;gap:1.5rem;">
-    <a href="/guides" style="font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);text-decoration:none;">Guides</a>
-    <a href="/privacy" style="font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);text-decoration:none;">Privacy</a>
-    <a href="/terms" style="font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);text-decoration:none;">Terms</a>
+    <a href="/guides" style="font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);text-decoration:none;" data-i18n="footer-guides">Guides</a>
+    <a href="/privacy" style="font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);text-decoration:none;" data-i18n="footer-privacy">Privacy</a>
+    <a href="/terms" style="font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);text-decoration:none;" data-i18n="footer-terms">Terms</a>
   </div>
 </footer>
 
+<script>
+var i18n = {
+  en: {
+    'nav-guides': 'Guides',
+    'breadcrumb': '<a href="/guides">Guides</a><span>·</span> Buyers · Negotiation',
+    'article-tag': 'Buyers · Negotiation',
+    'h1': 'How to use sold prices to <em>make an offer</em>',
+    'intro': 'Most buyers make offers based on instinct and what the agent tells them. The buyers who negotiate best go in with data — specific street medians, trend direction, comparable transactions. Here\'s how to build that picture before you pick up the phone.',
+    'h2-why': 'Why sold prices, not asking prices',
+    'p-why-1': 'Asking prices are set by the seller and their agent. They reflect optimism, anchoring strategy, and sometimes desperation — but not necessarily what the market will bear. <strong>Sold prices are the market</strong>. They\'re the price at which a buyer and seller, with full information and no gun to their heads, agreed to transact.',
+    'p-why-2': 'Building your offer from sold data reverses the psychology: instead of negotiating down from the seller\'s number, you\'re building up from evidence — which puts you in a fundamentally stronger position.',
+    'h2-step1': 'Step 1: Pull your comparables',
+    'p-step1-1': 'Search the property\'s postcode. Find the specific street. Then filter by the same property type — terraced, semi-detached, detached, or flat — so you\'re comparing like-for-like.',
+    'p-step1-2': 'Look at the last two to three years of sales on that street. Note the <strong>median price</strong> (more reliable than the average, which can be skewed by a single outlier) and how many transactions there were each year. More transactions = more confidence in the figure.',
+    'callout-rule': '<strong>Rule of thumb:</strong> If a street had fewer than 3 sales in a given year for your property type, treat that year\'s median with caution. Low transaction counts mean individual properties — not market conditions — are driving the number.',
+    'h2-step2': 'Step 2: Calculate your benchmark',
+    'p-step2': 'Your offer benchmark is the most recent street median for comparable properties, adjusted for any known material differences in the specific property. Work through it explicitly:',
+    'formula-label': 'The formula',
+    'formula-title': 'Street median ± condition adjustments',
+    'formula-body': 'Start with the street median for your property type. Add a premium if the specific property has clear upside: a loft conversion, rear extension, recently fitted kitchen, south-facing garden. Subtract if it\'s in below-average condition or needs significant work. Be honest — adjustments you can\'t defend aren\'t adjustments, they\'re wishful thinking.',
+    'h2-step3': 'Step 3: Read the market direction',
+    'p-step3': 'The year-on-year trend is your negotiation context. It tells you which direction time is working.',
+    'sig1-label': 'Buyer\'s market signals',
+    'sig1-text': 'YoY negative or flat two years running. Transaction volumes falling. Street median below the asking price. Time is on your side — a below-asking offer is rational.',
+    'sig2-label': 'Seller\'s market signals',
+    'sig2-text': 'YoY consistently positive. Strong transaction volumes. Recent sold prices close to or above asking on comparable streets. Moving fast or offering at asking may be the right call.',
+    'sig3-label': 'Declining new-build premium',
+    'sig3-text': 'If the street\'s new-build premium is shrinking year on year, the broader market is softening. Gives you confidence to hold a firm position.',
+    'sig4-label': 'Rising 3-year rolling average',
+    'sig4-text': 'A steadily rising 3yr average, even with a flat most recent year, suggests underlying long-term appreciation. Seller can reasonably argue for a forward premium.',
+    'h2-step4': 'Step 4: Build your offer number',
+    'p-step4-1': 'You now have three inputs: the street median benchmark, your condition adjustment, and the market direction signal. Put them together into a specific number — not a round-number guess.',
+    'p-step4-2': 'A £647,500 offer backed by data is more credible than £650,000 with no rationale. The specificity signals that you\'ve done the work, and that the figure isn\'t arbitrary.',
+    'h2-agent': 'What to say to the agent',
+    'p-agent-1': 'Agents respond to buyers who know their numbers. You don\'t need to be confrontational — just be specific. Something like: <em>"The most recent sold data for comparable terraced houses on this street puts the median at £638k. This property is in good condition so we\'re offering £648,000, which reflects a modest premium above comparable sales."</em>',
+    'p-agent-2': 'This works better than "we think it\'s worth less" or vague references to "doing our research." A specific data reference anchors the conversation around facts, not feelings.',
+    'h2-walkaway': 'When to walk away',
+    'p-walkaway': 'If the asking price is materially above recent street-level comparables, the trend is negative, and the seller won\'t move — that\'s a signal to walk. An overprice in a falling market compounds: you pay too much at exchange, and the property may be worth less again by the time you need to sell. The data will still be there when a better opportunity comes.',
+    'nav-back': '← Am I overpaying?',
+    'nav-next': 'Next: Reading the data →',
+    'cta-label': 'Try it now',
+    'cta-heading': 'Pull your comparables',
+    'cta-sub': 'Search by postcode to see street-level medians, year-on-year trends, and transaction history from 2018–2025.',
+    'cta-btn': 'Search a postcode',
+    'footer-guides': 'Guides',
+    'footer-privacy': 'Privacy',
+    'footer-terms': 'Terms'
+  },
+  zh: {
+    'nav-guides': '指南',
+    'breadcrumb': '<a href="/guides">指南</a><span>·</span> 买家 · 议价',
+    'article-tag': '买家 · 议价',
+    'h1': '如何利用成交价格<em>出价</em>',
+    'intro': '大多数买家凭直觉或听从中介建议出价。而谈判最成功的买家，往往手持数据——具体的街道中位价、趋势方向、可比成交案例。以下介绍如何在拿起电话之前建立这幅完整图景。',
+    'h2-why': '为何参考成交价而非要价',
+    'p-why-1': '要价由卖方及其中介设定，反映的是乐观预期、锚定策略，有时甚至是急于出售的心态——但不一定反映市场真实承受能力。<strong>成交价才是市场</strong>。它是买卖双方在充分信息、自愿前提下达成的交易价格。',
+    'p-why-2': '以成交数据为基础构建出价，从根本上扭转了谈判心理：你不是从卖方数字向下砍价，而是从证据出发向上建立——这让你处于本质上更强的议价地位。',
+    'h2-step1': '第一步：获取可比数据',
+    'p-step1-1': '搜索该房产的邮政编码，找到具体街道，然后按相同房产类型筛选——排屋、半独立屋、独立屋或公寓——确保进行同类比较。',
+    'p-step1-2': '查看该街道过去两到三年的成交情况。记录<strong>中位价</strong>（比平均价更可靠，因为单个异常值会拉偏平均价）以及每年的成交数量。成交量越多，数据越可信。',
+    'callout-rule': '<strong>经验法则：</strong>如果某街道某年内同类型房产成交量少于3套，请谨慎对待该年的中位价。成交量低意味着数据由个别房产决定，而非反映市场整体状况。',
+    'h2-step2': '第二步：计算你的基准价',
+    'p-step2': '你的出价基准是可比房产最近一年的街道中位价，再根据目标房产的已知实质性差异进行调整。请明确逐步推算：',
+    'formula-label': '计算公式',
+    'formula-title': '街道中位价 ± 状况调整',
+    'formula-body': '以你的房产类型街道中位价为起点。若该房产有明显优势，则上调：如阁楼改建、后院扩建、近期翻新厨房、朝南花园。若状况低于平均水平或需要大量翻修，则下调。请保持诚实——无法自圆其说的调整不是调整，而是一厢情愿。',
+    'h2-step3': '第三步：判断市场走向',
+    'p-step3': '同比趋势是你议价的背景。它告诉你时间正在向哪个方向发挥作用。',
+    'sig1-label': '买方市场信号',
+    'sig1-text': '同比连续两年为负或持平。成交量下降。街道中位价低于要价。时间站在你这边——低于要价出价是理性之举。',
+    'sig2-label': '卖方市场信号',
+    'sig2-text': '同比持续为正。成交量强劲。可比街道近期成交价接近或高于要价。快速行动或按要价出价可能是正确选择。',
+    'sig3-label': '新建房产溢价缩窄',
+    'sig3-text': '若该街道的新建房产溢价逐年缩小，说明整体市场正在软化。这让你有信心坚守己方立场。',
+    'sig4-label': '三年滚动平均价上涨',
+    'sig4-text': '即便最近一年持平，若三年滚动平均价稳步上涨，说明存在潜在的长期升值趋势。卖方有合理依据争取前瞻性溢价。',
+    'h2-step4': '第四步：确定出价数字',
+    'p-step4-1': '你现在有三个输入：街道中位价基准、状况调整，以及市场方向信号。将它们整合为一个具体数字——而非粗略的整数估算。',
+    'p-step4-2': '有数据支撑的647,500英镑报价比毫无依据的650,000英镑更具说服力。具体的数字表明你做了功课，这个数字并非随意而来。',
+    'h2-agent': '如何与中介沟通',
+    'p-agent-1': '中介更愿意与心中有数的买家打交道。你无需强硬对抗——只需言之有据。例如：<em>「该街道可比排屋的最新成交数据显示中位价为638,000英镑。这套房产状况良好，因此我们报价648,000英镑，略高于可比成交价格。」</em>',
+    'p-agent-2': '这比「我们认为它价值更低」或含糊地表示「我们做了调研」更有效。具体的数据引用将对话锚定在事实上，而非情感上。',
+    'h2-walkaway': '何时选择放弃',
+    'p-walkaway': '如果要价明显高于近期街道级可比数据，趋势为负，且卖方不愿让步——这是离场的信号。在下行市场中高价买入会产生复利效应：你在过户时多付了钱，而等到你需要出售时，房产可能又贬值了。当更好的机会出现时，数据依然在那里。',
+    'nav-back': '← 我是否出价过高？',
+    'nav-next': '下一篇：解读数据 →',
+    'cta-label': '立即试用',
+    'cta-heading': '获取可比数据',
+    'cta-sub': '按邮政编码搜索，查看街道级中位价、同比趋势及2018年至2025年的成交历史。',
+    'cta-btn': '搜索邮政编码',
+    'footer-guides': '指南',
+    'footer-privacy': '隐私政策',
+    'footer-terms': '使用条款'
+  }
+};
+
+function applyLang(lang) {
+  document.documentElement.lang = lang === 'zh' ? 'zh-Hans' : 'en';
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    var t = i18n[lang][el.getAttribute('data-i18n')];
+    if (t !== undefined) el.innerHTML = t;
+  });
+  localStorage.setItem('lang', lang);
+  document.querySelectorAll('.lang-btn').forEach(function(btn) {
+    btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+  });
+}
+
+(function() {
+  applyLang(localStorage.getItem('lang') || 'en');
+  window.addEventListener('pageshow', function() {
+    applyLang(localStorage.getItem('lang') || 'en');
+  });
+})();
+</script>
 </body>
 </html>

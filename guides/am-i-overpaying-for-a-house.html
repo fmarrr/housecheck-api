@@ -92,17 +92,44 @@
   }
   .logo span { color: var(--accent); font-style: italic; }
 
-  .header-nav { display: flex; align-items: center; gap: 2rem; }
+  .header-nav { display: flex; align-items: center; gap: 1.5rem; }
 
   .nav-link {
     font-family: 'DM Mono', monospace;
-    font-size: 0.68rem;
+    font-size: 0.65rem;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--muted);
+    letter-spacing: 0.08em;
+    color: var(--ink);
     text-decoration: none;
+    border: 1px solid var(--border);
+    padding: 0.28rem 0.7rem;
+    transition: background 0.15s, border-color 0.15s;
   }
-  .nav-link:hover { color: var(--ink); }
+  .nav-link:hover { background: var(--cream); border-color: var(--ink); }
+  .nav-link.active { background: var(--ink); color: var(--paper); }
+
+  .lang-switcher {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .lang-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.28rem 0.55rem;
+    line-height: 1;
+    transition: background 0.15s, color 0.15s;
+  }
+  .lang-btn.active { color: var(--ink); background: var(--cream); }
+  .lang-btn:hover { color: var(--ink); }
+  .lang-divider { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--border); user-select: none; }
 
   .article-wrap {
     max-width: 680px;
@@ -327,35 +354,41 @@
 <header>
   <a href="/" class="logo">Houses SoldBy<span>Street</span></a>
   <nav class="header-nav">
-    <a href="/guides" class="nav-link">Guides</a>
+    <a href="/guides" class="nav-link" data-i18n="nav-back">← All guides</a>
+    <a href="/guides" class="nav-link" data-i18n="nav-guides">Guides</a>
+    <div class="lang-switcher">
+      <button class="lang-btn" data-lang="en" onclick="applyLang('en')">EN</button>
+      <span class="lang-divider">|</span>
+      <button class="lang-btn" data-lang="zh" onclick="applyLang('zh')">中文</button>
+    </div>
   </nav>
 </header>
 
 <div class="article-wrap">
 
-  <div class="breadcrumb">
+  <div class="breadcrumb" data-i18n="breadcrumb">
     <a href="/guides">Guides</a><span>·</span> Buyers · Valuation
   </div>
 
-  <div class="article-tag">Buyers · Valuation</div>
-  <h1>Am I <em>overpaying</em> for a house?</h1>
+  <div class="article-tag" data-i18n="article-tag">Buyers · Valuation</div>
+  <h1 data-i18n="h1">Am I <em>overpaying</em> for a house?</h1>
 
-  <p class="article-intro">Asking prices are marketing. Sold prices are facts. Before you exchange on a property — or even before you make an offer — here's how to use HM Land Registry data to check whether what you're being asked to pay reflects what the street actually trades at.</p>
+  <p class="article-intro" data-i18n="intro">Asking prices are marketing. Sold prices are facts. Before you exchange on a property — or even before you make an offer — here's how to use HM Land Registry data to check whether what you're being asked to pay reflects what the street actually trades at.</p>
 
   <div class="article-body">
 
-    <h2>Why asking prices don't tell the whole story</h2>
-    <p>Estate agents set asking prices to attract interest and anchor negotiation — not to reflect fair market value. The actual figure that matters is the price a willing buyer and a willing seller agreed on, registered at completion, and submitted to HM Land Registry.</p>
-    <p>That registered figure is public record. It covers every residential sale in England and Wales since 1995, updated monthly. Street-level aggregation of that data — medians, year-on-year changes, transaction volumes — gives you a benchmark that no agent's valuation can credibly argue with.</p>
+    <h2 data-i18n="h2-why">Why asking prices don't tell the whole story</h2>
+    <p data-i18n="p-why-1">Estate agents set asking prices to attract interest and anchor negotiation — not to reflect fair market value. The actual figure that matters is the price a willing buyer and a willing seller agreed on, registered at completion, and submitted to HM Land Registry.</p>
+    <p data-i18n="p-why-2">That registered figure is public record. It covers every residential sale in England and Wales since 1995, updated monthly. Street-level aggregation of that data — medians, year-on-year changes, transaction volumes — gives you a benchmark that no agent's valuation can credibly argue with.</p>
 
-    <h2>What to look for: four signals</h2>
+    <h2 data-i18n="h2-signals">What to look for: four signals</h2>
 
     <div class="step-block">
       <div class="step-block-header">
         <span class="step-num">Step 01</span>
-        <span class="step-title">Find the street median</span>
+        <span class="step-title" data-i18n="step1-title">Find the street median</span>
       </div>
-      <div class="step-body">
+      <div class="step-body" data-i18n="step1-body">
         Search the property's postcode. Locate the street in the results. The <strong>median price</strong> is your anchor — it's the midpoint of all sales on that street, not pulled up by outliers. If the asking price is significantly above the street median for the same property type, you need a clear reason why (larger plot, extended, top-floor flat with a view — something specific and verifiable).
       </div>
     </div>
@@ -363,9 +396,9 @@
     <div class="step-block">
       <div class="step-block-header">
         <span class="step-num">Step 02</span>
-        <span class="step-title">Check the year-on-year trend</span>
+        <span class="step-title" data-i18n="step2-title">Check the year-on-year trend</span>
       </div>
-      <div class="step-body">
+      <div class="step-body" data-i18n="step2-body">
         The year-on-year percentage change tells you whether the street is appreciating or declining. A street showing consecutive negative YoY figures is a market signal — prices have been falling, and there's no rational basis to pay a premium above recent comps. A rising street with strong transaction volume gives sellers more justification for an ambitious ask.
       </div>
     </div>
@@ -373,9 +406,9 @@
     <div class="step-block">
       <div class="step-block-header">
         <span class="step-num">Step 03</span>
-        <span class="step-title">Filter by property type</span>
+        <span class="step-title" data-i18n="step3-title">Filter by property type</span>
       </div>
-      <div class="step-body">
+      <div class="step-body" data-i18n="step3-body">
         A terraced house and a detached house on the same street can differ by hundreds of thousands of pounds. Use the property type filter — Terraced, Semi-Detached, Detached, Flat / Maisonette — to narrow the data to genuinely comparable sales. Like-for-like comparison is everything; mixed-type medians are a starting point, not a conclusion.
       </div>
     </div>
@@ -383,23 +416,23 @@
     <div class="step-block">
       <div class="step-block-header">
         <span class="step-num">Step 04</span>
-        <span class="step-title">Watch for the new-build premium</span>
+        <span class="step-title" data-i18n="step4-title">Watch for the new-build premium</span>
       </div>
-      <div class="step-body">
+      <div class="step-body" data-i18n="step4-body">
         New builds typically sell at a premium of 15–25% above equivalent existing stock on the same street, partly due to developer marketing and Help to Buy effects. If the data shows a new-build premium on your street, factor that in when comparing your target property to historical sales — and remember, new builds can be harder to resell at that premium in an open market.
       </div>
     </div>
 
-    <h2>A worked example</h2>
-    <p>Say you're looking at a terraced house on a street in SW11, asking £725,000. Here's what the data might show:</p>
+    <h2 data-i18n="h2-example">A worked example</h2>
+    <p data-i18n="p-example">Say you're looking at a terraced house on a street in SW11, asking £725,000. Here's what the data might show:</p>
 
     <table class="data-table">
       <thead>
         <tr>
-          <th>Year</th>
-          <th>Street median (Terraced)</th>
-          <th>YoY change</th>
-          <th>Sales</th>
+          <th data-i18n="th-year">Year</th>
+          <th data-i18n="th-median">Street median (Terraced)</th>
+          <th data-i18n="th-yoy">YoY change</th>
+          <th data-i18n="th-sales">Sales</th>
         </tr>
       </thead>
       <tbody>
@@ -424,28 +457,28 @@
       </tbody>
     </table>
 
-    <div class="callout">
+    <div class="callout" data-i18n="callout-verdict">
       <strong>Verdict:</strong> The street median for terraced properties is £648,000 in the most recent year — £77,000 below the asking price. The trend is negative three years running, with no recovery signal. Unless the specific property has material improvements above comparables, £725,000 is hard to justify on the data.
     </div>
 
-    <h2>What "overpaying" actually means</h2>
-    <p>Paying above the street median isn't automatically wrong. If the property is extended, recently renovated, or on a particularly desirable section of the street, a premium can be rational. What you're doing with this data is <strong>making that premium explicit and deliberate</strong> — not invisible and assumed.</p>
-    <p>The question changes from "is this a fair price?" (unanswerable without data) to "what premium am I paying, and what's my specific justification for it?" That's a much stronger position to negotiate from — and to walk away from, if you can't answer it.</p>
+    <h2 data-i18n="h2-meaning">What "overpaying" actually means</h2>
+    <p data-i18n="p-meaning-1">Paying above the street median isn't automatically wrong. If the property is extended, recently renovated, or on a particularly desirable section of the street, a premium can be rational. What you're doing with this data is <strong>making that premium explicit and deliberate</strong> — not invisible and assumed.</p>
+    <p data-i18n="p-meaning-2">The question changes from "is this a fair price?" (unanswerable without data) to "what premium am I paying, and what's my specific justification for it?" That's a much stronger position to negotiate from — and to walk away from, if you can't answer it.</p>
 
-    <h2>Before you instruct a surveyor</h2>
-    <p>A full structural survey will tell you about condition. It won't tell you whether the price reflects the market. Do your sold price research first — if the data suggests significant overpricing, the surveyor's valuation should confirm or challenge it, and you'll be better placed to negotiate downward based on their report.</p>
+    <h2 data-i18n="h2-surveyor">Before you instruct a surveyor</h2>
+    <p data-i18n="p-surveyor">A full structural survey will tell you about condition. It won't tell you whether the price reflects the market. Do your sold price research first — if the data suggests significant overpricing, the surveyor's valuation should confirm or challenge it, and you'll be better placed to negotiate downward based on their report.</p>
 
     <div class="guide-nav">
-      <a href="/guides">← All guides</a>
-      <a href="/guides/how-to-use-sold-prices-to-make-an-offer">Next: How to make an offer →</a>
+      <a href="/guides" data-i18n="nav-back">← All guides</a>
+      <a href="/guides/how-to-use-sold-prices-to-make-an-offer" data-i18n="nav-next">Next: How to make an offer →</a>
     </div>
   </div>
 
   <div class="cta-box">
-    <div class="cta-label">Try it now</div>
-    <div class="cta-heading">Check your street's sold prices</div>
-    <div class="cta-sub">Search by postcode to see street-level medians, year-on-year trends, and transaction history from 2018–2025.</div>
-    <a href="/" class="cta-btn">Search a postcode</a>
+    <div class="cta-label" data-i18n="cta-label">Try it now</div>
+    <div class="cta-heading" data-i18n="cta-heading">Check your street's sold prices</div>
+    <div class="cta-sub" data-i18n="cta-sub">Search by postcode to see street-level medians, year-on-year trends, and transaction history from 2018–2025.</div>
+    <a href="/" class="cta-btn" data-i18n="cta-btn">Search a postcode</a>
   </div>
 
 </div>
@@ -453,11 +486,114 @@
 <footer style="border-top:1.5px solid var(--border);padding:2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem;">
   <div style="font-family:'DM Mono',monospace;font-size:0.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;">© 2026 Houses SoldByStreet · Data: HM Land Registry OGL v3</div>
   <div style="display:flex;gap:1.5rem;">
-    <a href="/guides" style="font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);text-decoration:none;">Guides</a>
-    <a href="/privacy" style="font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);text-decoration:none;">Privacy</a>
-    <a href="/terms" style="font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);text-decoration:none;">Terms</a>
+    <a href="/guides" style="font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);text-decoration:none;" data-i18n="footer-guides">Guides</a>
+    <a href="/privacy" style="font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);text-decoration:none;" data-i18n="footer-privacy">Privacy</a>
+    <a href="/terms" style="font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);text-decoration:none;" data-i18n="footer-terms">Terms</a>
   </div>
 </footer>
 
+<script>
+var i18n = {
+  en: {
+    'nav-guides': 'Guides',
+    'breadcrumb': '<a href="/guides">Guides</a><span>·</span> Buyers · Valuation',
+    'article-tag': 'Buyers · Valuation',
+    'h1': 'Am I <em>overpaying</em> for a house?',
+    'intro': 'Asking prices are marketing. Sold prices are facts. Before you exchange on a property — or even before you make an offer — here\'s how to use HM Land Registry data to check whether what you\'re being asked to pay reflects what the street actually trades at.',
+    'h2-why': 'Why asking prices don\'t tell the whole story',
+    'p-why-1': 'Estate agents set asking prices to attract interest and anchor negotiation — not to reflect fair market value. The actual figure that matters is the price a willing buyer and a willing seller agreed on, registered at completion, and submitted to HM Land Registry.',
+    'p-why-2': 'That registered figure is public record. It covers every residential sale in England and Wales since 1995, updated monthly. Street-level aggregation of that data — medians, year-on-year changes, transaction volumes — gives you a benchmark that no agent\'s valuation can credibly argue with.',
+    'h2-signals': 'What to look for: four signals',
+    'step1-title': 'Find the street median',
+    'step1-body': 'Search the property\'s postcode. Locate the street in the results. The <strong>median price</strong> is your anchor — it\'s the midpoint of all sales on that street, not pulled up by outliers. If the asking price is significantly above the street median for the same property type, you need a clear reason why (larger plot, extended, top-floor flat with a view — something specific and verifiable).',
+    'step2-title': 'Check the year-on-year trend',
+    'step2-body': 'The year-on-year percentage change tells you whether the street is appreciating or declining. A street showing consecutive negative YoY figures is a market signal — prices have been falling, and there\'s no rational basis to pay a premium above recent comps. A rising street with strong transaction volume gives sellers more justification for an ambitious ask.',
+    'step3-title': 'Filter by property type',
+    'step3-body': 'A terraced house and a detached house on the same street can differ by hundreds of thousands of pounds. Use the property type filter — Terraced, Semi-Detached, Detached, Flat / Maisonette — to narrow the data to genuinely comparable sales. Like-for-like comparison is everything; mixed-type medians are a starting point, not a conclusion.',
+    'step4-title': 'Watch for the new-build premium',
+    'step4-body': 'New builds typically sell at a premium of 15–25% above equivalent existing stock on the same street, partly due to developer marketing and Help to Buy effects. If the data shows a new-build premium on your street, factor that in when comparing your target property to historical sales — and remember, new builds can be harder to resell at that premium in an open market.',
+    'h2-example': 'A worked example',
+    'p-example': 'Say you\'re looking at a terraced house on a street in SW11, asking £725,000. Here\'s what the data might show:',
+    'th-year': 'Year',
+    'th-median': 'Street median (Terraced)',
+    'th-yoy': 'YoY change',
+    'th-sales': 'Sales',
+    'callout-verdict': '<strong>Verdict:</strong> The street median for terraced properties is £648,000 in the most recent year — £77,000 below the asking price. The trend is negative three years running, with no recovery signal. Unless the specific property has material improvements above comparables, £725,000 is hard to justify on the data.',
+    'h2-meaning': 'What "overpaying" actually means',
+    'p-meaning-1': 'Paying above the street median isn\'t automatically wrong. If the property is extended, recently renovated, or on a particularly desirable section of the street, a premium can be rational. What you\'re doing with this data is <strong>making that premium explicit and deliberate</strong> — not invisible and assumed.',
+    'p-meaning-2': 'The question changes from "is this a fair price?" (unanswerable without data) to "what premium am I paying, and what\'s my specific justification for it?" That\'s a much stronger position to negotiate from — and to walk away from, if you can\'t answer it.',
+    'h2-surveyor': 'Before you instruct a surveyor',
+    'p-surveyor': 'A full structural survey will tell you about condition. It won\'t tell you whether the price reflects the market. Do your sold price research first — if the data suggests significant overpricing, the surveyor\'s valuation should confirm or challenge it, and you\'ll be better placed to negotiate downward based on their report.',
+    'nav-back': '← All guides',
+    'nav-next': 'Next: How to make an offer →',
+    'cta-label': 'Try it now',
+    'cta-heading': 'Check your street\'s sold prices',
+    'cta-sub': 'Search by postcode to see street-level medians, year-on-year trends, and transaction history from 2018–2025.',
+    'cta-btn': 'Search a postcode',
+    'footer-guides': 'Guides',
+    'footer-privacy': 'Privacy',
+    'footer-terms': 'Terms'
+  },
+  zh: {
+    'nav-guides': '指南',
+    'breadcrumb': '<a href="/guides">指南</a><span>·</span> 买家 · 估价',
+    'article-tag': '买家 · 估价',
+    'h1': '我买房是否<em>出价过高？</em>',
+    'intro': '要价是营销手段，成交价才是事实。在签约或出价之前，以下介绍如何利用英国土地登记局数据，核查所要求支付的价格是否符合该街道的实际市场水平。',
+    'h2-why': '为何要价无法反映市场全貌',
+    'p-why-1': '房产中介设定要价是为了吸引买家关注并主导议价——而非反映公平市场价值。真正重要的数字是买卖双方自愿达成、于交割时登记并提交至英国土地登记局的成交价格。',
+    'p-why-2': '这些登记数字是公开记录，涵盖自1995年以来英格兰和威尔士的所有住宅销售，每月更新。对这些数据进行街道级汇总——中位价、同比变化、成交量——可以为你提供一个任何中介估价都无法可信地反驳的基准。',
+    'h2-signals': '需要关注的四大指标',
+    'step1-title': '找到街道中位价',
+    'step1-body': '搜索该房产的邮政编码，在结果中找到对应街道。<strong>中位价</strong>是你的基准——它是该街道所有成交价的中间值，不受异常值影响。如果要价明显高于同类型房产的街道中位价，你需要找到合理原因（如地块更大、有扩建、顶层公寓带景观——具体且可核实的理由）。',
+    'step2-title': '查看同比变化趋势',
+    'step2-body': '同比百分比变化告诉你该街道是升值还是贬值。连续出现负同比数字的街道是一个市场信号——价格持续下跌，以高于近期可比价格的溢价购买缺乏理性依据。而成交量强劲的上升街道，则为卖家提供了更充分的高价理由。',
+    'step3-title': '按房产类型筛选',
+    'step3-body': '同一街道上的排屋与独立屋价格可能相差数十万英镑。使用房产类型筛选器——排屋、半独立屋、独立屋、公寓/复式——将数据范围缩小至真正具有可比性的成交案例。同类比较至关重要；混合类型的中位价只是起点，而非最终结论。',
+    'step4-title': '留意新建房产溢价',
+    'step4-body': '新建房产的成交价通常比同街道同等二手房高出15%至25%，部分原因是开发商营销和"购房补助"计划的影响。如果数据显示你所在街道存在新建房产溢价，在将目标房产与历史成交价比较时需将此因素纳入考量——同时请记住，新建房产在公开市场上往往难以以同等溢价转售。',
+    'h2-example': '实例分析',
+    'p-example': '假设你正在考虑位于SW11某街道上一套要价725,000英镑的排屋，以下是数据可能呈现的情况：',
+    'th-year': '年份',
+    'th-median': '街道中位价（排屋）',
+    'th-yoy': '同比变化',
+    'th-sales': '成交量',
+    'callout-verdict': '<strong>结论：</strong>最近一年排屋的街道中位价为648,000英镑——比要价低77,000英镑。连续三年呈下降趋势，且未见任何回升信号。除非该房产相较可比房产有实质性改善，否则725,000英镑的要价难以用数据支撑。',
+    'h2-meaning': '「出价过高」的真正含义',
+    'p-meaning-1': '支付高于街道中位价的价格并不一定是错误的。如果房产经过扩建、近期翻新，或位于街道的优质地段，溢价可能是合理的。使用这些数据的目的是<strong>让该溢价变得明确且经过深思熟虑</strong>——而非隐性且想当然。',
+    'p-meaning-2': '问题从「这个价格合理吗？」（没有数据无从回答）转变为「我在支付多少溢价，我的具体理由是什么？」这是一个更有利的议价立场——如果你无法回答这个问题，也更有底气选择放弃。',
+    'h2-surveyor': '委托测量师之前',
+    'p-surveyor': '完整的结构勘查报告会告知你房产状况，但不会说明价格是否符合市场行情。请先做好成交价格调研——如果数据显示存在明显高估，测量师的估价应能印证或质疑这一判断，届时你将更有依据依据其报告进行向下议价。',
+    'nav-back': '← 所有指南',
+    'nav-next': '下一篇：如何出价 →',
+    'cta-label': '立即试用',
+    'cta-heading': '查询你所在街道的成交价',
+    'cta-sub': '按邮政编码搜索，查看街道级中位价、同比趋势及2018年至2025年的成交历史。',
+    'cta-btn': '搜索邮政编码',
+    'footer-guides': '指南',
+    'footer-privacy': '隐私政策',
+    'footer-terms': '使用条款'
+  }
+};
+
+function applyLang(lang) {
+  document.documentElement.lang = lang === 'zh' ? 'zh-Hans' : 'en';
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    var t = i18n[lang][el.getAttribute('data-i18n')];
+    if (t !== undefined) el.innerHTML = t;
+  });
+  localStorage.setItem('lang', lang);
+  document.querySelectorAll('.lang-btn').forEach(function(btn) {
+    btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+  });
+}
+
+(function() {
+  applyLang(localStorage.getItem('lang') || 'en');
+  window.addEventListener('pageshow', function() {
+    applyLang(localStorage.getItem('lang') || 'en');
+  });
+})();
+</script>
 </body>
 </html>
