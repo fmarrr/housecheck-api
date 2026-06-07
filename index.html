@@ -453,15 +453,6 @@
     position: relative;
     overflow: hidden;
   }
-  .leaflet-popup-content-wrapper {
-    border-radius: 0;
-    border: 1.5px solid var(--ink);
-    box-shadow: 3px 3px 0 var(--ink);
-    font-family: 'DM Sans', sans-serif;
-    padding: 0;
-  }
-  .leaflet-popup-content { margin: 0.75rem 1rem; }
-  .leaflet-popup-tip-container { display: none; }
   .map-legend {
     position: absolute;
     bottom: 10px;
@@ -476,17 +467,6 @@
     letter-spacing: 0.07em;
     color: var(--muted);
     pointer-events: none;
-  }
-  .legend-bar {
-    width: 100px;
-    height: 6px;
-    background: linear-gradient(to right, #2d7d46, #e8b84b, #c8401a);
-    margin-top: 4px;
-    margin-bottom: 2px;
-  }
-  .legend-labels {
-    display: flex;
-    justify-content: space-between;
   }
 
   .data-note {
@@ -701,17 +681,11 @@ async function doSearch() {
 // ── MAP ────────────────────────────────────────────────────────────────────
 let mapInstance = null;
 
-function priceColor(price, minP, maxP) {
-  if (!price || minP === maxP) return '#0f0e0d';
-  const t = (price - minP) / (maxP - minP);
-  // green → amber → red
-  if (t < 0.5) {
-    const h = Math.round(140 - t * 2 * 60);  // 140→20
-    return `hsl(${h}, 60%, 38%)`;
-  } else {
-    const h = Math.round(20 - (t - 0.5) * 2 * 20);  // 20→0
-    return `hsl(${h}, 65%, 42%)`;
-  }
+function yoyColor(yoyPct) {
+  if (yoyPct == null) return '#7a7570';
+  if (yoyPct >  0.5) return '#2d5a3d';  // up   → green
+  if (yoyPct < -0.5) return '#c8401a';  // down → red
+  return '#7a7570';                      // flat → grey
 }
 
 async function renderMap(streets, sector, query) {
@@ -761,13 +735,6 @@ async function renderMap(streets, sector, query) {
     maxZoom: 19
   }).addTo(mapInstance);
 
-  // Price range for colour scale: latest year sets the max, previous year sets the min
-  const streetsSorted = streets.map(s => s.years.slice().sort((a, b) => b.year - a.year));
-  const latestPrices = streetsSorted.map(y => y[0]?.median_price).filter(Boolean);
-  const prevPrices   = streetsSorted.map(y => y[1]?.median_price).filter(Boolean);
-  const minP = Math.min(...(prevPrices.length ? prevPrices : latestPrices));
-  const maxP = Math.max(...latestPrices);
-
   const fmtK = n => n == null ? '—' : '£' + (n >= 1000000 ? (n/1000000).toFixed(1)+'m' : Math.round(n/1000)+'k');
 
   streets.forEach((street, i) => {
@@ -780,7 +747,7 @@ async function renderMap(streets, sector, query) {
     const lat = center[0] + spread * Math.sin(angle);
     const lng = center[1] + spread * Math.cos(angle);
 
-    const color = priceColor(latest?.median_price, minP, maxP);
+    const color = yoyColor(latest?.yoy_pct);
 
     const marker = L.circleMarker([lat, lng], {
       radius: 9,
@@ -790,28 +757,21 @@ async function renderMap(streets, sector, query) {
       fillOpacity: 0.88,
     }).addTo(mapInstance);
 
-    const prevLine = prev
-      ? `<br>Prev ${fmtK(prev.median_price)} · ${prev.year}`
-      : '';
-    marker.bindPopup(`
-      <div style="font-family:'DM Serif Display',serif;font-size:1rem;margin-bottom:4px">${street.street}</div>
-      <div style="font-family:'DM Mono',monospace;font-size:0.7rem;color:#7a7570">
-        Latest ${fmtK(latest?.median_price)} · ${latest?.year ?? '—'}${prevLine}
-      </div>
-    `);
-
   });
 
-  // Legend
-  panel.insertAdjacentHTML('beforeend', `
-    <div class="map-legend">
-      Price range
-      <div class="legend-bar"></div>
-      <div class="legend-labels">
-        <span>${fmtK(minP)}</span><span>${fmtK(maxP)}</span>
-      </div>
-    </div>
-  `);
+  const first = streets[0];
+  const firstSorted = first.years.slice().sort((a, b) => b.year - a.year);
+  const fl = firstSorted[0];
+  const fp = firstSorted[1];
+  const infoPanel = document.createElement('div');
+  infoPanel.className = 'map-legend';
+  infoPanel.innerHTML = `
+    <div style="font-family:'DM Serif Display',serif;font-size:0.95rem;margin-bottom:4px">${first.street}</div>
+    <div style="font-family:'DM Mono',monospace;font-size:0.65rem;color:#7a7570">
+      Latest ${fmtK(fl?.median_price)} · ${fl?.year ?? '—'}
+      ${fp ? `<br>Prev &nbsp;&nbsp;${fmtK(fp.median_price)} · ${fp.year}` : ''}
+    </div>`;
+  panel.appendChild(infoPanel);
 }
 
 // ── RENDER ─────────────────────────────────────────────────────────────────
