@@ -242,12 +242,21 @@ def search(
             "transaction_count": r["transaction_count"],
             "median_price": r["median_price"],
             "avg_price": r["avg_price"],
-            "yoy_pct": round(float(r["yoy_pct"]), 1) if r["yoy_pct"] is not None else None,
+            "yoy_pct": None,  # computed below from median prices
             "rolling_3yr_avg": r["rolling_3yr_avg"],
             "newbuild_premium_pct": round(float(r["newbuild_premium_pct"]), 1) if r["newbuild_premium_pct"] is not None else None,
             "new_build_count": r["new_build_count"],
             "established_count": r["established_count"],
         })
+
+    for street_data in streets.values():
+        years = sorted(street_data["years"], key=lambda y: y["year"])
+        for i, y in enumerate(years):
+            if i > 0:
+                prev = years[i - 1]["median_price"]
+                curr = y["median_price"]
+                y["yoy_pct"] = round((curr - prev) / prev * 100, 1) if curr and prev else None
+        street_data["years"] = years
 
     return {
         "search_mode": search_mode,
