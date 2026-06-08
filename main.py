@@ -54,32 +54,48 @@ def is_full_postcode(q: str) -> bool:
     return bool(re.match(r'^[A-Z]{1,2}\d{1,2}[A-Z]?\s\d[A-Z]{2}$', pc))
 
 
+def _epc_subq(project, dataset, sector=None, full_postcode=None):
+    """Inline subquery that aggregates mart_price_per_sqm to street+sector+year grain."""
+    where = f"WHERE e_src.postcode_sector = '{sector}'" if sector else "WHERE TRUE"
+    if full_postcode:
+        where += f" AND e_src.postcode = @postcode"
+    return f"""
+        (
+            SELECT
+                sale_year, street, postcode_sector,
+                SUM(epc_matched_count)                                                             AS epc_matched_count,
+                ROUND(SAFE_DIVIDE(SUM(epc_matched_count), SUM(total_transaction_count)) * 100, 1) AS epc_match_rate_pct,
+                ROUND(SAFE_DIVIDE(SUM(avg_floor_area_sqm * epc_matched_count), SUM(epc_matched_count)), 1) AS avg_floor_area_sqm,
+                ROUND(SAFE_DIVIDE(SUM(median_price_per_sqm * epc_matched_count), SUM(epc_matched_count)), 0) AS median_price_per_sqm
+            FROM `{project}.{dataset}.mart_price_per_sqm` e_src
+            {where}
+            GROUP BY 1, 2, 3
+        ) e"""
+
+
 def _build_postcode_sql(project, dataset, sector, full_postcode, property_type):
     """Return (sql, params) for a postcode-based search."""
     pt_filter = "AND p.property_type = @property_type" if property_type else ""
+    epc = _epc_subq(project, dataset, sector=sector, full_postcode=full_postcode)
 
     if property_type:
-        # Query mart_property_type_yearly
         street_filter = (
             "AND p.street IN (SELECT DISTINCT street FROM `{p}.{d}.mart_transactions` WHERE postcode = @postcode)"
             if full_postcode else ""
         ).format(p=project, d=dataset)
         sql = f"""
         SELECT
-            p.sale_year,
-            p.street,
-            p.postcode_sector,
-            p.town_city,
-            p.district,
+            p.sale_year, p.street, p.postcode_sector, p.town_city, p.district,
             p.transaction_count,
             p.median_sale_price_gbp_filled  AS median_price,
             p.avg_sale_price_gbp_filled     AS avg_price,
             p.yoy_avg_price_change_pct      AS yoy_pct,
             p.rolling_3yr_avg_price_gbp     AS rolling_3yr_avg,
             CAST(NULL AS FLOAT64)           AS newbuild_premium_pct,
-            p.new_build_count,
-            p.established_count
+            p.new_build_count, p.established_count,
+            e.median_price_per_sqm, e.avg_floor_area_sqm, e.epc_match_rate_pct, e.epc_matched_count
         FROM `{project}.{dataset}.mart_property_type_yearly` p
+        LEFT JOIN {epc} ON e.street = p.street AND e.postcode_sector = p.postcode_sector AND e.sale_year = p.sale_year
         WHERE p.postcode_sector = @sector
           AND p.has_postcode = true
           {pt_filter}
@@ -92,18 +108,13 @@ def _build_postcode_sql(project, dataset, sector, full_postcode, property_type):
         if full_postcode:
             params.append(bigquery.ScalarQueryParameter("postcode", "STRING", full_postcode))
     else:
-        # Query mart_price_trends (all property types)
         street_filter = (
             "AND t.street IN (SELECT DISTINCT street FROM `{p}.{d}.mart_transactions` WHERE postcode = @postcode)"
             if full_postcode else ""
         ).format(p=project, d=dataset)
         sql = f"""
         SELECT
-            t.sale_year,
-            t.street,
-            t.postcode_sector,
-            t.town_city,
-            t.district,
+            t.sale_year, t.street, t.postcode_sector, t.town_city, t.district,
             t.transaction_count,
             t.median_sale_price_gbp_filled  AS median_price,
             t.avg_sale_price_gbp_filled     AS avg_price,
@@ -111,12 +122,12 @@ def _build_postcode_sql(project, dataset, sector, full_postcode, property_type):
             t.rolling_3yr_avg_price_gbp     AS rolling_3yr_avg,
             n.avg_premium_pct               AS newbuild_premium_pct,
             CAST(NULL AS INT64)             AS new_build_count,
-            CAST(NULL AS INT64)             AS established_count
+            CAST(NULL AS INT64)             AS established_count,
+            e.median_price_per_sqm, e.avg_floor_area_sqm, e.epc_match_rate_pct, e.epc_matched_count
         FROM `{project}.{dataset}.mart_price_trends` t
         LEFT JOIN `{project}.{dataset}.mart_newbuild_premium` n
-            ON  t.postcode_sector = n.postcode_sector
-            AND t.sale_year       = n.sale_year
-            AND t.street          = n.street
+            ON  t.postcode_sector = n.postcode_sector AND t.sale_year = n.sale_year AND t.street = n.street
+        LEFT JOIN {epc} ON e.street = t.street AND e.postcode_sector = t.postcode_sector AND e.sale_year = t.sale_year
         WHERE t.postcode_sector = @sector
           AND t.has_postcode = true
           {street_filter}
@@ -130,26 +141,24 @@ def _build_postcode_sql(project, dataset, sector, full_postcode, property_type):
 
 
 def _build_street_sql(project, dataset, property_type):
-    """Return (sql, param_name) for a street name search."""
+    """Return sql for a street name search."""
     pt_filter = "AND p.property_type = @property_type" if property_type else ""
+    epc = _epc_subq(project, dataset)
 
     if property_type:
         sql = f"""
         SELECT
-            p.sale_year,
-            p.street,
-            p.postcode_sector,
-            p.town_city,
-            p.district,
+            p.sale_year, p.street, p.postcode_sector, p.town_city, p.district,
             p.transaction_count,
             p.median_sale_price_gbp_filled  AS median_price,
             p.avg_sale_price_gbp_filled     AS avg_price,
             p.yoy_avg_price_change_pct      AS yoy_pct,
             p.rolling_3yr_avg_price_gbp     AS rolling_3yr_avg,
             CAST(NULL AS FLOAT64)           AS newbuild_premium_pct,
-            p.new_build_count,
-            p.established_count
+            p.new_build_count, p.established_count,
+            e.median_price_per_sqm, e.avg_floor_area_sqm, e.epc_match_rate_pct, e.epc_matched_count
         FROM `{project}.{dataset}.mart_property_type_yearly` p
+        LEFT JOIN {epc} ON e.street = p.street AND e.postcode_sector = p.postcode_sector AND e.sale_year = p.sale_year
         WHERE UPPER(p.street) LIKE @street
           {pt_filter}
         ORDER BY p.street, p.sale_year
@@ -158,11 +167,7 @@ def _build_street_sql(project, dataset, property_type):
     else:
         sql = f"""
         SELECT
-            t.sale_year,
-            t.street,
-            t.postcode_sector,
-            t.town_city,
-            t.district,
+            t.sale_year, t.street, t.postcode_sector, t.town_city, t.district,
             t.transaction_count,
             t.median_sale_price_gbp_filled  AS median_price,
             t.avg_sale_price_gbp_filled     AS avg_price,
@@ -170,12 +175,12 @@ def _build_street_sql(project, dataset, property_type):
             t.rolling_3yr_avg_price_gbp     AS rolling_3yr_avg,
             n.avg_premium_pct               AS newbuild_premium_pct,
             CAST(NULL AS INT64)             AS new_build_count,
-            CAST(NULL AS INT64)             AS established_count
+            CAST(NULL AS INT64)             AS established_count,
+            e.median_price_per_sqm, e.avg_floor_area_sqm, e.epc_match_rate_pct, e.epc_matched_count
         FROM `{project}.{dataset}.mart_price_trends` t
         LEFT JOIN `{project}.{dataset}.mart_newbuild_premium` n
-            ON  t.postcode_sector = n.postcode_sector
-            AND t.sale_year       = n.sale_year
-            AND t.street          = n.street
+            ON  t.postcode_sector = n.postcode_sector AND t.sale_year = n.sale_year AND t.street = n.street
+        LEFT JOIN {epc} ON e.street = t.street AND e.postcode_sector = t.postcode_sector AND e.sale_year = t.sale_year
         WHERE UPPER(t.street) LIKE @street
         ORDER BY t.street, t.sale_year
         LIMIT 500
@@ -247,6 +252,10 @@ def search(
             "newbuild_premium_pct": round(float(r["newbuild_premium_pct"]), 1) if r["newbuild_premium_pct"] is not None else None,
             "new_build_count": r["new_build_count"],
             "established_count": r["established_count"],
+            "median_price_per_sqm": int(r["median_price_per_sqm"]) if r["median_price_per_sqm"] is not None else None,
+            "avg_floor_area_sqm": float(r["avg_floor_area_sqm"]) if r["avg_floor_area_sqm"] is not None else None,
+            "epc_match_rate_pct": float(r["epc_match_rate_pct"]) if r["epc_match_rate_pct"] is not None else None,
+            "epc_matched_count": int(r["epc_matched_count"]) if r["epc_matched_count"] is not None else None,
         })
 
     for street_data in streets.values():
