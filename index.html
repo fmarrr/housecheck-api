@@ -437,6 +437,7 @@
 
   .up   { color: var(--up);   font-weight: 500; }
   .down { color: var(--down); font-weight: 500; }
+  .psm-est { color: var(--muted); }
 
   /* loading / error */
   .loading {
@@ -842,6 +843,8 @@ function renderResults(data, q) {
     const newBuildCount = latest?.new_build_count;
     const estCount      = latest?.established_count;
     const hasEpc        = (latest?.epc_matched_count ?? 0) >= 3;
+    const latestPsm     = latest?.median_price_per_sqm ?? latest?.median_price_per_sqm_est ?? null;
+    const psmIsEst      = latest?.median_price_per_sqm == null && latestPsm != null;
 
     html += `
     <div class="street-card">
@@ -865,31 +868,20 @@ function renderResults(data, q) {
           <div class="metric-value">${fmtK(prevMedian)}</div>
           <div class="metric-sub">${prev?.year ?? '—'}</div>
         </div>
-        ${data.property_type ? `
         <div class="metric">
-          <div class="metric-label">New build / Established</div>
-          <div class="metric-value">${newBuildCount != null ? newBuildCount : '—'}</div>
-          <div class="metric-sub">${estCount != null ? estCount + ' established' : ''} · ${latest?.year ?? '—'}</div>
-        </div>` : `
-        <div class="metric">
-          <div class="metric-label">New build premium</div>
-          <div class="metric-value">${nbPremium != null ? nbPremium.toFixed(1) + '%' : '—'}</div>
-          <div class="metric-sub">above existing stock</div>
-        </div>`}
+          <div class="metric-label">Median £/m²${psmIsEst ? ' · estimated' : ''}</div>
+          <div class="metric-value">${latestPsm != null ? (psmIsEst ? '~' : '') + '£' + latestPsm.toLocaleString() : '—'}</div>
+          <div class="metric-sub">${latest?.year ?? '—'}${hasEpc && !psmIsEst ? ' · ' + latest.epc_match_rate_pct.toFixed(0) + '% matched' : psmIsEst ? ' · scaled from EPC' : ''}</div>
+        </div>
       </div>
 
-      ${hasEpc ? `
+      ${hasEpc && !psmIsEst && latest.avg_floor_area_sqm != null ? `
       <div class="epc-row">
-        <div class="epc-stat">
-          <div class="metric-label">Median £/m²</div>
-          <div class="epc-stat-value">£${latest.median_price_per_sqm.toLocaleString()}</div>
-        </div>
-        ${latest.avg_floor_area_sqm != null ? `
         <div class="epc-stat">
           <div class="metric-label">Avg floor area</div>
           <div class="epc-stat-value">${latest.avg_floor_area_sqm}m²</div>
-        </div>` : ''}
-        <div class="epc-note">${latest.year} · ${latest.epc_match_rate_pct.toFixed(0)}% of sales EPC-matched</div>
+        </div>
+        <div class="epc-note">${latest.year} · EPC matched ${latest.epc_match_rate_pct.toFixed(0)}% of sales · remaining years estimated from price index</div>
       </div>` : ''}
 
       <div class="chart-wrap">
@@ -917,7 +909,10 @@ function renderResults(data, q) {
             <td>${fmt(y.avg_price)}</td>
             <td class="${yoyClass(y.yoy_pct)}">${y.yoy_pct != null ? (y.yoy_pct >= 0 ? '+' : '') + y.yoy_pct.toFixed(1) + '%' : '—'}</td>
             <td>${fmt(y.rolling_3yr_avg)}</td>
-            <td>${y.median_price_per_sqm != null ? '£' + y.median_price_per_sqm.toLocaleString() : '—'}</td>
+            <td class="${y.median_price_per_sqm == null && y.median_price_per_sqm_est != null ? 'psm-est' : ''}">${
+              y.median_price_per_sqm != null ? '£' + y.median_price_per_sqm.toLocaleString()
+              : y.median_price_per_sqm_est != null ? '~£' + y.median_price_per_sqm_est.toLocaleString()
+              : '—'}</td>
             ${data.property_type ? `<td>${y.new_build_count ?? '—'}</td><td>${y.established_count ?? '—'}</td>` : ''}
             <td>${y.transaction_count ?? 0}</td>
           </tr>`).join('')}
@@ -941,6 +936,8 @@ function renderResults(data, q) {
       const ctx = document.getElementById(`chart-${idx}`);
       if (!ctx) return;
       if (chartInstances[idx]) chartInstances[idx].destroy();
+      const psmData     = years.map(y => y.median_price_per_sqm ?? y.median_price_per_sqm_est ?? null);
+      const psmIsEstArr = years.map(y => y.median_price_per_sqm == null && y.median_price_per_sqm_est != null);
       chartInstances[idx] = new Chart(ctx, {
         type: 'line',
         data: {
@@ -974,15 +971,17 @@ function renderResults(data, q) {
             },
             {
               label: 'Median £/m²',
-              data: years.map(y => y.median_price_per_sqm ?? null),
-              borderColor: '#5a7a9e',
+              data: psmData,
+              borderColor: psmData.map((_, i) => psmIsEstArr[i] ? 'rgba(90,122,158,0.45)' : '#5a7a9e'),
               borderWidth: 1.5,
               borderDash: [2, 2],
-              pointRadius: 0,
+              pointRadius: psmData.map(v => v != null ? 3 : 0),
+              pointBackgroundColor: psmData.map((_, i) => psmIsEstArr[i] ? 'rgba(90,122,158,0.35)' : '#5a7a9e'),
+              pointBorderColor: psmData.map((_, i) => psmIsEstArr[i] ? 'rgba(90,122,158,0.55)' : '#5a7a9e'),
               fill: false,
               tension: 0.35,
               yAxisID: 'y2',
-              spanGaps: false,
+              spanGaps: true,
             }
           ]
         },
@@ -1001,8 +1000,10 @@ function renderResults(data, q) {
               bodyFont: { family: 'DM Sans', size: 13 },
               callbacks: {
                 label: ctx => {
-                  if (ctx.dataset.yAxisID === 'y2')
-                    return '  ' + ctx.dataset.label + ': £' + Math.round(ctx.raw).toLocaleString() + '/m²';
+                  if (ctx.dataset.yAxisID === 'y2') {
+                    const tag = psmIsEstArr[ctx.dataIndex] ? ' (est.)' : '';
+                    return '  ' + ctx.dataset.label + ': £' + Math.round(ctx.raw).toLocaleString() + '/m²' + tag;
+                  }
                   return '  ' + ctx.dataset.label + ': ' + fmt(ctx.raw);
                 }
               }
@@ -1025,7 +1026,7 @@ function renderResults(data, q) {
             },
             y2: {
               position: 'right',
-              display: years.some(y => y.median_price_per_sqm != null),
+              display: psmData.some(v => v != null),
               grid: { display: false },
               border: { display: false },
               ticks: {

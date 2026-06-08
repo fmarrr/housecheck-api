@@ -260,11 +260,29 @@ def search(
 
     for street_data in streets.values():
         years = sorted(street_data["years"], key=lambda y: y["year"])
+
         for i, y in enumerate(years):
             if i > 0:
                 prev = years[i - 1]["median_price"]
                 curr = y["median_price"]
                 y["yoy_pct"] = round((curr - prev) / prev * 100, 1) if curr and prev else None
+            y["median_price_per_sqm_est"] = None
+
+        # For years without EPC data, estimate £/m² by scaling the closest actual year's
+        # value by the median price ratio (assumes floor area is stable, only value changes).
+        known = [
+            (i, y) for i, y in enumerate(years)
+            if y["median_price_per_sqm"] is not None and (y["epc_matched_count"] or 0) >= 2
+        ]
+        if known:
+            for i, y in enumerate(years):
+                if y["median_price_per_sqm"] is None and y["median_price"]:
+                    _, base = min(known, key=lambda x: abs(x[0] - i))
+                    if base["median_price"]:
+                        y["median_price_per_sqm_est"] = round(
+                            base["median_price_per_sqm"] * y["median_price"] / base["median_price"]
+                        )
+
         street_data["years"] = years
 
     return {
