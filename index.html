@@ -565,8 +565,14 @@
 
   @media (max-width: 600px) {
     header, .hero, #results { padding-left: 1.2rem; padding-right: 1.2rem; }
-    .metrics-row { grid-template-columns: 1fr 1fr; }
-    .metric:nth-child(3) { border-right: none; grid-column: 1 / -1; }
+    .tagline { display: none; }
+    .header-nav { gap: 0.8rem; }
+    .lang-switcher { flex-shrink: 0; }
+    .metrics-row { grid-template-columns: repeat(3, 1fr); }
+    .metric { padding: 0.9rem 0.7rem; }
+    .metric-label { font-size: 0.55rem; letter-spacing: 0.07em; }
+    .metric-value { font-size: 1.25rem; }
+    .metric-sub { font-size: 0.68rem; }
     .street-header { grid-template-columns: 1fr; }
     .chart-wrap { height: 180px; padding: 1rem; }
     .year-table th, .year-table td { padding: 0.5rem 0.6rem; font-size: 0.72rem; }
@@ -578,7 +584,7 @@
 <body>
 
 <header>
-  <div class="logo">Houses SoldBy<span>Street</span></div>
+  <div class="logo">SoldBy<span>Street</span></div>
   <nav class="header-nav">
     <a href="/guides" class="nav-link" data-i18n="nav-guides">Guides</a>
     <div class="lang-switcher">

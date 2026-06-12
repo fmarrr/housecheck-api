@@ -207,6 +207,12 @@
 
   @media (max-width: 600px) {
     header, .page-hero, .guides-grid { padding-left: 1.2rem; padding-right: 1.2rem; }
+    header { gap: 0.75rem; flex-wrap: wrap; height: auto; min-height: 60px; padding-top: 0.6rem; padding-bottom: 0.6rem; }
+    .logo { font-size: 1.15rem; }
+    .header-nav { gap: 0.5rem; }
+    .nav-link { font-size: 0.6rem; padding: 0.26rem 0.5rem; letter-spacing: 0.05em; }
+    .lang-btn { font-size: 0.6rem; padding: 0.26rem 0.45rem; }
+    .lang-switcher { flex-shrink: 0; }
     .guide-card { grid-template-columns: 1fr; }
     .guide-arrow { display: none; }
   }
@@ -215,7 +221,7 @@
 <body>
 
 <header>
-  <a href="/" class="logo">Houses SoldBy<span>Street</span></a>
+  <a href="/" class="logo">SoldBy<span>Street</span></a>
   <nav class="header-nav">
     <a href="/" class="nav-link" data-i18n="nav-back">← Search</a>
     <a href="/guides" class="nav-link active" data-i18n="nav-guides">Guides</a>
