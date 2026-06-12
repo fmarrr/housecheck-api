@@ -438,6 +438,49 @@
   .up   { color: var(--up);   font-weight: 500; }
   .down { color: var(--down); font-weight: 500; }
   .psm-est { color: var(--muted); }
+  .info-tip {
+    position: relative;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    line-height: 12px;
+    text-align: center;
+    border: 1px solid var(--muted);
+    border-radius: 50%;
+    font-size: 9px;
+    letter-spacing: 0;
+    margin-left: 0.4em;
+    vertical-align: text-bottom;
+    cursor: help;
+  }
+  .info-tip::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-80%);
+    width: 250px;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-transform: none;
+    letter-spacing: normal;
+    text-align: left;
+    padding: 0.6rem 0.75rem;
+    border-radius: 4px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s;
+    pointer-events: none;
+    z-index: 20;
+  }
+  .info-tip:hover::after, .info-tip:focus::after {
+    opacity: 1;
+    visibility: visible;
+  }
 
   /* loading / error */
   .loading {
@@ -873,8 +916,8 @@ function renderResults(data, q) {
           <div class="metric-sub">${prev?.year ?? '—'}</div>
         </div>
         <div class="metric">
-          <div class="metric-label">Median £/m²${psmIsEst ? ' · estimated' : ''}</div>
-          <div class="metric-value">${latestPsm != null ? (psmIsEst ? '~' : '') + '£' + latestPsm.toLocaleString() : '—'}</div>
+          <div class="metric-label">Median £/m²${psmIsEst ? ' · estimated<span class="info-tip" tabindex="0" data-tip="Estimated £/m² — no EPC floor-area data for this year, scaled from the nearest EPC-matched year using the change in median price.">?</span>' : ''}</div>
+          <div class="metric-value">${latestPsm != null ? '£' + latestPsm.toLocaleString() : '—'}</div>
           <div class="metric-sub">${latest?.year ?? '—'}${hasEpc && !psmIsEst ? ' · ' + latest.epc_match_rate_pct.toFixed(0) + '% matched' : psmIsEst ? ' · scaled from EPC' : ''}</div>
         </div>
       </div>
@@ -913,9 +956,9 @@ function renderResults(data, q) {
             <td>${fmt(y.avg_price)}</td>
             <td class="${yoyClass(y.yoy_pct)}">${y.yoy_pct != null ? (y.yoy_pct >= 0 ? '+' : '') + y.yoy_pct.toFixed(1) + '%' : '—'}</td>
             <td>${fmt(y.rolling_3yr_avg)}</td>
-            <td class="${y.median_price_per_sqm == null && y.median_price_per_sqm_est != null ? 'psm-est' : ''}">${
+            <td class="${y.median_price_per_sqm == null && y.median_price_per_sqm_est != null ? 'psm-est' : ''}"${y.median_price_per_sqm == null && y.median_price_per_sqm_est != null ? ' title="Estimated £/m² — no EPC floor-area data for this year, scaled from the nearest EPC-matched year"' : ''}>${
               y.median_price_per_sqm != null ? '£' + y.median_price_per_sqm.toLocaleString()
-              : y.median_price_per_sqm_est != null ? '~£' + y.median_price_per_sqm_est.toLocaleString()
+              : y.median_price_per_sqm_est != null ? '£' + y.median_price_per_sqm_est.toLocaleString()
               : '—'}</td>
             ${data.property_type ? `<td>${y.new_build_count ?? '—'}</td><td>${y.established_count ?? '—'}</td>` : ''}
             <td>${y.transaction_count ?? 0}</td>
