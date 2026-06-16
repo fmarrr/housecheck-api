@@ -17,6 +17,9 @@
 <meta name="description" content="Street-level analysis of SW6, SW11 and W11. Which specific streets saw the biggest price rises in 2024? Data from HM Land Registry sold prices.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://soldbystreet.co.uk/guides/sw6-sw11-w11-rising-streets-2024">
+<link rel="alternate" hreflang="en" href="https://soldbystreet.co.uk/guides/sw6-sw11-w11-rising-streets-2024">
+<link rel="alternate" hreflang="zh" href="https://soldbystreet.co.uk/guides/sw6-sw11-w11-rising-streets-2024-zh">
+<link rel="alternate" hreflang="x-default" href="https://soldbystreet.co.uk/guides/sw6-sw11-w11-rising-streets-2024">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6325652833259788" crossorigin="anonymous"></script>
@@ -95,29 +98,20 @@
   }
   .logo span { color: var(--accent); font-style: italic; }
 
-  .header-nav { display: flex; align-items: center; gap: 2rem; }
+  .header-nav { display: flex; align-items: center; gap: 0.6rem; }
 
   .nav-link {
     font-family: 'DM Mono', monospace;
-    font-size: 0.68rem;
+    font-size: 0.65rem;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-    text-decoration: none;
-  }
-  .nav-link:hover { color: var(--ink); }
-
-  .lang-switch {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.62rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--muted);
+    letter-spacing: 0.08em;
+    color: var(--ink);
     text-decoration: none;
     border: 1px solid var(--border);
-    padding: 0.3rem 0.7rem;
+    padding: 0.28rem 0.7rem;
+    transition: background 0.15s, border-color 0.15s;
   }
-  .lang-switch:hover { color: var(--ink); border-color: var(--ink); }
+  .nav-link:hover { background: var(--cream); border-color: var(--ink); }
 
   .article-wrap {
     max-width: 720px;
@@ -397,8 +391,9 @@
 <header>
   <a href="/" class="logo">SoldBy<span>Street</span></a>
   <nav class="header-nav">
-    <a href="/guides/sw6-sw11-w11-rising-streets-2024-zh" class="lang-switch">中文</a>
+    <a href="/" class="nav-link">Search</a>
     <a href="/guides" class="nav-link">Guides</a>
+    <a href="/guides/sw6-sw11-w11-rising-streets-2024-zh" class="nav-link">中文</a>
   </nav>
 </header>
 

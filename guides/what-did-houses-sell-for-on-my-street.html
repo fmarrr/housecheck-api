@@ -92,7 +92,7 @@
   }
   .logo span { color: var(--accent); font-style: italic; }
 
-  .header-nav { display: flex; align-items: center; gap: 1.5rem; }
+  .header-nav { display: flex; align-items: center; gap: 0.6rem; }
 
   .nav-link {
     font-family: 'DM Mono', monospace;
@@ -369,7 +369,7 @@
 <header>
   <a href="/" class="logo">SoldBy<span>Street</span></a>
   <nav class="header-nav">
-    <a href="/guides" class="nav-link" data-i18n="nav-back">← All guides</a>
+    <a href="/" class="nav-link" data-i18n="nav-search">Search</a>
     <a href="/guides" class="nav-link" data-i18n="nav-guides">Guides</a>
     <div class="lang-switcher">
       <button class="lang-btn" data-lang="en" onclick="applyLang('en')">EN</button>
@@ -496,6 +496,7 @@
 <script>
 var i18n = {
   en: {
+    'nav-search': 'Search',
     'nav-guides': 'Guides',
     'breadcrumb': '<a href="/guides">Guides</a><span>·</span> Data · How it works',
     'article-tag': 'Data · How it works',
@@ -548,6 +549,7 @@ var i18n = {
     'footer-terms': 'Terms'
   },
   zh: {
+    'nav-search': '搜索',
     'nav-guides': '指南',
     'breadcrumb': '<a href="/guides">指南</a><span>·</span> 数据 · 原理说明',
     'article-tag': '数据 · 原理说明',

@@ -74,7 +74,7 @@
   }
   .logo span { color: var(--accent); font-style: italic; }
 
-    .header-nav { display: flex; align-items: center; gap: 1.5rem; }
+    .header-nav { display: flex; align-items: center; gap: 0.6rem; }
 
   .nav-link {
     font-family: 'DM Mono', monospace;
@@ -223,7 +223,7 @@
 <header>
   <a href="/" class="logo">SoldBy<span>Street</span></a>
   <nav class="header-nav">
-    <a href="/" class="nav-link" data-i18n="nav-back">← Search</a>
+    <a href="/" class="nav-link" data-i18n="nav-back">Search</a>
     <a href="/guides" class="nav-link active" data-i18n="nav-guides">Guides</a>
     <div class="lang-switcher">
       <button class="lang-btn" data-lang="en" onclick="applyLang('en')">EN</button>
@@ -289,7 +289,7 @@
 <script>
 var i18n = {
   en: {
-    'nav-back': '← Search',
+    'nav-back': 'Search',
     'nav-guides': 'Guides',
     'eyebrow': 'Property Intelligence',
     'hero-h1': 'Property <em>guides.</em>',
@@ -311,7 +311,7 @@ var i18n = {
     'footer-terms': 'Terms'
   },
   zh: {
-    'nav-back': '← 搜索',
+    'nav-back': '搜索',
     'nav-guides': '指南',
     'eyebrow': '房产情报',
     'hero-h1': '房产<em>指南。</em>',

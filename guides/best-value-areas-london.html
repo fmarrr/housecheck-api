@@ -93,17 +93,20 @@
   }
   .logo span { color: var(--accent); font-style: italic; }
 
-  .header-nav { display: flex; align-items: center; gap: 2rem; }
+  .header-nav { display: flex; align-items: center; gap: 0.6rem; }
 
   .nav-link {
     font-family: 'DM Mono', monospace;
-    font-size: 0.68rem;
+    font-size: 0.65rem;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--muted);
+    letter-spacing: 0.08em;
+    color: var(--ink);
     text-decoration: none;
+    border: 1px solid var(--border);
+    padding: 0.28rem 0.7rem;
+    transition: background 0.15s, border-color 0.15s;
   }
-  .nav-link:hover { color: var(--ink); }
+  .nav-link:hover { background: var(--cream); border-color: var(--ink); }
 
   .article-wrap {
     max-width: 720px;
@@ -379,6 +382,7 @@
 <header>
   <a href="/" class="logo">SoldBy<span>Street</span></a>
   <nav class="header-nav">
+    <a href="/" class="nav-link">Search</a>
     <a href="/guides" class="nav-link">Guides</a>
   </nav>
 </header>
