@@ -107,6 +107,18 @@
   }
   .nav-link:hover { color: var(--ink); }
 
+  .lang-switch {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.7rem;
+  }
+  .lang-switch:hover { color: var(--ink); border-color: var(--ink); }
+
   .article-wrap {
     max-width: 720px;
     margin: 0 auto;
@@ -385,6 +397,7 @@
 <header>
   <a href="/" class="logo">SoldBy<span>Street</span></a>
   <nav class="header-nav">
+    <a href="/guides/sw6-sw11-w11-rising-streets-2024-zh" class="lang-switch">中文</a>
     <a href="/guides" class="nav-link">Guides</a>
   </nav>
 </header>
