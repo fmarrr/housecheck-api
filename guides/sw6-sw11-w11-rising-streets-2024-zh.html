@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/7b30e2f2d9316ee4614729dbf30f3c60/script.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9WWR5FF5VK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-9WWR5FF5VK');
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>富勒姆、巴特西与诺丁山：2024年房价涨幅最大的街道 — Houses SoldByStreet</title>
+<meta name="description" content="基于英国土地注册局成交数据，对SW6、SW11和W11邮政编码区进行街道级分析，揭示2024年哪些具体街道录得最大年度涨幅。">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://soldbystreet.co.uk/guides/sw6-sw11-w11-rising-streets-2024-zh">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6325652833259788" crossorigin="anonymous"></script>
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://soldbystreet.co.uk/guides/sw6-sw11-w11-rising-streets-2024-zh">
+<meta property="og:site_name" content="Houses SoldByStreet">
+<meta property="og:title" content="富勒姆、巴特西与诺丁山：2024年房价涨幅最大的街道">
+<meta property="og:description" content="基于英国土地注册局成交数据，对SW6、SW11和W11邮政编码区进行街道级分析，揭示2024年哪些具体街道录得最大年度涨幅。">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "富勒姆、巴特西与诺丁山：2024年房价涨幅最大的街道",
+  "description": "基于英国土地注册局成交数据，对SW6、SW11和W11邮政编码区进行街道级分析，揭示2024年哪些具体街道录得最大年度涨幅。",
+  "url": "https://soldbystreet.co.uk/guides/sw6-sw11-w11-rising-streets-2024-zh",
+  "datePublished": "2026-06-08",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Houses SoldByStreet",
+    "url": "https://soldbystreet.co.uk/"
+  }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0e0d;
+    --paper: #f5f2ee;
+    --cream: #ede9e3;
+    --accent: #c8401a;
+    --muted: #7a7570;
+    --border: #d4cfc9;
+    --up: #2d5a3d;
+    --up-bg: #eef5f1;
+    --warn: #8a5c00;
+    --warn-bg: #fdf6e3;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  a { color: inherit; }
+
+  header {
+    border-bottom: 1.5px solid var(--ink);
+    padding: 0 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    background: var(--paper);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .logo span { color: var(--accent); font-style: italic; }
+
+  .header-nav { display: flex; align-items: center; gap: 2rem; }
+
+  .nav-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .nav-link:hover { color: var(--ink); }
+
+  .article-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 3.5rem 2.5rem 5rem;
+  }
+
+  .breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 2rem;
+  }
+  .breadcrumb a { text-decoration: none; }
+  .breadcrumb a:hover { color: var(--ink); }
+  .breadcrumb span { margin: 0 0.5rem; }
+
+  .article-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+
+  h1 em { font-style: italic; color: var(--accent); }
+
+  .article-intro {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--muted);
+    font-weight: 300;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1.5px solid var(--ink);
+  }
+
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    letter-spacing: -0.01em;
+    margin: 2.5rem 0 0.75rem;
+  }
+
+  .article-body p {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: #2a2826;
+    margin-bottom: 1.1rem;
+    font-weight: 300;
+  }
+
+  .article-body strong { font-weight: 500; color: var(--ink); }
+
+  .callout {
+    background: var(--cream);
+    border-left: 3px solid var(--ink);
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: var(--ink);
+  }
+  .callout strong { font-weight: 500; }
+
+  .callout-green {
+    background: var(--up-bg);
+    border-left: 3px solid var(--up);
+  }
+
+  .callout-warn {
+    background: var(--warn-bg);
+    border-left: 3px solid var(--warn);
+    color: var(--warn);
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+    margin: 2rem 0;
+    border: 1.5px solid var(--ink);
+  }
+
+  .data-source {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    padding: 0.5rem 0.9rem;
+    border-top: 1px solid var(--border);
+    background: white;
+  }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+  }
+
+  .data-table thead tr {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .data-table th {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.65rem 0.9rem;
+    text-align: left;
+    font-weight: 400;
+    white-space: nowrap;
+  }
+
+  .data-table td {
+    padding: 0.6rem 0.9rem;
+    border-bottom: 1px solid var(--border);
+    font-family: 'DM Mono', monospace;
+    color: var(--ink);
+    background: white;
+  }
+
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr.highlight td { background: var(--up-bg); }
+
+  .badge-up {
+    display: inline-block;
+    background: var(--up);
+    color: white;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    padding: 0.12rem 0.35rem;
+    letter-spacing: 0.05em;
+    vertical-align: middle;
+  }
+
+  .badge-caution {
+    display: inline-block;
+    background: var(--warn);
+    color: white;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    padding: 0.12rem 0.35rem;
+    letter-spacing: 0.05em;
+    vertical-align: middle;
+  }
+
+  .growth-strong { color: var(--up); font-weight: 500; }
+  .growth-mod { color: #5a7a3d; }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+
+  .stat-card {
+    border: 1.5px solid var(--ink);
+    padding: 1.25rem;
+    background: white;
+  }
+
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-value {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.75rem;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .stat-sub {
+    font-size: 0.72rem;
+    color: var(--muted);
+    font-weight: 300;
+    margin-top: 0.3rem;
+  }
+
+  .cta-box {
+    border: 1.5px solid var(--ink);
+    padding: 2rem;
+    margin-top: 3rem;
+    background: white;
+    text-align: center;
+  }
+
+  .cta-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .cta-heading {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+
+  .cta-sub {
+    font-size: 0.88rem;
+    color: var(--muted);
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    padding: 0.85rem 2rem;
+    background: var(--ink);
+    color: var(--paper);
+    text-decoration: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    transition: background 0.15s;
+  }
+  .cta-btn:hover { background: var(--accent); }
+
+  .guide-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .guide-nav a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .guide-nav a:hover { color: var(--ink); }
+
+  .lang-switch {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.7rem;
+  }
+  .lang-switch:hover { color: var(--ink); border-color: var(--ink); }
+
+  @media (max-width: 600px) {
+    header { padding-left: 1.2rem; padding-right: 1.2rem; }
+    .article-wrap { padding-left: 1.2rem; padding-right: 1.2rem; }
+    .stat-row { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="/" class="logo">SoldBy<span>Street</span></a>
+  <nav class="header-nav">
+    <a href="/guides/sw6-sw11-w11-rising-streets-2024" class="lang-switch">English</a>
+    <a href="/guides" class="nav-link">Guides</a>
+  </nav>
+</header>
+
+<div class="article-wrap">
+
+  <div class="breadcrumb">
+    <a href="/guides">Guides</a><span>·</span> 伦敦 · 市场分析
+  </div>
+
+  <div class="article-tag">SW6 · SW11 · W11 · 数据分析</div>
+  <h1>富勒姆、巴特西与诺丁山：<em>2024年</em>哪些街道涨幅最大？</h1>
+
+  <p class="article-intro">SW6、SW11和W11是伦敦最活跃的住宅邮政编码区，但区域平均房价往往掩盖了单条街道之间的巨大差异。我们通过英国土地注册局（HM Land Registry）的成交价格数据，分析了这三个邮编区内每一条街道，找出2024年年度涨幅最高、且统计可信度足以支撑决策的具体街道。</p>
+
+  <div class="article-body">
+
+    <h2>为什么街道级数据比邮编平均值更重要</h2>
+    <p>SW11的全区平均成交价格提供了一个参考点，但它无法告诉你某条具体街道相对于邻街是便宜还是昂贵、是在涨还是在跌。紧邻干道的街道、受某个问题开发项目影响的街道，或某一年恰好集中出售了几栋大宅的街道——这些情况在数据上呈现出的面貌可能截然不同，即便它们彼此之间仅相距半英里。</p>
+    <p>利用土地注册局数据进行街道级分析，可以发现两类信号：一是相对于自身历史水平出现显著价格变动的街道；二是这种变动是否有足够的成交量支撑，使其成为真实信号而非一两笔交易造成的统计噪音。</p>
+
+    <div class="callout callout-warn">
+      <strong>关于年度涨幅数据的重要说明：</strong>街道级的年度价格变动本身存在较大波动性。若某条街道在某年的成交量不足10至15笔，仅因为2024年售出的是一栋大宅，而2023年售出的是多套小公寓，涨幅百分比就可能出现极端数字。本文全程标注置信度等级，并排除了那些年度涨幅几乎可以确定为数据异常的街道。成交量越高的街道，信号越可靠。
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-label">分析范围</div>
+        <div class="stat-value">SW6, SW11, W11</div>
+        <div class="stat-sub">全部成交量达10笔以上的街道</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">高置信度信号街道</div>
+        <div class="stat-value">9条</div>
+        <div class="stat-sub">成交量≥20笔，年涨幅>150%</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">流动性最高街道</div>
+        <div class="stat-value">York Rd</div>
+        <div class="stat-sub">SW11 3 · 历史总成交278笔</div>
+      </div>
+    </div>
+
+    <h2>数据表：高置信度上涨街道</h2>
+    <p>下表筛选出2024年年度涨幅最强、且成交量足以使信号具有参考价值的街道。高亮行为历史成交量达40笔以上的街道——是本次分析中数据最为可靠的标的。</p>
+
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>街道</th>
+            <th>邮编分区</th>
+            <th>2024年中位价</th>
+            <th>年度涨幅</th>
+            <th>总成交笔数</th>
+            <th>置信度</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="highlight">
+            <td>Westbridge Road</td>
+            <td>SW11 3</td>
+            <td>£1,287,500</td>
+            <td class="growth-strong">+332%</td>
+            <td>45</td>
+            <td><span class="badge-up">高</span></td>
+          </tr>
+          <tr class="highlight">
+            <td>Lombard Road</td>
+            <td>SW11 3</td>
+            <td>£650,000</td>
+            <td class="growth-strong">+318%</td>
+            <td>210</td>
+            <td><span class="badge-up">高</span></td>
+          </tr>
+          <tr class="highlight">
+            <td>Peterborough Road</td>
+            <td>SW6 3</td>
+            <td>£2,180,000</td>
+            <td class="growth-strong">+240%</td>
+            <td>43</td>
+            <td><span class="badge-up">高</span></td>
+          </tr>
+          <tr>
+            <td>Walmer Road</td>
+            <td>W11 4</td>
+            <td>£1,700,000</td>
+            <td class="growth-strong">+267%</td>
+            <td>16</td>
+            <td><span class="badge-caution">中等</span></td>
+          </tr>
+          <tr class="highlight">
+            <td>Bronsart Road</td>
+            <td>SW6 6</td>
+            <td>£1,300,000</td>
+            <td class="growth-strong">+189%</td>
+            <td>60</td>
+            <td><span class="badge-up">高</span></td>
+          </tr>
+          <tr>
+            <td>Vardens Road</td>
+            <td>SW11 1</td>
+            <td>£600,000</td>
+            <td class="growth-strong">+189%</td>
+            <td>24</td>
+            <td><span class="badge-up">高</span></td>
+          </tr>
+          <tr>
+            <td>Chepstow Villas</td>
+            <td>W11 2</td>
+            <td>£21,280,000</td>
+            <td class="growth-strong">+182%</td>
+            <td>26</td>
+            <td><span class="badge-caution">中等</span></td>
+          </tr>
+          <tr>
+            <td>Blenheim Crescent</td>
+            <td>W11 2</td>
+            <td>£7,400,000</td>
+            <td class="growth-strong">+177%</td>
+            <td>33</td>
+            <td><span class="badge-caution">中等</span></td>
+          </tr>
+          <tr class="highlight">
+            <td>York Road</td>
+            <td>SW11 3</td>
+            <td>£330,000</td>
+            <td class="growth-mod">+175%</td>
+            <td>278</td>
+            <td><span class="badge-up">高</span></td>
+          </tr>
+          <tr>
+            <td>Yelverton Road</td>
+            <td>SW11 3</td>
+            <td>£380,000</td>
+            <td class="growth-mod">+156%</td>
+            <td>29</td>
+            <td><span class="badge-up">高</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="data-source">数据来源：英国土地注册局（HM Land Registry）成交价格数据，经 Houses SoldByStreet 整理 · 仅含总成交量≥10笔的街道 · 年度涨幅为2024年与2023年中位价变化 · 置信度基于总成交笔数评定</div>
+    </div>
+
+    <div class="callout">
+      <strong>以下街道未纳入上表：</strong>部分街道的年度涨幅在技术上是真实计算得出的，但几乎可以确定是数据异常，而非真实市场走势。例如Hugon Road（SW6 3）显示+2,556%，Foxmore Street（SW11 4）显示+2,300%。这类情况发生于某条街道某年无成交或成交结构特殊，次年又出现不同价位的集中成交——百分比是真实数字，但反映的是房源构成变化，而非真实市价涨幅。
+    </div>
+
+    <h2>SW11 巴特西：走廊效应</h2>
+    <p>本次分析中统计可信度最高的信号来自SW11 3——从克拉珀姆交叉站（Clapham Junction）延伸至泰晤士河的巴特西地带。<strong>York Road</strong>历史总成交量达278笔，是本次分析中流动性最高的街道。2024年中位价£33万反映了该街道以公寓为主的成交结构；在如此高的成交量基础上录得+175%的年涨幅，是本数据集中可信度最高的数字。</p>
+    <p><strong>Lombard Road</strong>（历史成交210笔，中位价£65万）属于不同价格区间——以公寓与小型住宅混合为主——涨幅达+318%。同处SW11 3的两条街道，York Road与Lombard Road之间的价差，正好说明了区域平均数所抹去的街道级差异有多大。</p>
+    <p><strong>Westbridge Road</strong>中位价£128.75万，涨幅+332%，历史成交45笔，代表SW11 3的高端物业走势。这与巴特西中高价位市场在2022至2023年加息调整后强劲复苏的大背景完全吻合。</p>
+
+    <div class="callout callout-green">
+      <strong>SW11 3的规律：</strong>同一邮编分区内，York Road（£33万）、Lombard Road（£65万）、Westbridge Road（£128.75万）三条街道价位迥异，却均在成交量有支撑的情况下录得2024年强劲涨幅。这表明该分区各价位层次的复苏是全面性的，而非某笔异常成交拉高了稀薄市场的数字。
+    </div>
+
+    <h2>SW6 富勒姆：高端市场有量上涨</h2>
+    <p><strong>Bronsart Road</strong>（SW6 6）是富勒姆板块中最亮眼的标的：历史成交60笔，2024年中位价£130万，年涨幅+189%。如此高的成交量使其成为本数据集中可信度较高的信号之一。Bronsart Road穿越富勒姆帕森斯格林附近一处安静的住宅区——该位置历来吸引从公寓升级置业的家庭买家。</p>
+    <p><strong>Peterborough Road</strong>（SW6 3）中位价£218万，涨幅+240%，历史成交43笔，处于富勒姆定价的高端区间。该街道主要为维多利亚式联排别墅和半独立式住宅，临近富勒姆百老汇一端——这一市场在2022至2023年曾明显承压，2024年似乎出现了大幅回弹。</p>
+
+    <h2>W11 诺丁山：超豪华市场，数据置信度中等</h2>
+    <p>W11板块的数据呈现出另一番面貌——重点不在成交量，而在于伦敦顶端市场的价值变化。<strong>Blenheim Crescent</strong>（中位价£740万，成交33笔）和<strong>Chepstow Villas</strong>（中位价£2,128万，成交26笔）所处的市场中，单笔成交金额足以显著牵动中位价。这两条街道的置信度标注为"中等"而非"高"，并非因为数据有误，而是超豪华街道级定价本身就难以通过汇总成交数据来精准预判。</p>
+    <p><strong>Walmer Road</strong>（W11 4，中位价£170万，涨幅+267%，成交16笔）属于W11相对亲民的入门段——该街道位于诺丁山核心溢价区的边缘，一定程度上受益于周边的光环效应。</p>
+
+    <h2>如何使用这份数据</h2>
+    <p>如果您正在这些邮编区购房，街道级年度涨幅上升并不意味着您错过了入场时机。从调整期反弹的价格往往在百分比上显得夸张，因为基准年（2023年）的价格本身已受到压制。某条街道显示+175%年涨幅，实际上可能只是回到了2021年的水平——建议同时参考更长期的价格走势，而不仅仅是单年数字。</p>
+    <p>如果您正在出售房产，本数据集中同时呈现高成交量和强劲年涨幅的街道，说明您的近邻市场买家活跃——这意味着您拥有比成交稀疏的街道更强的流动性。</p>
+    <p>无论购买还是出售：在出价或接受报价之前，请务必在Houses SoldByStreet上查询具体街道的成交记录。具体的成交价格才是您谈判的依据——而不是邮编平均值、本文分析，更不是房产中介为配合估价而精心挑选的可比案例。</p>
+
+    <h2>数据说明与方法论</h2>
+    <p>所有数据均来源于英国土地注册局（HM Land Registry）价格成交记录。年度涨幅为2024年与2023年各街道成交中位价之差的百分比变化。历史总成交量不足10笔的街道已被排除。年度涨幅超过1,000%的街道未纳入主表，因为这类数字几乎可以确定是由年际成交活动断层而非真实价格变动所造成。所有价格均为中位价而非均值，以减少单笔异常成交的失真影响。</p>
+
+  </div>
+
+  <div class="cta-box">
+    <div class="cta-label">查询您感兴趣的具体街道</div>
+    <div class="cta-heading">查看真实成交价格</div>
+    <p class="cta-sub">输入邮政编码，即可查看街道级成交价格、年度趋势及房产类型分类——数据直接来源于英国土地注册局。</p>
+    <a href="/" class="cta-btn">搜索邮政编码</a>
+  </div>
+
+  <div class="guide-nav">
+    <a href="/guides">← 所有指南</a>
+    <a href="/guides/sw6-sw11-w11-rising-streets-2024">Read in English →</a>
+  </div>
+
+</div>
+
+</body>
+</html>
