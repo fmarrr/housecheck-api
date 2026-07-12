@@ -633,6 +633,67 @@
   }
 
   html, body { max-width: 100%; overflow-x: hidden; }
+
+  /* ── Email alert capture (retention) ─────────────────────────────── */
+  .sbs-alert {
+    margin-top: 1.5rem;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.4rem 1.5rem;
+  }
+  .sbs-alert-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.25rem;
+    color: var(--ink);
+    margin: 0 0 0.35rem;
+    line-height: 1.2;
+  }
+  .sbs-alert-sub {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin: 0 0 1rem;
+    line-height: 1.45;
+  }
+  .sbs-alert-sub strong { color: var(--ink); }
+  .sbs-alert-form { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .sbs-alert-input {
+    flex: 1 1 220px;
+    min-width: 0;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    padding: 0.7rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--paper);
+    color: var(--ink);
+  }
+  .sbs-alert-input:focus { outline: none; border-color: var(--accent); }
+  .sbs-alert-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.7rem 1.3rem;
+    border: none;
+    border-radius: 8px;
+    background: var(--accent);
+    color: #fff;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .sbs-alert-btn:hover { opacity: 0.9; }
+  .sbs-alert-btn:disabled { opacity: 0.55; cursor: default; }
+  .sbs-alert-msg { font-size: 0.82rem; margin: 0.8rem 0 0; line-height: 1.45; }
+  .sbs-alert-msg.ok { color: var(--up); }
+  .sbs-alert-msg.err { color: var(--down); }
+  .sbs-alert-fine {
+    font-size: 0.68rem;
+    color: var(--muted);
+    margin: 0.7rem 0 0;
+    line-height: 1.4;
+  }
+  .sbs-alert-fine a { color: var(--muted); text-decoration: underline; }
 </style>
 </head>
 <body>
@@ -996,6 +1057,51 @@ async function renderMap(streets, sector, query) {
 // ── RENDER ─────────────────────────────────────────────────────────────────
 let chartInstances = {};
 
+const BUTTONDOWN_ENDPOINT = 'https://buttondown.com/api/emails/embed-subscribe/maflora89';
+
+function wireAlertForm() {
+  const box = document.getElementById('sbsAlert');
+  if (!box) return;
+  const postcode = box.dataset.postcode || '';
+  const query    = box.dataset.query || '';
+  gtag('event', 'signup_view', { postcode });
+
+  const form  = document.getElementById('sbsAlertForm');
+  const email = document.getElementById('sbsAlertEmail');
+  const btn   = document.getElementById('sbsAlertBtn');
+  const msg   = document.getElementById('sbsAlertMsg');
+
+  email.addEventListener('focus', () => {
+    if (!box.dataset.focused) { box.dataset.focused = '1'; gtag('event', 'signup_focus', { postcode }); }
+  }, { once: true });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const val = email.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
+      msg.hidden = false; msg.className = 'sbs-alert-msg err';
+      msg.textContent = 'Please enter a valid email address.';
+      return;
+    }
+    btn.disabled = true; btn.textContent = 'Sending…';
+    const body = new URLSearchParams();
+    body.append('email', val);
+    body.append('metadata__postcode', postcode);
+    body.append('metadata__search_query', query);
+    try {
+      await fetch(BUTTONDOWN_ENDPOINT, { method: 'POST', mode: 'no-cors', body });
+      gtag('event', 'signup_submit', { postcode });
+      form.hidden = true;
+      msg.hidden = false; msg.className = 'sbs-alert-msg ok';
+      msg.innerHTML = `Almost there — check <strong>${val.replace(/</g,'&lt;')}</strong> and click the confirmation link to start your alerts for ${postcode}.`;
+    } catch (err) {
+      btn.disabled = false; btn.textContent = 'Notify me';
+      msg.hidden = false; msg.className = 'sbs-alert-msg err';
+      msg.textContent = 'Something went wrong — please try again in a moment.';
+    }
+  });
+}
+
 function renderResults(data, q) {
   const el = document.getElementById('results');
 
@@ -1110,8 +1216,24 @@ function renderResults(data, q) {
     </div>`;
   });
 
+  if (data.search_mode === 'postcode' && data.sector) {
+    const areaLabel = esc(data.sector);
+    html += `
+    <div class="sbs-alert" id="sbsAlert" data-postcode="${areaLabel}" data-query="${esc(q)}">
+      <h3 class="sbs-alert-title">Get an email when a new sale lands near <strong>${areaLabel}</strong></h3>
+      <p class="sbs-alert-sub">We check HM Land Registry monthly. Drop your email and we'll tell you when a new sold price is recorded around <strong>${areaLabel}</strong> — no need to keep searching.</p>
+      <form class="sbs-alert-form" id="sbsAlertForm" novalidate>
+        <input type="email" class="sbs-alert-input" id="sbsAlertEmail" name="email" placeholder="you@email.com" autocomplete="email" required />
+        <button type="submit" class="sbs-alert-btn" id="sbsAlertBtn">Notify me</button>
+      </form>
+      <p class="sbs-alert-msg" id="sbsAlertMsg" hidden></p>
+      <p class="sbs-alert-fine">Double opt-in — you'll get a confirmation email first. Unsubscribe anytime. See our <a href="/privacy">privacy policy</a>.</p>
+    </div>`;
+  }
+
   html += `<div class="data-note">Source: HM Land Registry Price Paid Data · Street-level granularity · Filled prices used where transaction count = 0</div>`;
   el.innerHTML = html;
+  wireAlertForm();
 
   // draw map (postcode searches only, sector available)
   if (data.search_mode === 'postcode' && data.sector) {
