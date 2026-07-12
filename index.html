@@ -1091,7 +1091,7 @@ function wireAlertForm() {
     try {
       await fetch(BUTTONDOWN_ENDPOINT, { method: 'POST', mode: 'no-cors', body });
       gtag('event', 'signup_submit', { postcode });
-      form.hidden = true;
+      form.style.display = 'none';
       msg.hidden = false; msg.className = 'sbs-alert-msg ok';
       msg.innerHTML = `Almost there — check <strong>${val.replace(/</g,'&lt;')}</strong> and click the confirmation link to start your alerts for ${postcode}.`;
     } catch (err) {
