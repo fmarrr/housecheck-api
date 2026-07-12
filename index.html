@@ -74,6 +74,7 @@
     --border: #d4cfc9;
     --up: #2d5a3d;
     --down: #c8401a;
+    --psm: #5a7a9e;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -435,6 +436,59 @@
   .year-table tr:last-child td { border-bottom: none; }
   .year-table tr:hover td { background: var(--cream); }
 
+  /* click-to-expand individual sales */
+  .year-row.expandable { cursor: pointer; }
+  .year-row.expandable:hover td { background: var(--cream); }
+  .tx-caret {
+    display: inline-block;
+    color: var(--accent);
+    font-size: 0.7rem;
+    transition: transform 0.15s;
+    margin-right: 0.35rem;
+  }
+  .year-row.open .tx-caret { transform: rotate(90deg); }
+  .txn-row td { padding: 0 !important; border-bottom: 1px solid var(--border); background: var(--cream); }
+  .txn-panel { padding: 0.5rem 1rem 0.9rem; }
+  .txn-loading, .txn-error, .txn-empty {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    padding: 0.6rem 0.2rem;
+  }
+  .txn-error { color: var(--down); cursor: pointer; }
+  .txn-table { width: 100%; border-collapse: collapse; font-size: 0.74rem; }
+  .txn-table th {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.56rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    background: transparent;
+    border-bottom: 1px solid var(--border);
+    padding: 0.4rem 0.6rem;
+    text-align: left;
+    font-weight: 400;
+  }
+  .txn-table td {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    padding: 0.4rem 0.6rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--ink);
+  }
+  .txn-table tr:last-child td { border-bottom: none; }
+  .txn-table td.num, .txn-table th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .tenure-tag {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.12rem 0.4rem;
+    border: 1px solid var(--border);
+  }
+  .tenure-free { color: var(--up); border-color: var(--up); }
+  .tenure-lease { color: var(--psm); border-color: var(--psm); }
+  .nb-tag { color: var(--accent); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
   .up   { color: var(--up);   font-weight: 500; }
   .down { color: var(--down); font-weight: 500; }
   .psm-est { color: var(--muted); }
@@ -711,6 +765,83 @@ document.querySelectorAll('.type-pill').forEach(pill => {
 const fmt  = n => n == null ? '—' : '£' + Math.round(n).toLocaleString('en-GB');
 const fmtK = n => n == null ? '—' : '£' + (n >= 1000000 ? (n/1000000).toFixed(1)+'m' : Math.round(n/1000)+'k');
 
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c =>
+  ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+// ── INDIVIDUAL SALES DRILL-DOWN ────────────────────────────────────────────
+const fmtTxDate = iso => {
+  if (!iso) return '—';
+  const d = new Date(iso);
+  if (isNaN(d)) return iso;
+  return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+};
+
+function renderTxns(txns) {
+  if (!txns || txns.length === 0) {
+    return '<div class="txn-empty">No individual sale records available for this year.</div>';
+  }
+  const rows = txns.map(t => {
+    const tCls = t.tenure === 'Freehold' ? 'tenure-free' : t.tenure === 'Leasehold' ? 'tenure-lease' : '';
+    const tenure = t.tenure ? `<span class="tenure-tag ${tCls}">${esc(t.tenure)}</span>` : '—';
+    const nb = t.build_status === 'New Build' ? ' <span class="nb-tag">New</span>' : '';
+    const addr = [t.address, t.postcode].filter(Boolean).map(esc).join(', ') || '—';
+    return `<tr>
+      <td>${fmtTxDate(t.sale_date)}</td>
+      <td>${addr}</td>
+      <td>${esc(t.property_type || '—')}${nb}</td>
+      <td>${tenure}</td>
+      <td class="num">${fmt(t.price)}</td>
+    </tr>`;
+  }).join('');
+  return `<table class="txn-table">
+    <thead><tr><th>Date</th><th>Address</th><th>Type</th><th>Tenure</th><th class="num">Sold price</th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table>`;
+}
+
+async function loadTxns(tr, panel) {
+  panel.dataset.loaded = '1';
+  panel.innerHTML = '<div class="txn-loading">Loading individual sales…</div>';
+  try {
+    const u = new URL(API_BASE + '/transactions');
+    u.searchParams.set('street', tr.dataset.street);
+    u.searchParams.set('sector', tr.dataset.sector);
+    u.searchParams.set('year', tr.dataset.year);
+    if (tr.dataset.ptype) u.searchParams.set('property_type', tr.dataset.ptype);
+    const res = await fetch(u);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    panel.innerHTML = renderTxns(data.transactions);
+  } catch (e) {
+    panel.dataset.loaded = '';
+    panel.innerHTML = '<div class="txn-error">Could not load individual sales — tap to retry.</div>';
+  }
+}
+
+function toggleTxnRow(tr) {
+  const panelRow = tr.nextElementSibling;
+  if (!panelRow || !panelRow.classList.contains('txn-row')) return;
+  if (!panelRow.hidden) { panelRow.hidden = true; tr.classList.remove('open'); return; }
+  panelRow.hidden = false;
+  tr.classList.add('open');
+  const panel = panelRow.querySelector('.txn-panel');
+  if (!panel.dataset.loaded) loadTxns(tr, panel);
+}
+
+// one delegated listener handles all current and future result rows
+document.getElementById('results').addEventListener('click', e => {
+  const errBox = e.target.closest('.txn-error');
+  if (errBox) {
+    const panelRow = errBox.closest('.txn-row');
+    const tr = panelRow && panelRow.previousElementSibling;
+    const panel = panelRow && panelRow.querySelector('.txn-panel');
+    if (tr && panel) loadTxns(tr, panel);
+    return;
+  }
+  const row = e.target.closest('tr.year-row.expandable');
+  if (row) toggleTxnRow(row);
+});
+
 function yoyBadge(pct) {
   if (pct == null) return '<span class="yoy-badge badge-flat">—</span>';
   const sign = pct >= 0 ? '+' : '';
@@ -955,9 +1086,12 @@ function renderResults(data, q) {
           </tr>
         </thead>
         <tbody>
-          ${years.slice().reverse().map(y => `
-          <tr>
-            <td>${y.year}</td>
+          ${years.slice().reverse().map(y => {
+            const nTx = y.transaction_count ?? 0;
+            const exp = nTx > 0 && street.postcode_sector;
+            return `
+          <tr class="year-row${exp ? ' expandable' : ''}"${exp ? ` data-street="${esc(street.street)}" data-sector="${esc(street.postcode_sector)}" data-year="${y.year}"${data.property_type ? ` data-ptype="${esc(data.property_type)}"` : ''}` : ''}>
+            <td>${exp ? '<span class="tx-caret">▸</span>' : ''}${y.year}</td>
             <td>${fmt(y.median_price)}</td>
             <td>${fmt(y.avg_price)}</td>
             <td class="${yoyClass(y.yoy_pct)}">${y.yoy_pct != null ? (y.yoy_pct >= 0 ? '+' : '') + y.yoy_pct.toFixed(1) + '%' : '—'}</td>
@@ -967,8 +1101,10 @@ function renderResults(data, q) {
               : y.median_price_per_sqm_est != null ? '£' + y.median_price_per_sqm_est.toLocaleString()
               : '—'}</td>
             ${data.property_type ? `<td>${y.new_build_count ?? '—'}</td><td>${y.established_count ?? '—'}</td>` : ''}
-            <td>${y.transaction_count ?? 0}</td>
-          </tr>`).join('')}
+            <td>${nTx}</td>
+          </tr>${exp ? `
+          <tr class="txn-row" hidden><td colspan="${data.property_type ? 9 : 7}"><div class="txn-panel"></div></td></tr>` : ''}`;
+          }).join('')}
         </tbody>
       </table></div>
     </div>`;

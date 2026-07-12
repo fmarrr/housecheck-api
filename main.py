@@ -294,6 +294,72 @@ def search(
     }
 
 
+@app.get("/transactions")
+def transactions(
+    street: str = Query(..., min_length=1),
+    sector: str = Query(..., min_length=2),
+    year: int = Query(...),
+    property_type: Optional[str] = Query(None),
+):
+    """
+    Individual HM Land Registry sales for one street + postcode sector + year.
+    Powers the click-to-expand drill-down under each year row on the front end.
+    Returns each sale's date, address, property type, tenure, build status and price.
+    """
+    if property_type and property_type not in VALID_PROPERTY_TYPES:
+        raise HTTPException(status_code=400, detail=f"Invalid property_type. Must be one of: {', '.join(sorted(VALID_PROPERTY_TYPES))}")
+
+    client = get_client()
+    pt_filter = "AND property_type = @property_type" if property_type else ""
+    # postcode_sector is derived the same way the marts do: drop the last 2 chars
+    # of the full postcode (e.g. "SW6 5TJ" -> "SW6 5"), so it matches the grouped row.
+    sql = f"""
+    SELECT
+        sale_date, sale_price_gbp, property_type, tenure, build_status,
+        flat_number, house_number_or_name, street, postcode
+    FROM `{PROJECT_ID}.{DATASET}.mart_transactions`
+    WHERE UPPER(street) = @street
+      AND sale_year = @year
+      AND postcode IS NOT NULL
+      AND LENGTH(TRIM(postcode)) > 2
+      AND SUBSTR(TRIM(postcode), 1, LENGTH(TRIM(postcode)) - 2) = @sector
+      {pt_filter}
+    ORDER BY sale_date DESC, sale_price_gbp DESC
+    LIMIT 500
+    """
+    params = [
+        bigquery.ScalarQueryParameter("street", "STRING", street.upper().strip()),
+        bigquery.ScalarQueryParameter("sector", "STRING", sector.strip().upper()),
+        bigquery.ScalarQueryParameter("year", "INT64", year),
+    ]
+    if property_type:
+        params.append(bigquery.ScalarQueryParameter("property_type", "STRING", property_type))
+    job_config = bigquery.QueryJobConfig(query_parameters=params)
+    rows = list(client.query(sql, job_config=job_config).result())
+
+    txns = []
+    for r in rows:
+        addr = " ".join(p for p in [r["flat_number"], r["house_number_or_name"]] if p)
+        txns.append({
+            "sale_date": r["sale_date"].isoformat() if r["sale_date"] else None,
+            "price": int(r["sale_price_gbp"]) if r["sale_price_gbp"] is not None else None,
+            "property_type": r["property_type"],
+            "tenure": r["tenure"],
+            "build_status": r["build_status"],
+            "address": addr or None,
+            "postcode": r["postcode"],
+        })
+
+    return {
+        "street": street,
+        "sector": sector,
+        "year": year,
+        "property_type": property_type,
+        "count": len(txns),
+        "transactions": txns,
+    }
+
+
 @app.get("/health")
 def health():
     return {"status": "ok"}
