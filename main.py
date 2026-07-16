@@ -1,8 +1,11 @@
 from fastapi import FastAPI, Query, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse
+from pydantic import BaseModel
 from google.cloud import bigquery
 from google.oauth2 import service_account
-import os, json, re
+import os, json, re, secrets
+import urllib.request, urllib.error
 from typing import Optional
 
 app = FastAPI(title="HouseCheck API")
@@ -16,6 +19,42 @@ app.add_middleware(
 
 PROJECT_ID = os.getenv("GCP_PROJECT_ID", "uk-house-prices-491810")
 DATASET   = os.getenv("BQ_DATASET", "uk_house_prices")
+EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+
+# Email alert subscriptions (own BigQuery store + Resend for sending).
+RESEND_API_KEY  = os.getenv("RESEND_API_KEY")
+ALERTS_FROM     = os.getenv("ALERTS_FROM_EMAIL", "SoldByStreet <alerts@soldbystreet.co.uk>")
+PUBLIC_API_URL  = os.getenv("PUBLIC_API_URL", "https://housecheck-api-580723587126.europe-west2.run.app")
+SITE_URL        = os.getenv("SITE_URL", "https://soldbystreet.co.uk")
+
+
+def send_email(to_email: str, subject: str, html: str) -> bool:
+    """Send one email via the Resend API. Best-effort: returns False on any failure."""
+    if not RESEND_API_KEY:
+        return False
+    data = json.dumps({
+        "from": ALERTS_FROM,
+        "to": [to_email],
+        "subject": subject,
+        "html": html,
+    }).encode()
+    req = urllib.request.Request(
+        "https://api.resend.com/emails",
+        data=data,
+        method="POST",
+        headers={
+            "Authorization": f"Bearer {RESEND_API_KEY}",
+            "Content-Type": "application/json",
+            # Resend is behind Cloudflare, which 403s the default Python-urllib
+            # User-Agent (error 1010). A normal UA is required.
+            "User-Agent": "SoldByStreet/1.0",
+        },
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=10):
+            return True
+    except (urllib.error.HTTPError, urllib.error.URLError):
+        return False
 
 def get_client():
     creds_json = os.getenv("GOOGLE_CREDENTIALS")
@@ -358,6 +397,96 @@ def transactions(
         "count": len(txns),
         "transactions": txns,
     }
+
+
+class SubscribeIn(BaseModel):
+    email: str
+    postcode: Optional[str] = None
+    search_query: Optional[str] = None
+
+
+def _welcome_html(postcode: str, unsubscribe_url: str) -> str:
+    where = f"around <strong>{postcode}</strong>" if postcode else "on your street"
+    return f"""\
+<div style="font-family:Arial,Helvetica,sans-serif;max-width:520px;margin:0 auto;color:#0f0e0d;">
+  <h2 style="color:#c8401a;margin:0 0 12px;">You're subscribed to SoldByStreet alerts</h2>
+  <p style="font-size:15px;line-height:1.5;">We'll email you when a new sold price is recorded {where},
+     using official HM Land Registry data. We check monthly &mdash; no need to keep searching.</p>
+  <p style="font-size:15px;line-height:1.5;">You can search anytime at
+     <a href="{SITE_URL}" style="color:#c8401a;">soldbystreet.co.uk</a>.</p>
+  <hr style="border:none;border-top:1px solid #d4cfc9;margin:20px 0;">
+  <p style="font-size:12px;color:#7a7570;">You're receiving this because you signed up at soldbystreet.co.uk.
+     <a href="{unsubscribe_url}" style="color:#7a7570;">Unsubscribe</a>.</p>
+</div>"""
+
+
+@app.post("/subscribe")
+def subscribe(body: SubscribeIn):
+    """
+    Add an email-alert subscriber to our own BigQuery store and send a welcome
+    email via Resend. Single opt-in (active immediately); the searched postcode
+    sector is stored so the monthly digest can match new sales to each subscriber.
+    """
+    email = body.email.strip().lower()
+    if not EMAIL_RE.match(email):
+        raise HTTPException(status_code=400, detail="Please enter a valid email address.")
+
+    postcode = (body.postcode or "").strip()
+    search_query = (body.search_query or "").strip()
+    client = get_client()
+    table = f"{PROJECT_ID}.{DATASET}.subscribers"
+
+    # Already an active subscriber? Idempotent success.
+    exists = list(client.query(
+        f"SELECT COUNT(*) AS n FROM `{table}` WHERE email = @email AND status = 'active'",
+        job_config=bigquery.QueryJobConfig(query_parameters=[
+            bigquery.ScalarQueryParameter("email", "STRING", email),
+        ]),
+    ).result())[0]["n"]
+    if exists:
+        return {"status": "already_subscribed"}
+
+    token = secrets.token_urlsafe(24)
+    client.query(
+        f"""INSERT INTO `{table}`
+            (token, email, postcode, search_query, status, created_at, updated_at, source)
+            VALUES (@token, @email, @postcode, @search_query, 'active',
+                    CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'web_search')""",
+        job_config=bigquery.QueryJobConfig(query_parameters=[
+            bigquery.ScalarQueryParameter("token", "STRING", token),
+            bigquery.ScalarQueryParameter("email", "STRING", email),
+            bigquery.ScalarQueryParameter("postcode", "STRING", postcode),
+            bigquery.ScalarQueryParameter("search_query", "STRING", search_query),
+        ]),
+    ).result()
+
+    # Welcome email is best-effort — the subscription is already saved.
+    unsubscribe_url = f"{PUBLIC_API_URL}/unsubscribe?token={token}"
+    send_email(email, "You're subscribed to SoldByStreet alerts",
+               _welcome_html(postcode, unsubscribe_url))
+
+    return {"status": "subscribed"}
+
+
+@app.get("/unsubscribe", response_class=HTMLResponse)
+def unsubscribe(token: str = Query(..., min_length=1)):
+    """One-click unsubscribe link target from alert emails."""
+    client = get_client()
+    table = f"{PROJECT_ID}.{DATASET}.subscribers"
+    client.query(
+        f"UPDATE `{table}` SET status = 'unsubscribed', updated_at = CURRENT_TIMESTAMP() WHERE token = @token",
+        job_config=bigquery.QueryJobConfig(query_parameters=[
+            bigquery.ScalarQueryParameter("token", "STRING", token),
+        ]),
+    ).result()
+    return HTMLResponse(f"""\
+<!doctype html><html><head><meta charset="utf-8"><title>Unsubscribed</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>body{{font-family:Arial,sans-serif;max-width:520px;margin:60px auto;padding:0 20px;color:#0f0e0d;text-align:center;}}
+a{{color:#c8401a;}}</style></head>
+<body><h2 style="color:#c8401a;">You've been unsubscribed</h2>
+<p>You won't receive any more sold-price alerts. You can re-subscribe anytime at
+<a href="{SITE_URL}">soldbystreet.co.uk</a>.</p></body></html>""")
 
 
 @app.get("/health")

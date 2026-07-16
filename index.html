@@ -1057,8 +1057,6 @@ async function renderMap(streets, sector, query) {
 // ── RENDER ─────────────────────────────────────────────────────────────────
 let chartInstances = {};
 
-const BUTTONDOWN_ENDPOINT = 'https://buttondown.com/api/emails/embed-subscribe/maflora89';
-
 function wireAlertForm() {
   const box = document.getElementById('sbsAlert');
   if (!box) return;
@@ -1084,20 +1082,25 @@ function wireAlertForm() {
       return;
     }
     btn.disabled = true; btn.textContent = 'Sending…';
-    const body = new URLSearchParams();
-    body.append('email', val);
-    body.append('metadata__postcode', postcode);
-    body.append('metadata__search_query', query);
     try {
-      await fetch(BUTTONDOWN_ENDPOINT, { method: 'POST', mode: 'no-cors', body });
+      const res = await fetch(`${API_BASE}/subscribe`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: val, postcode, search_query: query }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.detail || 'Subscription failed');
+      }
       gtag('event', 'signup_submit', { postcode });
       form.style.display = 'none';
       msg.hidden = false; msg.className = 'sbs-alert-msg ok';
-      msg.innerHTML = `Almost there — check <strong>${val.replace(/</g,'&lt;')}</strong> and click the confirmation link to start your alerts for ${postcode}.`;
+      msg.innerHTML = `You're subscribed${postcode ? ' for ' + postcode : ''} — we'll email you when a new sale lands. Check your inbox for a welcome note.`;
     } catch (err) {
       btn.disabled = false; btn.textContent = 'Notify me';
       msg.hidden = false; msg.className = 'sbs-alert-msg err';
-      msg.textContent = 'Something went wrong — please try again in a moment.';
+      msg.textContent = err.message === 'Subscription failed' || /valid email/i.test(err.message)
+        ? err.message : 'Something went wrong — please try again in a moment.';
     }
   });
 }
@@ -1227,7 +1230,7 @@ function renderResults(data, q) {
         <button type="submit" class="sbs-alert-btn" id="sbsAlertBtn">Notify me</button>
       </form>
       <p class="sbs-alert-msg" id="sbsAlertMsg" hidden></p>
-      <p class="sbs-alert-fine">Double opt-in — you'll get a confirmation email first. Unsubscribe anytime. See our <a href="/privacy">privacy policy</a>.</p>
+      <p class="sbs-alert-fine">Free monthly email. Unsubscribe anytime with one click. See our <a href="/privacy">privacy policy</a>.</p>
     </div>`;
   }
 
