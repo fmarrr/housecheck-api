@@ -199,6 +199,32 @@
   }
   .search-wrap:focus-within { box-shadow: 4px 4px 0 var(--ink); }
 
+  .search-box { position: relative; max-width: 520px; }
+  .search-history {
+    position: absolute; top: calc(100% + 5px); left: 0; right: 0; z-index: 30;
+    background: white; border: 1.5px solid var(--ink);
+    box-shadow: 4px 4px 0 var(--ink); max-height: 280px; overflow-y: auto;
+  }
+  .search-history-head {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.5rem 0.9rem; border-bottom: 1px solid var(--border);
+    font-family: 'DM Mono', monospace; font-size: 0.6rem;
+    text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted);
+  }
+  .search-history-clear {
+    background: none; border: none; cursor: pointer; padding: 0;
+    font-family: 'DM Mono', monospace; font-size: 0.6rem;
+    text-transform: uppercase; letter-spacing: 0.09em; color: var(--accent);
+  }
+  .search-history-item {
+    display: flex; align-items: center; gap: 0.6rem; width: 100%;
+    padding: 0.65rem 0.9rem; background: none; border: none; cursor: pointer;
+    font-family: 'DM Mono', monospace; font-size: 0.92rem; letter-spacing: 0.04em;
+    color: var(--ink); text-align: left;
+  }
+  .search-history-item:hover { background: var(--cream); }
+  .search-history-item .sh-icon { color: var(--muted); font-size: 0.85rem; }
+
   #searchInput {
     flex: 1;
     padding: 0.9rem 1.2rem;
@@ -716,9 +742,12 @@
   <h1 data-i18n="h1">What did houses sell for <em>on my street?</em></h1>
   <p data-i18n="hero-p">See what houses sold for on your street. Search by postcode, see street level trends and year-on-year data straight from HM Land Registry.</p>
 
-  <div class="search-wrap">
-    <input id="searchInput" type="text" placeholder="e.g. NW3 5TJ or NW3 5" maxlength="10" autocomplete="off">
-    <button class="search-btn" onclick="doSearch()" data-i18n="search-btn">Search</button>
+  <div class="search-box">
+    <div class="search-wrap">
+      <input id="searchInput" type="text" placeholder="e.g. NW3 5TJ or NW3 5" maxlength="10" autocomplete="off">
+      <button class="search-btn" onclick="doSearch()" data-i18n="search-btn">Search</button>
+    </div>
+    <div id="searchHistory" class="search-history" hidden></div>
   </div>
   <div class="search-hint" data-i18n="search-hint">Full postcode · or postcode sector</div>
 
@@ -922,6 +951,56 @@ document.getElementById('searchInput').addEventListener('keydown', e => {
 
 const POSTCODE_RE = /^[A-Z]{1,2}[0-9][0-9A-Z]?(\s*[0-9]([A-Z]{2})?)?$/i;
 
+// ── SEARCH HISTORY (localStorage) ──────────────────────────────────────────
+// Records the exact term the user searched (full postcode stays full, sector
+// stays sector — we don't normalise). Shown as a pick-list under the search box.
+const SEARCH_HISTORY_KEY = 'recentSearches';
+const SEARCH_HISTORY_MAX = 8;
+
+function getSearchHistory() {
+  try { return JSON.parse(localStorage.getItem(SEARCH_HISTORY_KEY)) || []; }
+  catch (e) { return []; }
+}
+function addSearchHistory(term) {
+  if (!term) return;
+  try {
+    let hist = getSearchHistory().filter(t => t.toUpperCase() !== term.toUpperCase());
+    hist.unshift(term);
+    localStorage.setItem(SEARCH_HISTORY_KEY, JSON.stringify(hist.slice(0, SEARCH_HISTORY_MAX)));
+  } catch (e) { /* private mode / quota — history is non-critical */ }
+}
+function clearSearchHistory() {
+  localStorage.removeItem(SEARCH_HISTORY_KEY);
+  hideSearchHistory();
+}
+function selectSearchHistory(term) {
+  const input = document.getElementById('searchInput');
+  input.value = term;
+  hideSearchHistory();
+  doSearch();
+}
+function hideSearchHistory() { document.getElementById('searchHistory').hidden = true; }
+function renderSearchHistory() {
+  const box = document.getElementById('searchHistory');
+  const filter = document.getElementById('searchInput').value.trim().toUpperCase();
+  const items = getSearchHistory().filter(t => !filter || t.toUpperCase().includes(filter));
+  if (!items.length) { box.hidden = true; box.innerHTML = ''; return; }
+  box.innerHTML =
+    `<div class="search-history-head"><span>Recent searches</span>`
+    + `<button type="button" class="search-history-clear" onmousedown="event.preventDefault()" onclick="clearSearchHistory()">Clear</button></div>`
+    + items.map(t =>
+        `<button type="button" class="search-history-item" onmousedown="event.preventDefault()" onclick="selectSearchHistory('${esc(t)}')">`
+        + `<span class="sh-icon">&#8599;</span>${esc(t)}</button>`
+      ).join('');
+  box.hidden = false;
+}
+(function initSearchHistory() {
+  const input = document.getElementById('searchInput');
+  input.addEventListener('focus', renderSearchHistory);
+  input.addEventListener('input', renderSearchHistory);
+  input.addEventListener('blur', () => setTimeout(hideSearchHistory, 120));
+})();
+
 async function doSearch() {
   const q = document.getElementById('searchInput').value.trim();
   if (!q) return;
@@ -936,6 +1015,8 @@ async function doSearch() {
   const pc = q.trim().toUpperCase().replace(/\s+/g, ' ');
   const pcNorm = !pc.includes(' ') && pc.length >= 5 ? pc.slice(0, -3) + ' ' + pc.slice(-3) : pc;
   gtag('event', 'search', { search_term: pcNorm });
+  addSearchHistory(pcNorm);
+  hideSearchHistory();
 
   const el = document.getElementById('results');
   el.classList.remove('hidden');
