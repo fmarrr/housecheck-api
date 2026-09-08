@@ -1,0 +1,31 @@
+# Houses SoldByStreet
+
+> Free street-level UK house price search. Enter a postcode and see what homes
+> actually sold for on that street, year by year, with year-on-year trend,
+> transaction counts and individual sale history. All data is HM Land Registry
+> Price Paid Data (England & Wales), released under the Open Government Licence
+> v3. Coverage 2018 onwards. Run by Trace Lab Studio LTD.
+
+## Key pages
+
+- [Home / search](https://soldbystreet.co.uk/): search by full postcode, postcode
+  sector, or street name; returns per-street median price, year-on-year change,
+  sale counts, price per square metre, and a map.
+- [Sold prices in SW6 (Fulham)](https://soldbystreet.co.uk/sold-prices/sw6): a
+  worked area page — region stats, streets with the strongest multi-year growth,
+  price trend by year, featured-street charts.
+- [Guides](https://soldbystreet.co.uk/guides): how to read sold prices, make an
+  offer, and sense-check an asking price.
+
+## Data & method
+
+- Source: HM Land Registry Price Paid Data,
+  https://www.gov.uk/government/statistical-data-sets/price-paid-data
+- Licence: Open Government Licence v3.0
+- Scope: England and Wales only. Scotland and Northern Ireland are not covered.
+- Figures are the registered sale price; street figures are the median per
+  calendar year.
+
+## Contact
+
+- housecheck.it@gmail.com
