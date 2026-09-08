@@ -248,6 +248,7 @@ def search(
 
     rows = []
     search_mode = None
+    widened_to_sector = False
 
     # --- attempt 1: postcode search ---
     if sector:
@@ -255,6 +256,22 @@ def search(
         sql, params = _build_postcode_sql(PROJECT_ID, DATASET, sector, postcode_normalised, property_type)
         job_config = bigquery.QueryJobConfig(query_parameters=params)
         rows = list(client.query(sql, job_config=job_config).result())
+
+    # --- attempt 1b: widen a full-postcode miss to its whole sector ---
+    # A full-postcode search adds a street filter tied to that exact postcode
+    # string. If no individual sale is logged against that precise postcode,
+    # attempt 1 comes back with zero rows even when the surrounding sector is
+    # full of data (e.g. "TN15 6YG" -> 0, but "TN15 6" -> 127 streets). Re-run
+    # the same postcode query sector-only before falling through to the
+    # street-name guess. Only fires when attempt 1 already returned nothing, so
+    # it can never change or replace a search that had results.
+    if not rows and sector and postcode_normalised:
+        sql, params = _build_postcode_sql(PROJECT_ID, DATASET, sector, None, property_type)
+        job_config = bigquery.QueryJobConfig(query_parameters=params)
+        rows = list(client.query(sql, job_config=job_config).result())
+        if rows:
+            widened_to_sector = True
+            search_mode = "postcode"
 
     # --- attempt 2: street name fallback ---
     if not rows:
@@ -267,7 +284,7 @@ def search(
         rows = list(client.query(sql, job_config=job_config).result())
 
     if not rows:
-        return {"search_mode": search_mode, "query": q, "sector": sector, "property_type": property_type, "streets": []}
+        return {"search_mode": search_mode, "query": q, "sector": sector, "property_type": property_type, "widened_to_sector": widened_to_sector, "streets": []}
 
     # --- group by street ---
     streets: dict = {}
@@ -329,6 +346,7 @@ def search(
         "query": q,
         "sector": sector,
         "property_type": property_type,
+        "widened_to_sector": widened_to_sector,
         "streets": list(streets.values())
     }
 
