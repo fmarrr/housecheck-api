@@ -5,7 +5,7 @@ from pydantic import BaseModel
 from google.cloud import bigquery
 from google.oauth2 import service_account
 import os, json, re, secrets
-import urllib.request, urllib.error
+import urllib.request, urllib.error, urllib.parse
 from typing import Optional
 
 app = FastAPI(title="HouseCheck API")
@@ -26,6 +26,10 @@ RESEND_API_KEY  = os.getenv("RESEND_API_KEY")
 ALERTS_FROM     = os.getenv("ALERTS_FROM_EMAIL", "SoldByStreet <alerts@soldbystreet.co.uk>")
 PUBLIC_API_URL  = os.getenv("PUBLIC_API_URL", "https://housecheck-api-580723587126.europe-west2.run.app")
 SITE_URL        = os.getenv("SITE_URL", "https://soldbystreet.co.uk")
+
+# GA4 Measurement Protocol — server-side conversion reporting (see send_ga_event).
+GA_MEASUREMENT_ID = os.getenv("GA_MEASUREMENT_ID", "G-9WWR5FF5VK")
+GA_API_SECRET     = os.getenv("GA_API_SECRET")
 
 
 def send_email(to_email: str, subject: str, html: str) -> bool:
@@ -53,7 +57,42 @@ def send_email(to_email: str, subject: str, html: str) -> bool:
     try:
         with urllib.request.urlopen(req, timeout=10):
             return True
-    except (urllib.error.HTTPError, urllib.error.URLError):
+    except OSError:
+        # OSError covers HTTPError/URLError and also socket read timeouts, which
+        # are TimeoutError (not a URLError) and would otherwise escape and 500 a
+        # request whose subscriber row is already written.
+        return False
+
+
+def send_ga_event(name: str, client_id: str, params: dict) -> bool:
+    """
+    Send one event to GA4 via the Measurement Protocol.
+
+    Browser-side gtag misses conversions it can't be trusted to report: ad
+    blockers, tabs closed before the response lands, tracking prevention. This
+    fires from the server the moment the subscriber row is written, so the
+    conversion count matches the table. Best-effort: never raises.
+    """
+    if not (GA_MEASUREMENT_ID and GA_API_SECRET):
+        return False
+    url = (
+        "https://www.google-analytics.com/mp/collect"
+        f"?measurement_id={urllib.parse.quote(GA_MEASUREMENT_ID)}"
+        f"&api_secret={urllib.parse.quote(GA_API_SECRET)}"
+    )
+    payload = json.dumps({
+        "client_id": client_id,
+        "non_personalized_ads": True,
+        "events": [{"name": name, "params": dict(params, engagement_time_msec=1)}],
+    }).encode()
+    req = urllib.request.Request(
+        url, data=payload, method="POST",
+        headers={"Content-Type": "application/json", "User-Agent": "SoldByStreet/1.0"},
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=10):
+            return True
+    except OSError:
         return False
 
 def get_client():
@@ -421,6 +460,10 @@ class SubscribeIn(BaseModel):
     email: str
     postcode: Optional[str] = None
     search_query: Optional[str] = None
+    # GA client id, read from the browser's _ga cookie. Lets the server-side
+    # conversion join the visitor's existing session instead of arriving as a
+    # brand-new user with no traffic source. Absent when GA is blocked.
+    client_id: Optional[str] = None
 
 
 def _welcome_html(postcode: str, unsubscribe_url: str) -> str:
@@ -438,12 +481,29 @@ def _welcome_html(postcode: str, unsubscribe_url: str) -> str:
 </div>"""
 
 
+def _after_subscribe(email: str, postcode: str, token: str, client_id: str) -> None:
+    """
+    Post-signup work, run inside the request rather than in a BackgroundTask:
+    this service runs on Cloud Run with the default CPU throttling, which starves
+    anything scheduled after the response is returned. Both calls are best-effort
+    and never raise, so neither can fail a request whose row is already committed.
+
+    The conversion goes first: it is the one that must not be lost, and a slow
+    Resend call should not be able to delay it.
+    """
+    send_ga_event("signup_submit", client_id, {"postcode": postcode or "(not set)"})
+    unsubscribe_url = f"{PUBLIC_API_URL}/unsubscribe?token={token}"
+    send_email(email, "You're subscribed to SoldByStreet alerts",
+               _welcome_html(postcode, unsubscribe_url))
+
+
 @app.post("/subscribe")
 def subscribe(body: SubscribeIn):
     """
-    Add an email-alert subscriber to our own BigQuery store and send a welcome
-    email via Resend. Single opt-in (active immediately); the searched postcode
-    sector is stored so the monthly digest can match new sales to each subscriber.
+    Add an email-alert subscriber to our own BigQuery store, then queue the
+    welcome email and the GA conversion. Single opt-in (active immediately); the
+    searched postcode sector is stored so the monthly digest can match new sales
+    to each subscriber.
     """
     email = body.email.strip().lower()
     if not EMAIL_RE.match(email):
@@ -453,35 +513,36 @@ def subscribe(body: SubscribeIn):
     search_query = (body.search_query or "").strip()
     client = get_client()
     table = f"{PROJECT_ID}.{DATASET}.subscribers"
-
-    # Already an active subscriber? Idempotent success.
-    exists = list(client.query(
-        f"SELECT COUNT(*) AS n FROM `{table}` WHERE email = @email AND status = 'active'",
-        job_config=bigquery.QueryJobConfig(query_parameters=[
-            bigquery.ScalarQueryParameter("email", "STRING", email),
-        ]),
-    ).result())[0]["n"]
-    if exists:
-        return {"status": "already_subscribed"}
-
     token = secrets.token_urlsafe(24)
-    client.query(
+
+    # Insert and duplicate-check in a single round trip. Two sequential BigQuery
+    # jobs put the visitor on a ~4s wait staring at a disabled button; one job
+    # roughly halves that. num_dml_affected_rows tells us which case we hit.
+    job = client.query(
         f"""INSERT INTO `{table}`
             (token, email, postcode, search_query, status, created_at, updated_at, source)
-            VALUES (@token, @email, @postcode, @search_query, 'active',
-                    CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'web_search')""",
+            SELECT @token, @email, @postcode, @search_query, 'active',
+                   CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 'web_search'
+            FROM (SELECT 1)  -- BigQuery rejects a WHERE clause with no FROM
+            WHERE NOT EXISTS (
+              SELECT 1 FROM `{table}` WHERE email = @email AND status = 'active'
+            )""",
         job_config=bigquery.QueryJobConfig(query_parameters=[
             bigquery.ScalarQueryParameter("token", "STRING", token),
             bigquery.ScalarQueryParameter("email", "STRING", email),
             bigquery.ScalarQueryParameter("postcode", "STRING", postcode),
             bigquery.ScalarQueryParameter("search_query", "STRING", search_query),
         ]),
-    ).result()
+    )
+    job.result()
 
-    # Welcome email is best-effort — the subscription is already saved.
-    unsubscribe_url = f"{PUBLIC_API_URL}/unsubscribe?token={token}"
-    send_email(email, "You're subscribed to SoldByStreet alerts",
-               _welcome_html(postcode, unsubscribe_url))
+    if not job.num_dml_affected_rows:
+        return {"status": "already_subscribed"}
+
+    # A missing client id means GA is blocked in that browser. Send anyway with a
+    # synthetic id: the conversion is counted, only its attribution is lost.
+    client_id = (body.client_id or "").strip() or f"{secrets.randbelow(10**10)}.{secrets.randbelow(10**10)}"
+    _after_subscribe(email, postcode, token, client_id)
 
     return {"status": "subscribed"}
 

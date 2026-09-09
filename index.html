@@ -1138,6 +1138,14 @@ async function renderMap(streets, sector, query) {
 // ── RENDER ─────────────────────────────────────────────────────────────────
 let chartInstances = {};
 
+// GA's client id, from the _ga cookie (GA1.1.<id>). Sent with the subscription so
+// the server-side conversion joins this visitor's session instead of arriving as a
+// new user with no source. Empty when GA is blocked — the conversion still counts.
+function gaClientId() {
+  const m = document.cookie.match(/_ga=GA\d+\.\d+\.(\d+\.\d+)/);
+  return m ? m[1] : '';
+}
+
 function wireAlertForm() {
   const box = document.getElementById('sbsAlert');
   if (!box) return;
@@ -1167,13 +1175,15 @@ function wireAlertForm() {
       const res = await fetch(`${API_BASE}/subscribe`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: val, postcode, search_query: query }),
+        body: JSON.stringify({ email: val, postcode, search_query: query, client_id: gaClientId() }),
       });
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
         throw new Error(data.detail || 'Subscription failed');
       }
-      gtag('event', 'signup_submit', { postcode });
+      // signup_submit is sent server-side from /subscribe, so it can't be lost to
+      // an ad blocker or a tab closed before this line runs. Firing it here too
+      // would double-count every conversion.
       form.style.display = 'none';
       msg.hidden = false; msg.className = 'sbs-alert-msg ok';
       msg.innerHTML = `You're subscribed${postcode ? ' for ' + postcode : ''} — we'll email you when a new sale lands. Check your inbox for a welcome note.`;
