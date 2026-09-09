@@ -305,7 +305,7 @@ CSS = """
   .cta a{display:inline-block;margin-top:1rem;font-family:'DM Mono',monospace;font-size:0.72rem;
     text-transform:uppercase;letter-spacing:0.08em;text-decoration:none;background:var(--ink);
     color:var(--paper);padding:0.7rem 1.4rem;}
-  footer{border-top:1.5px solid var(--ink);padding:2rem 2.5rem;display:flex;gap:1.5rem;
+  footer{border-top:1.5px solid var(--ink);padding:2rem 2.5rem;display:flex;flex-wrap:wrap;gap:1.5rem;
     font-family:'DM Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.08em;}
   footer a{text-decoration:none;color:var(--muted);}footer a:hover{color:var(--ink);}
   @media(max-width:600px){header,.wrap{padding-left:1.2rem;padding-right:1.2rem;}
@@ -473,7 +473,7 @@ def render(d, year_stats, meta, featured, table_streets):
         "url": canonical, "temporalCoverage": f"{fy}/{ly}",
         "spatialCoverage": {"@type": "Place", "name": f"{district}, {area}, {meta['town_city']}"},
         "creator": {"@type": "Organization", "name": "HM Land Registry"},
-        "publisher": {"@type": "Organization", "name": "Houses SoldByStreet", "url": SITE + "/"},
+        "publisher": {"@type": "Organization", "name": "Trace Lab Studio LTD", "url": SITE + "/"},
     }, indent=2)
 
     chart_data = json.dumps([f["chart"] for f in featured])
@@ -551,6 +551,7 @@ def render(d, year_stats, meta, featured, table_streets):
   <a href="/guides">Guides</a>
   <a href="/privacy">Privacy</a>
   <a href="/terms">Terms</a>
+  <div style="flex-basis:100%;text-transform:none;letter-spacing:0.03em;color:var(--muted);">Trace Lab Studio LTD, registered in England and Wales no. 17340427. Registered office: 128 City Road, London, EC1V 2NX.</div>
 </footer>
 {chart_block}
 </body>
