@@ -77,6 +77,90 @@
     --psm: #5a7a9e;
   }
 
+  /* ── Browse by street ─────────────────────────────────────────────────── */
+  .browse { border-top: 1.5px solid var(--ink); background: var(--cream); }
+  .browse-inner { max-width: 880px; margin: 0 auto; padding: 3rem 2.5rem; }
+  .browse-eyebrow {
+    font-family: 'DM Mono', monospace; font-size: 0.62rem; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--accent); margin-bottom: 0.6rem;
+  }
+  .browse-h2 {
+    font-family: 'DM Serif Display', serif; font-size: 1.5rem;
+    letter-spacing: -0.01em; margin-bottom: 0.6rem;
+  }
+  .browse-p {
+    font-size: 0.95rem; line-height: 1.7; font-weight: 300; color: var(--muted);
+    max-width: 62ch; margin-bottom: 1.4rem;
+  }
+  .browse-carousel {
+    display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1.4rem;
+  }
+  .browse-arrow {
+    width: 36px; height: 36px; flex: 0 0 36px; cursor: pointer;
+    background: #fff; border: 1.5px solid var(--ink); color: var(--ink);
+    font-family: 'DM Sans', sans-serif; font-size: 1.2rem; line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .15s, color .15s, opacity .15s;
+  }
+  .browse-arrow:hover:not(:disabled) { background: var(--ink); color: var(--paper); }
+  .browse-arrow:disabled { opacity: 0.25; cursor: default; }
+  .browse-arrow:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .browse-rail {
+    flex: 1 1 auto; min-width: 0;
+    display: grid; grid-auto-flow: column;
+    grid-template-rows: repeat(3, 1fr);       /* three equal rows */
+    grid-auto-columns: 224px;
+    gap: 0.6rem; overflow-x: auto; scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;            /* always lands on a whole column */
+    padding: 0.15rem 0 0.5rem;
+    scrollbar-width: none; -ms-overflow-style: none;
+    /* soften the column that runs off the edge instead of slicing it */
+    -webkit-mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 28px), transparent 100%);
+    mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 28px), transparent 100%);
+  }
+  .browse-rail.at-end {
+    -webkit-mask-image: none; mask-image: none;
+  }
+  .browse-rail::-webkit-scrollbar { display: none; }
+  .browse-rail:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .browse-chip {
+    scroll-snap-align: start; display: flex; flex-direction: column;
+    background: #fff; border: 1px solid var(--border); padding: 0.7rem 0.9rem 0.75rem;
+    text-decoration: none; color: var(--ink);
+    transition: border-color .15s, transform .15s;
+  }
+  .bc-name {
+    font-size: 0.9rem; line-height: 1.25; min-height: 2.5em;   /* 1 or 2 lines, same height */
+    display: flex; align-items: flex-start;
+  }
+  .bc-town, .bc-meta {
+    font-family: 'DM Mono', monospace; font-size: 0.58rem; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--muted);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .bc-town { margin-top: 0.35rem; color: var(--ink); opacity: 0.75; }
+  .bc-meta { margin-top: 0.12rem; }
+  .browse-chip:hover { border-color: var(--ink); transform: translateY(-1px); }
+  .browse-chip-more {
+    border-color: var(--ink); justify-content: center;
+  }
+  .browse-chip-more .bc-name { color: var(--accent); min-height: 0; }
+  .browse-chip-more .more-arrow {
+    font-size: 1.15rem; line-height: 1; color: var(--accent); margin-bottom: 0.3rem;
+  }
+  .browse-all {
+    display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.7rem;
+    text-transform: uppercase; letter-spacing: 0.08em; text-decoration: none;
+    color: var(--accent); border-bottom: 1px solid var(--accent); padding-bottom: 2px;
+  }
+  .browse-all:hover { color: var(--ink); border-bottom-color: var(--ink); }
+  @media (prefers-reduced-motion: reduce) { .browse-rail { scroll-behavior: auto; } }
+  @media (max-width: 600px) {
+    .browse-inner { padding: 2.2rem 1.2rem; }
+    .browse-rail { grid-auto-columns: 176px; }
+    .browse-arrow { display: none; }   /* thumbs swipe the rail instead */
+  }
+
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
@@ -727,6 +811,7 @@
 <header>
   <div class="logo">SoldBy<span>Street</span></div>
   <nav class="header-nav">
+    <a href="/sold-prices" class="nav-link" data-i18n="nav-streets">Streets</a>
     <a href="/guides" class="nav-link" data-i18n="nav-guides">Guides</a>
     <div class="lang-switcher">
       <button class="lang-btn" data-lang="en" onclick="applyLang('en')">EN</button>
@@ -765,9 +850,52 @@
 
 <div id="results" class="hidden"></div>
 
+<section class="browse">
+  <div class="browse-inner">
+    <div class="browse-eyebrow" data-i18n="browse-eyebrow">Browse by street</div>
+    <h2 class="browse-h2" data-i18n="browse-h2">Streets with a full sale-by-sale history</h2>
+    <p class="browse-p" data-i18n="browse-p">124 streets across 110 postcode districts, every recorded sale from 2018 to 2025 with date, price, property type and floor area. These are the ones people look up most.</p>
+
+    <div class="browse-carousel">
+      <button class="browse-arrow" id="browsePrev" type="button" aria-label="Previous streets" aria-controls="browseRail">&#8249;</button>
+      <div class="browse-rail" id="browseRail" tabindex="0" role="group" aria-label="Streets with a sold-price history">
+          <a class="browse-chip" href="/sold-prices/n13/kingsley-road"><span class="bc-name">Kingsley Road</span><span class="bc-town">London</span><span class="bc-meta">N13 &middot; 16 sales</span></a>
+          <a class="browse-chip" href="/sold-prices/hp13/coningsby-road"><span class="bc-name">Coningsby Road</span><span class="bc-town">High Wycombe</span><span class="bc-meta">HP13 &middot; 23 sales</span></a>
+          <a class="browse-chip" href="/sold-prices/ch2/dicksons-drive"><span class="bc-name">Dicksons Drive</span><span class="bc-town">Chester</span><span class="bc-meta">CH2 &middot; 26 sales</span></a>
+          <a class="browse-chip" href="/sold-prices/co13/the-esplanade"><span class="bc-name">The Esplanade</span><span class="bc-town">Frinton-on-Sea</span><span class="bc-meta">CO13 &middot; 105 sales</span></a>
+          <a class="browse-chip" href="/sold-prices/bl4/windermere-road"><span class="bc-name">Windermere Road</span><span class="bc-town">Bolton</span><span class="bc-meta">BL4 &middot; 18 sales</span></a>
+          <a class="browse-chip" href="/sold-prices/me5/constitution-road"><span class="bc-name">Constitution Road</span><span class="bc-town">Chatham</span><span class="bc-meta">ME5 &middot; 32 sales</span></a>
+          <a class="browse-chip" href="/sold-prices/sr6/dovedale-road"><span class="bc-name">Dovedale Road</span><span class="bc-town">Sunderland</span><span class="bc-meta">SR6 &middot; 39 sales</span></a>
+          <a class="browse-chip" href="/sold-prices/b74/lilac-avenue"><span class="bc-name">Lilac Avenue</span><span class="bc-town">Sutton Coldfield</span><span class="bc-meta">B74 &middot; 20 sales</span></a>
+          <a class="browse-chip" href="/sold-prices/wr5/arden-road"><span class="bc-name">Arden Road</span><span class="bc-town">Worcester</span><span class="bc-meta">WR5 &middot; 11 sales</span></a>
+          <a class="browse-chip" href="/sold-prices/cm9/atkins-crescent"><span class="bc-name">Atkins Crescent</span><span class="bc-town">Maldon</span><span class="bc-meta">CM9 &middot; 52 sales</span></a>
+          <a class="browse-chip" href="/sold-prices/bh25/barton-court-avenue"><span class="bc-name">Barton Court Avenue</span><span class="bc-town">New Milton</span><span class="bc-meta">BH25 &middot; 64 sales</span></a>
+          <a class="browse-chip" href="/sold-prices/hu15/beck-road"><span class="bc-name">Beck Road</span><span class="bc-town">Brough</span><span class="bc-meta">HU15 &middot; 20 sales</span></a>
+          <a class="browse-chip" href="/sold-prices/s35/bevan-way"><span class="bc-name">Bevan Way</span><span class="bc-town">Sheffield</span><span class="bc-meta">S35 &middot; 17 sales</span></a>
+          <a class="browse-chip" href="/sold-prices/kt14/birchwood-drive"><span class="bc-name">Birchwood Drive</span><span class="bc-town">West Byfleet</span><span class="bc-meta">KT14 &middot; 11 sales</span></a>
+          <a class="browse-chip" href="/sold-prices/bs34/branksome-drive"><span class="bc-name">Branksome Drive</span><span class="bc-town">Bristol</span><span class="bc-meta">BS34 &middot; 16 sales</span></a>
+          <a class="browse-chip" href="/sold-prices/tf2/brick-kiln-way"><span class="bc-name">Brick Kiln Way</span><span class="bc-town">Telford</span><span class="bc-meta">TF2 &middot; 14 sales</span></a>
+          <a class="browse-chip" href="/sold-prices/rg7/broad-lane"><span class="bc-name">Broad Lane</span><span class="bc-town">Reading</span><span class="bc-meta">RG7 &middot; 23 sales</span></a>
+          <a class="browse-chip" href="/sold-prices/ws12/bromley-close"><span class="bc-name">Bromley Close</span><span class="bc-town">Cannock</span><span class="bc-meta">WS12 &middot; 25 sales</span></a>
+          <a class="browse-chip" href="/sold-prices/le12/brookside-avenue"><span class="bc-name">Brookside Avenue</span><span class="bc-town">Loughborough</span><span class="bc-meta">LE12 &middot; 11 sales</span></a>
+          <a class="browse-chip" href="/sold-prices/cw1/broughton-road"><span class="bc-name">Broughton Road</span><span class="bc-town">Crewe</span><span class="bc-meta">CW1 &middot; 39 sales</span></a>
+          <a class="browse-chip" href="/sold-prices/b90/brownley-road"><span class="bc-name">Brownley Road</span><span class="bc-town">Solihull</span><span class="bc-meta">B90 &middot; 14 sales</span></a>
+          <a class="browse-chip" href="/sold-prices/da1/cavell-crescent"><span class="bc-name">Cavell Crescent</span><span class="bc-town">Dartford</span><span class="bc-meta">DA1 &middot; 12 sales</span></a>
+          <a class="browse-chip" href="/sold-prices/kt13/cavendish-road"><span class="bc-name">Cavendish Road</span><span class="bc-town">Weybridge</span><span class="bc-meta">KT13 &middot; 47 sales</span></a>
+          <a class="browse-chip" href="/sold-prices/s42/chesterfield-road"><span class="bc-name">Chesterfield Road</span><span class="bc-town">Chesterfield</span><span class="bc-meta">S42 &middot; 78 sales</span></a>
+          <a class="browse-chip browse-chip-more" href="/sold-prices"><span class="more-arrow">&#8594;</span><span class="bc-name" data-i18n="browse-more">See all 124 streets</span></a>
+      </div>
+      <button class="browse-arrow" id="browseNext" type="button" aria-label="More streets" aria-controls="browseRail">&#8250;</button>
+    </div>
+
+    <a class="browse-all" href="/sold-prices" data-i18n="browse-all">All streets with a sold-price history &rarr;</a>
+  </div>
+</section>
+
 <footer style="border-top:1.5px solid var(--border);padding:2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem;margin-top:2rem;">
   <div style="font-family:'DM Mono',monospace;font-size:0.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;">© 2026 Trace Lab Studio LTD · Data: HM Land Registry OGL v3</div>
   <div style="display:flex;gap:1.5rem;">
+    <a href="/sold-prices" style="font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);text-decoration:none;" data-i18n="footer-streets">Streets</a>
     <a href="/guides" style="font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);text-decoration:none;" data-i18n="footer-guides">Guides</a>
     <a href="/privacy" style="font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);text-decoration:none;" data-i18n="footer-privacy">Privacy</a>
     <a href="/terms" style="font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);text-decoration:none;" data-i18n="footer-terms">Terms</a>
@@ -776,9 +904,37 @@
 </footer>
 
 <script>
+// ── Browse-by-street rail ──────────────────────────────────────────────────
+(function browseRail() {
+  var rail = document.getElementById('browseRail');
+  var prev = document.getElementById('browsePrev');
+  var next = document.getElementById('browseNext');
+  if (!rail || !prev || !next) return;
+  function col() {
+    var first = rail.querySelector('.browse-chip');
+    return first ? first.getBoundingClientRect().width + 10 : 234;  // card + gap
+  }
+  function step() {
+    var c = col();
+    return Math.max(1, Math.floor(rail.clientWidth / c)) * c;  // whole columns only
+  }
+  function sync() {
+    var max = rail.scrollWidth - rail.clientWidth - 1;
+    prev.disabled = rail.scrollLeft <= 0;
+    next.disabled = rail.scrollLeft >= max;
+    rail.classList.toggle('at-end', rail.scrollLeft >= max);
+  }
+  prev.addEventListener('click', function () { rail.scrollBy({ left: -step() }); });
+  next.addEventListener('click', function () { rail.scrollBy({ left: step() }); });
+  rail.addEventListener('scroll', sync, { passive: true });
+  window.addEventListener('resize', sync);
+  sync();
+})();
+
 // ── I18N ───────────────────────────────────────────────────────────────────
 var i18n = {
   en: {
+    'nav-streets': 'Streets',
     'nav-guides': 'Guides',
     'eyebrow': 'UK House Price Intelligence',
     'h1': 'What did houses sell for <em>on my street?</em>',
@@ -792,11 +948,18 @@ var i18n = {
     'pill-terraced': 'Terraced',
     'pill-flat': 'Flat / Maisonette',
     'pill-other': 'Other',
+    'browse-eyebrow': 'Browse by street',
+    'browse-h2': 'Streets with a full sale-by-sale history',
+    'browse-p': '124 streets across 110 postcode districts, every recorded sale from 2018 to 2025 with date, price, property type and floor area. These are the ones people look up most.',
+    'browse-all': 'All streets with a sold-price history \u2192',
+    'browse-more': 'See all 124 streets',
+    'footer-streets': 'Streets',
     'footer-guides': 'Guides',
     'footer-privacy': 'Privacy',
     'footer-terms': 'Terms'
   },
   zh: {
+    'nav-streets': '街道',
     'nav-guides': '指南',
     'eyebrow': '英国房价情报',
     'h1': '我所在街道的<em>成交价是多少？</em>',
@@ -810,6 +973,12 @@ var i18n = {
     'pill-terraced': '排屋',
     'pill-flat': '公寓 / 复式',
     'pill-other': '其他',
+    'browse-eyebrow': '按街道浏览',
+    'browse-h2': '拥有完整逐笔成交记录的街道',
+    'browse-p': '覆盖 110 个邮编区的 124 条街道，收录 2018 至 2025 年的每一笔成交记录，含日期、价格、房屋类型与建筑面积。以下是最多人查询的街道。',
+    'browse-all': '查看全部有成交记录的街道 \u2192',
+    'browse-more': '查看全部 124 条街道',
+    'footer-streets': '街道',
     'footer-guides': '指南',
     'footer-privacy': '隐私政策',
     'footer-terms': '使用条款'
