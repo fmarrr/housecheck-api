@@ -158,7 +158,7 @@ def _build_postcode_sql(project, dataset, sector, full_postcode, property_type):
 
     if property_type:
         street_filter = (
-            "AND p.street IN (SELECT DISTINCT street FROM `{p}.{d}.mart_transactions` WHERE postcode = @postcode)"
+            "AND p.street IN (SELECT DISTINCT street FROM `{p}.{d}.mart_transactions` WHERE postcode_sector = @sector AND postcode = @postcode)"
             if full_postcode else ""
         ).format(p=project, d=dataset)
         sql = f"""
@@ -187,7 +187,7 @@ def _build_postcode_sql(project, dataset, sector, full_postcode, property_type):
             params.append(bigquery.ScalarQueryParameter("postcode", "STRING", full_postcode))
     else:
         street_filter = (
-            "AND t.street IN (SELECT DISTINCT street FROM `{p}.{d}.mart_transactions` WHERE postcode = @postcode)"
+            "AND t.street IN (SELECT DISTINCT street FROM `{p}.{d}.mart_transactions` WHERE postcode_sector = @sector AND postcode = @postcode)"
             if full_postcode else ""
         ).format(p=project, d=dataset)
         sql = f"""
@@ -407,18 +407,17 @@ def transactions(
 
     client = get_client()
     pt_filter = "AND property_type = @property_type" if property_type else ""
-    # postcode_sector is derived the same way the marts do: drop the last 2 chars
-    # of the full postcode (e.g. "SW6 5TJ" -> "SW6 5"), so it matches the grouped row.
+    # mart_transactions is clustered on postcode_sector + street, so filtering on the
+    # plain columns (no UPPER/SUBSTR) lets BigQuery read only that street's slice.
+    # Street names are stored upper-case, matching street.upper() below.
     sql = f"""
     SELECT
         sale_date, sale_price_gbp, property_type, tenure, build_status,
         flat_number, house_number_or_name, street, postcode
     FROM `{PROJECT_ID}.{DATASET}.mart_transactions`
-    WHERE UPPER(street) = @street
+    WHERE postcode_sector = @sector
+      AND street = @street
       AND sale_year = @year
-      AND postcode IS NOT NULL
-      AND LENGTH(TRIM(postcode)) > 2
-      AND SUBSTR(TRIM(postcode), 1, LENGTH(TRIM(postcode)) - 2) = @sector
       {pt_filter}
     ORDER BY sale_date DESC, sale_price_gbp DESC
     LIMIT 500
