@@ -4,7 +4,7 @@
 > actually sold for on that street, year by year, with year-on-year trend,
 > transaction counts and individual sale history. All data is HM Land Registry
 > Price Paid Data (England & Wales), released under the Open Government Licence
-> v3. Coverage 2018 onwards. Run by Trace Lab Studio LTD.
+> v3. Coverage 2008 onwards, refreshed monthly. Run by Trace Lab Studio LTD.
 
 ## Key pages
 
