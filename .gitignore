@@ -51,3 +51,10 @@ gha-creds-*.json
 *.local
 .cache/
 tmp/
+
+# ── Internal analytics: local only, never deploy (Vercel serves the repo root) ──
+reports/
+
+# ── Internal docs and lead data: local only (strategy, portfolio, listing tracker) ──
+docs/
+leads/
