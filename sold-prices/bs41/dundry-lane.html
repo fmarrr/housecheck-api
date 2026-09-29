@@ -64,7 +64,7 @@
   "description": "Last sold \u00a3590,000 on 20 Nov 2025. 44 sales on Dundry Lane, Bristol BS41 since 2008, 2025 median \u00a3675,000. Every price, date, type and floor area from HM Land Registry.",
   "url": "https://soldbystreet.co.uk/sold-prices/bs41/dundry-lane",
   "temporalCoverage": "2008/2025",
-  "dateModified": "2026-09-28",
+  "dateModified": "2026-09-29",
   "variableMeasured": [
     {
       "@type": "PropertyValue",
@@ -98,8 +98,71 @@
       "@type": "Place",
       "name": "BS41, Bristol",
       "url": "https://soldbystreet.co.uk/sold-prices/bs41"
-    }
+    },
+    "containsPlace": [
+      {
+        "@type": "Place",
+        "name": "BS41 8JF",
+        "url": "https://soldbystreet.co.uk/sold-prices/bs41/dundry-lane#bs41-8jf",
+        "address": {
+          "@type": "PostalAddress",
+          "postalCode": "BS41 8JF",
+          "addressCountry": "GB"
+        }
+      },
+      {
+        "@type": "Place",
+        "name": "BS41 8JQ",
+        "url": "https://soldbystreet.co.uk/sold-prices/bs41/dundry-lane#bs41-8jq",
+        "address": {
+          "@type": "PostalAddress",
+          "postalCode": "BS41 8JQ",
+          "addressCountry": "GB"
+        }
+      },
+      {
+        "@type": "Place",
+        "name": "BS41 8JH",
+        "url": "https://soldbystreet.co.uk/sold-prices/bs41/dundry-lane#bs41-8jh",
+        "address": {
+          "@type": "PostalAddress",
+          "postalCode": "BS41 8JH",
+          "addressCountry": "GB"
+        }
+      },
+      {
+        "@type": "Place",
+        "name": "BS41 8JE",
+        "url": "https://soldbystreet.co.uk/sold-prices/bs41/dundry-lane#bs41-8je",
+        "address": {
+          "@type": "PostalAddress",
+          "postalCode": "BS41 8JE",
+          "addressCountry": "GB"
+        }
+      },
+      {
+        "@type": "Place",
+        "name": "BS41 8JJ",
+        "url": "https://soldbystreet.co.uk/sold-prices/bs41/dundry-lane#bs41-8jj",
+        "address": {
+          "@type": "PostalAddress",
+          "postalCode": "BS41 8JJ",
+          "addressCountry": "GB"
+        }
+      },
+      {
+        "@type": "Place",
+        "name": "BS41 8JG",
+        "url": "https://soldbystreet.co.uk/sold-prices/bs41/dundry-lane#bs41-8jg",
+        "address": {
+          "@type": "PostalAddress",
+          "postalCode": "BS41 8JG",
+          "addressCountry": "GB"
+        }
+      }
+    ]
   },
+  "measurementTechnique": "https://soldbystreet.co.uk/methodology",
   "isPartOf": {
     "@type": "Dataset",
     "name": "Sold house prices in BS41 (Bristol)",
@@ -121,6 +184,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
+  tr:target td{background:var(--cream);}
+  .qa h3{font-size:1rem;margin:1.2rem 0 .3rem;}
+  .qa p{margin:0 0 .4rem;}
   :root{--ink:#0f0e0d;--paper:#f5f2ee;--cream:#ede9e3;--accent:#c8401a;
     --muted:#7a7570;--border:#d4cfc9;--up:#2d5a3d;--down:#9b2c2c;--psm:#5a7a9e;}
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -249,7 +315,15 @@
     move it. Figures count completed sales lodged with HM Land Registry; bulk and
     repossession transfers are excluded. 2025 is the latest complete year with sales on
     this street; newer sales take 2–3 months to be registered, so the current year is shown
-    as a part year and not compared.</p>
+    as a part year and not compared. <a href="/methodology">How these figures are worked out</a>.</p>
+
+  <h2 id="postcodes">Postcodes on Dundry Lane</h2>
+  <p>Dundry Lane has recorded sales under 6 postcodes: BS41 8JE, BS41 8JF, BS41 8JG, BS41 8JH, BS41 8JJ and BS41 8JQ. Each sale below shows its full postcode.</p>
+  <div class="scroll-x">
+  <table><thead><tr><th>Postcode</th><th class="num">Sales since 2008</th>
+    <th>Latest sale</th><th>Type</th><th class="num">Price</th></tr></thead>
+    <tbody><tr id='bs41-8jf'><td class='dt'>BS41 8JF</td><td class='num'>11</td><td class='dt'>25 Feb 2025</td><td>Detached</td><td class='num'>£865,000</td></tr><tr id='bs41-8jq'><td class='dt'>BS41 8JQ</td><td class='num'>11</td><td class='dt'>20 Nov 2025</td><td>Semi-Detached</td><td class='num'>£590,000</td></tr><tr id='bs41-8jh'><td class='dt'>BS41 8JH</td><td class='num'>7</td><td class='dt'>03 Mar 2025</td><td>Detached</td><td class='num'>£675,000</td></tr><tr id='bs41-8je'><td class='dt'>BS41 8JE</td><td class='num'>6</td><td class='dt'>13 Nov 2025</td><td>Detached</td><td class='num'>£647,500</td></tr><tr id='bs41-8jj'><td class='dt'>BS41 8JJ</td><td class='num'>5</td><td class='dt'>21 Mar 2024</td><td>Semi-Detached</td><td class='num'>£620,000</td></tr><tr id='bs41-8jg'><td class='dt'>BS41 8JG</td><td class='num'>4</td><td class='dt'>17 Oct 2025</td><td>Detached</td><td class='num'>£699,999</td></tr></tbody></table>
+  </div>
 
   <div class="alert" id="sbsAlert" data-postcode="BS41 8" data-query="Dundry Lane, BS41">
     <h3>Get an email when a home on Dundry Lane sells</h3>
@@ -292,10 +366,12 @@
   <p>All 44 sales since 2008, newest first. Floor area comes from the matching EPC
     certificate where one exists, which is why some rows have no £/m².</p>
   <div class="scroll">
-  <table><thead><tr><th>Date</th><th>Address</th><th>Type</th><th>Tenure</th>
+  <table><thead><tr><th>Date</th><th>Address</th><th>Postcode</th><th>Type</th><th>Tenure</th>
     <th class="num">Price</th><th class="num">Floor area</th><th class="num">£/m²</th></tr></thead>
-    <tbody><tr><td class='dt'>20 Nov 2025</td><td>40<span class='pc'>BS41 8JQ</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£590,000</td><td class='num'>144 m²</td><td class='num'>£4,097</td></tr><tr><td class='dt'>13 Nov 2025</td><td>105<span class='pc'>BS41 8JE</span></td><td>Detached</td><td>Freehold</td><td class='num'>£647,500</td><td class='num'>172 m²</td><td class='num'>£3,765</td></tr><tr><td class='dt'>17 Oct 2025</td><td>NUTGROVE COTTAGE, 68<span class='pc'>BS41 8JG</span></td><td>Detached</td><td>Freehold</td><td class='num'>£699,999</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>03 Mar 2025</td><td>5<span class='pc'>BS41 8JH</span></td><td>Detached</td><td>Freehold</td><td class='num'>£675,000</td><td class='num'>242 m²</td><td class='num'>£2,789</td></tr><tr><td class='dt'>25 Feb 2025</td><td>93<span class='pc'>BS41 8JF</span></td><td>Detached</td><td>Freehold</td><td class='num'>£865,000</td><td class='num'>276 m²</td><td class='num'>£3,134</td></tr><tr><td class='dt'>30 May 2024</td><td>89<span class='pc'>BS41 8JF</span></td><td>Detached</td><td>Freehold</td><td class='num'>£790,000</td><td class='num'>319 m²</td><td class='num'>£2,476</td></tr><tr><td class='dt'>17 May 2024</td><td>SOUTH GROVE<span class='pc'>BS41 8JF</span></td><td>Detached</td><td>Freehold</td><td class='num'>£940,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>28 Mar 2024</td><td>17<span class='pc'>BS41 8JH</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£390,000</td><td class='num'>120 m²</td><td class='num'>£3,250</td></tr><tr><td class='dt'>21 Mar 2024</td><td>64<span class='pc'>BS41 8JJ</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£620,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>23 Feb 2024</td><td>62<span class='pc'>BS41 8JJ</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£556,000</td><td class='num'>113 m²</td><td class='num'>£4,920</td></tr><tr><td class='dt'>02 Nov 2022</td><td>40<span class='pc'>BS41 8JQ</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£572,000</td><td class='num'>144 m²</td><td class='num'>£3,972</td></tr><tr><td class='dt'>30 Sep 2022</td><td>15<span class='pc'>BS41 8JH</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£800,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>03 Sep 2021</td><td>SOUTH GROVE<span class='pc'>BS41 8JF</span></td><td>Detached</td><td>Freehold</td><td class='num'>£872,500</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>21 Jan 2021</td><td>EASTGROVE<span class='pc'>BS41 8JF</span></td><td>Detached</td><td>Freehold</td><td class='num'>£510,000</td><td class='num'>159 m²</td><td class='num'>£3,208</td></tr><tr><td class='dt'>13 Feb 2020</td><td>NUTGROVE COTTAGE, 68<span class='pc'>BS41 8JG</span></td><td>Detached</td><td>Freehold</td><td class='num'>£490,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>28 Jun 2019</td><td>34<span class='pc'>BS41 8JQ</span></td><td>Detached</td><td>Freehold</td><td class='num'>£620,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>25 Mar 2019</td><td>104<span class='pc'>BS41 8JE</span></td><td>Detached</td><td>Freehold</td><td class='num'>£225,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>01 Jun 2018</td><td>62<span class='pc'>BS41 8JJ</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£430,000</td><td class='num'>113 m²</td><td class='num'>£3,805</td></tr><tr><td class='dt'>12 Apr 2018</td><td>32<span class='pc'>BS41 8JQ</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£725,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>16 Mar 2018</td><td>1<span class='pc'>BS41 8JH</span></td><td>Detached</td><td>Freehold</td><td class='num'>£507,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>02 Jun 2017</td><td>NORTHVIEW, 29<span class='pc'>BS41 8JG</span></td><td>Detached</td><td>Freehold</td><td class='num'>£1,100,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>08 Mar 2017</td><td>103<span class='pc'>BS41 8JE</span></td><td>Detached</td><td>Freehold</td><td class='num'>£470,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>11 Nov 2016</td><td>40<span class='pc'>BS41 8JQ</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£356,250</td><td class='num'>144 m²</td><td class='num'>£2,474</td></tr><tr><td class='dt'>02 Sep 2016</td><td>97<span class='pc'>BS41 8JE</span></td><td>Detached</td><td>Freehold</td><td class='num'>£550,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>12 Aug 2016</td><td>15<span class='pc'>BS41 8JH</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£530,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>01 Aug 2016</td><td>30<span class='pc'>BS41 8JQ</span></td><td>Detached</td><td>Freehold</td><td class='num'>£425,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>24 Mar 2016</td><td>DUNDRY HOUSE, 87<span class='pc'>BS41 8JF</span></td><td>Detached</td><td>Freehold</td><td class='num'>£475,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>22 Oct 2015</td><td>38<span class='pc'>BS41 8JQ</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£338,500</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>14 Apr 2015</td><td>NUTGROVE COTTAGE, 68<span class='pc'>BS41 8JG</span></td><td>Detached</td><td>Freehold</td><td class='num'>£411,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>13 Mar 2015</td><td>64<span class='pc'>BS41 8JJ</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£395,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>16 Jun 2014</td><td>62<span class='pc'>BS41 8JJ</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£315,000</td><td class='num'>113 m²</td><td class='num'>£2,788</td></tr><tr><td class='dt'>11 Apr 2014</td><td>99<span class='pc'>BS41 8JE</span></td><td>Detached</td><td>Freehold</td><td class='num'>£285,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>27 Jan 2014</td><td>48<span class='pc'>BS41 8JQ</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£187,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>29 Nov 2013</td><td>34<span class='pc'>BS41 8JQ</span></td><td>Detached</td><td>Freehold</td><td class='num'>£420,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>03 Aug 2012</td><td>5<span class='pc'>BS41 8JH</span></td><td>Detached</td><td>Freehold</td><td class='num'>£400,000</td><td class='num'>242 m²</td><td class='num'>£1,653</td></tr><tr><td class='dt'>29 Jun 2012</td><td>105<span class='pc'>BS41 8JE</span></td><td>Detached</td><td>Freehold</td><td class='num'>£335,000</td><td class='num'>172 m²</td><td class='num'>£1,948</td></tr><tr><td class='dt'>20 Jan 2012</td><td>WEST GROVE<span class='pc'>BS41 8JF</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£375,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>09 Sep 2011</td><td>EASTGROVE<span class='pc'>BS41 8JF</span></td><td>Detached</td><td>Freehold</td><td class='num'>£400,000</td><td class='num'>159 m²</td><td class='num'>£2,516</td></tr><tr><td class='dt'>11 Mar 2011</td><td>52<span class='pc'>BS41 8JQ</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£290,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>25 Oct 2010</td><td>83<span class='pc'>BS41 8JF</span></td><td>Detached</td><td>Freehold</td><td class='num'>£249,995</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>20 Sep 2010</td><td>WEST GROVE<span class='pc'>BS41 8JF</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£350,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>25 Jun 2010</td><td>15<span class='pc'>BS41 8JH</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£327,500</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>08 Jan 2010</td><td>79<span class='pc'>BS41 8JF</span></td><td>Detached</td><td>Freehold</td><td class='num'>£540,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>05 Mar 2008</td><td>Myrtle Tree Cottage 58<span class='pc'>BS41 8JQ</span></td><td>Detached</td><td>Freehold</td><td class='num'>£498,000</td><td class='num'>—</td><td class='num'>—</td></tr></tbody></table>
+    <tbody><tr><td class='dt'>20 Nov 2025</td><td>40</td><td class='dt'>BS41 8JQ</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£590,000</td><td class='num'>144 m²</td><td class='num'>£4,097</td></tr><tr><td class='dt'>13 Nov 2025</td><td>105</td><td class='dt'>BS41 8JE</td><td>Detached</td><td>Freehold</td><td class='num'>£647,500</td><td class='num'>172 m²</td><td class='num'>£3,765</td></tr><tr><td class='dt'>17 Oct 2025</td><td>NUTGROVE COTTAGE, 68</td><td class='dt'>BS41 8JG</td><td>Detached</td><td>Freehold</td><td class='num'>£699,999</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>03 Mar 2025</td><td>5</td><td class='dt'>BS41 8JH</td><td>Detached</td><td>Freehold</td><td class='num'>£675,000</td><td class='num'>242 m²</td><td class='num'>£2,789</td></tr><tr><td class='dt'>25 Feb 2025</td><td>93</td><td class='dt'>BS41 8JF</td><td>Detached</td><td>Freehold</td><td class='num'>£865,000</td><td class='num'>276 m²</td><td class='num'>£3,134</td></tr><tr><td class='dt'>30 May 2024</td><td>89</td><td class='dt'>BS41 8JF</td><td>Detached</td><td>Freehold</td><td class='num'>£790,000</td><td class='num'>319 m²</td><td class='num'>£2,476</td></tr><tr><td class='dt'>17 May 2024</td><td>SOUTH GROVE</td><td class='dt'>BS41 8JF</td><td>Detached</td><td>Freehold</td><td class='num'>£940,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>28 Mar 2024</td><td>17</td><td class='dt'>BS41 8JH</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£390,000</td><td class='num'>120 m²</td><td class='num'>£3,250</td></tr><tr><td class='dt'>21 Mar 2024</td><td>64</td><td class='dt'>BS41 8JJ</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£620,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>23 Feb 2024</td><td>62</td><td class='dt'>BS41 8JJ</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£556,000</td><td class='num'>113 m²</td><td class='num'>£4,920</td></tr><tr><td class='dt'>02 Nov 2022</td><td>40</td><td class='dt'>BS41 8JQ</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£572,000</td><td class='num'>144 m²</td><td class='num'>£3,972</td></tr><tr><td class='dt'>30 Sep 2022</td><td>15</td><td class='dt'>BS41 8JH</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£800,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>03 Sep 2021</td><td>SOUTH GROVE</td><td class='dt'>BS41 8JF</td><td>Detached</td><td>Freehold</td><td class='num'>£872,500</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>21 Jan 2021</td><td>EASTGROVE</td><td class='dt'>BS41 8JF</td><td>Detached</td><td>Freehold</td><td class='num'>£510,000</td><td class='num'>159 m²</td><td class='num'>£3,208</td></tr><tr><td class='dt'>13 Feb 2020</td><td>NUTGROVE COTTAGE, 68</td><td class='dt'>BS41 8JG</td><td>Detached</td><td>Freehold</td><td class='num'>£490,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>28 Jun 2019</td><td>34</td><td class='dt'>BS41 8JQ</td><td>Detached</td><td>Freehold</td><td class='num'>£620,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>25 Mar 2019</td><td>104</td><td class='dt'>BS41 8JE</td><td>Detached</td><td>Freehold</td><td class='num'>£225,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>01 Jun 2018</td><td>62</td><td class='dt'>BS41 8JJ</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£430,000</td><td class='num'>113 m²</td><td class='num'>£3,805</td></tr><tr><td class='dt'>12 Apr 2018</td><td>32</td><td class='dt'>BS41 8JQ</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£725,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>16 Mar 2018</td><td>1</td><td class='dt'>BS41 8JH</td><td>Detached</td><td>Freehold</td><td class='num'>£507,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>02 Jun 2017</td><td>NORTHVIEW, 29</td><td class='dt'>BS41 8JG</td><td>Detached</td><td>Freehold</td><td class='num'>£1,100,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>08 Mar 2017</td><td>103</td><td class='dt'>BS41 8JE</td><td>Detached</td><td>Freehold</td><td class='num'>£470,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>11 Nov 2016</td><td>40</td><td class='dt'>BS41 8JQ</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£356,250</td><td class='num'>144 m²</td><td class='num'>£2,474</td></tr><tr><td class='dt'>02 Sep 2016</td><td>97</td><td class='dt'>BS41 8JE</td><td>Detached</td><td>Freehold</td><td class='num'>£550,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>12 Aug 2016</td><td>15</td><td class='dt'>BS41 8JH</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£530,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>01 Aug 2016</td><td>30</td><td class='dt'>BS41 8JQ</td><td>Detached</td><td>Freehold</td><td class='num'>£425,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>24 Mar 2016</td><td>DUNDRY HOUSE, 87</td><td class='dt'>BS41 8JF</td><td>Detached</td><td>Freehold</td><td class='num'>£475,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>22 Oct 2015</td><td>38</td><td class='dt'>BS41 8JQ</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£338,500</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>14 Apr 2015</td><td>NUTGROVE COTTAGE, 68</td><td class='dt'>BS41 8JG</td><td>Detached</td><td>Freehold</td><td class='num'>£411,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>13 Mar 2015</td><td>64</td><td class='dt'>BS41 8JJ</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£395,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>16 Jun 2014</td><td>62</td><td class='dt'>BS41 8JJ</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£315,000</td><td class='num'>113 m²</td><td class='num'>£2,788</td></tr><tr><td class='dt'>11 Apr 2014</td><td>99</td><td class='dt'>BS41 8JE</td><td>Detached</td><td>Freehold</td><td class='num'>£285,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>27 Jan 2014</td><td>48</td><td class='dt'>BS41 8JQ</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£187,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>29 Nov 2013</td><td>34</td><td class='dt'>BS41 8JQ</td><td>Detached</td><td>Freehold</td><td class='num'>£420,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>03 Aug 2012</td><td>5</td><td class='dt'>BS41 8JH</td><td>Detached</td><td>Freehold</td><td class='num'>£400,000</td><td class='num'>242 m²</td><td class='num'>£1,653</td></tr><tr><td class='dt'>29 Jun 2012</td><td>105</td><td class='dt'>BS41 8JE</td><td>Detached</td><td>Freehold</td><td class='num'>£335,000</td><td class='num'>172 m²</td><td class='num'>£1,948</td></tr><tr><td class='dt'>20 Jan 2012</td><td>WEST GROVE</td><td class='dt'>BS41 8JF</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£375,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>09 Sep 2011</td><td>EASTGROVE</td><td class='dt'>BS41 8JF</td><td>Detached</td><td>Freehold</td><td class='num'>£400,000</td><td class='num'>159 m²</td><td class='num'>£2,516</td></tr><tr><td class='dt'>11 Mar 2011</td><td>52</td><td class='dt'>BS41 8JQ</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£290,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>25 Oct 2010</td><td>83</td><td class='dt'>BS41 8JF</td><td>Detached</td><td>Freehold</td><td class='num'>£249,995</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>20 Sep 2010</td><td>WEST GROVE</td><td class='dt'>BS41 8JF</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£350,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>25 Jun 2010</td><td>15</td><td class='dt'>BS41 8JH</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£327,500</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>08 Jan 2010</td><td>79</td><td class='dt'>BS41 8JF</td><td>Detached</td><td>Freehold</td><td class='num'>£540,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>05 Mar 2008</td><td>Myrtle Tree Cottage 58</td><td class='dt'>BS41 8JQ</td><td>Detached</td><td>Freehold</td><td class='num'>£498,000</td><td class='num'>—</td><td class='num'>—</td></tr></tbody></table>
   </div>
+
+  
 
   <h2>Other streets with a price history</h2>
   <div class="chips"><a class='chip' href='/sold-prices/bs34/branksome-drive'>Branksome Drive BS34 <span style='color:var(--muted)'>£285,000</span></a></div>
@@ -305,6 +381,7 @@
   <a href="/guides">Guides</a>
   <a href="/privacy">Privacy</a>
   <a href="/terms">Terms</a>
+  <a href="/methodology">Methodology</a>
   <div style="flex-basis:100%;text-transform:none;letter-spacing:0.03em;color:var(--muted);">Contains HM Land Registry data © Crown copyright and database right 2026. Licensed under the Open Government Licence v3.0. Trace Lab Studio LTD, registered in England and Wales no. 17340427. Registered office: 128 City Road, London, EC1V 2NX.</div>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>

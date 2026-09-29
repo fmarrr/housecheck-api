@@ -64,7 +64,7 @@
   "description": "Last sold \u00a3425,000 on 20 May 2026. 27 sales on Birchwood Drive, West Byfleet KT14 since 2008, 2025 median \u00a3475,000. Every price, date, type and floor area from HM Land Registry.",
   "url": "https://soldbystreet.co.uk/sold-prices/kt14/birchwood-drive",
   "temporalCoverage": "2008/2026",
-  "dateModified": "2026-09-28",
+  "dateModified": "2026-09-29",
   "variableMeasured": [
     {
       "@type": "PropertyValue",
@@ -98,8 +98,31 @@
       "@type": "Place",
       "name": "KT14, West Byfleet",
       "url": "https://soldbystreet.co.uk/sold-prices/kt14"
-    }
+    },
+    "containsPlace": [
+      {
+        "@type": "Place",
+        "name": "KT14 6DS",
+        "url": "https://soldbystreet.co.uk/sold-prices/kt14/birchwood-drive#kt14-6ds",
+        "address": {
+          "@type": "PostalAddress",
+          "postalCode": "KT14 6DS",
+          "addressCountry": "GB"
+        }
+      },
+      {
+        "@type": "Place",
+        "name": "KT14 6FB",
+        "url": "https://soldbystreet.co.uk/sold-prices/kt14/birchwood-drive#kt14-6fb",
+        "address": {
+          "@type": "PostalAddress",
+          "postalCode": "KT14 6FB",
+          "addressCountry": "GB"
+        }
+      }
+    ]
   },
+  "measurementTechnique": "https://soldbystreet.co.uk/methodology",
   "isPartOf": {
     "@type": "Dataset",
     "name": "Sold house prices in KT14 (West Byfleet)",
@@ -121,6 +144,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
+  tr:target td{background:var(--cream);}
+  .qa h3{font-size:1rem;margin:1.2rem 0 .3rem;}
+  .qa p{margin:0 0 .4rem;}
   :root{--ink:#0f0e0d;--paper:#f5f2ee;--cream:#ede9e3;--accent:#c8401a;
     --muted:#7a7570;--border:#d4cfc9;--up:#2d5a3d;--down:#9b2c2c;--psm:#5a7a9e;}
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -249,7 +275,15 @@
     move it. Figures count completed sales lodged with HM Land Registry; bulk and
     repossession transfers are excluded. 2025 is the latest complete year with sales on
     this street; newer sales take 2–3 months to be registered, so the current year is shown
-    as a part year and not compared.</p>
+    as a part year and not compared. <a href="/methodology">How these figures are worked out</a>.</p>
+
+  <h2 id="postcodes">Postcodes on Birchwood Drive</h2>
+  <p>Birchwood Drive has recorded sales under 2 postcodes: KT14 6DS and KT14 6FB. Each sale below shows its full postcode.</p>
+  <div class="scroll-x">
+  <table><thead><tr><th>Postcode</th><th class="num">Sales since 2008</th>
+    <th>Latest sale</th><th>Type</th><th class="num">Price</th></tr></thead>
+    <tbody><tr id='kt14-6ds'><td class='dt'>KT14 6DS</td><td class='num'>18</td><td class='dt'>20 May 2026</td><td>Terraced</td><td class='num'>£425,000</td></tr><tr id='kt14-6fb'><td class='dt'>KT14 6FB</td><td class='num'>9</td><td class='dt'>14 May 2021</td><td>Flat</td><td class='num'>£362,500</td></tr></tbody></table>
+  </div>
 
   <div class="alert" id="sbsAlert" data-postcode="KT14 6" data-query="Birchwood Drive, KT14">
     <h3>Get an email when a home on Birchwood Drive sells</h3>
@@ -292,10 +326,12 @@
   <p>All 27 sales since 2008, newest first. Floor area comes from the matching EPC
     certificate where one exists, which is why some rows have no £/m².</p>
   <div class="scroll">
-  <table><thead><tr><th>Date</th><th>Address</th><th>Type</th><th>Tenure</th>
+  <table><thead><tr><th>Date</th><th>Address</th><th>Postcode</th><th>Type</th><th>Tenure</th>
     <th class="num">Price</th><th class="num">Floor area</th><th class="num">£/m²</th></tr></thead>
-    <tbody><tr><td class='dt'>20 May 2026</td><td>14<span class='pc'>KT14 6DS</span></td><td>Terraced</td><td>Freehold</td><td class='num'>£425,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>08 Dec 2025</td><td>21<span class='pc'>KT14 6DS</span></td><td>Detached</td><td>Freehold</td><td class='num'>£740,000</td><td class='num'>128 m²</td><td class='num'>£5,781</td></tr><tr><td class='dt'>31 Jul 2025</td><td>6<span class='pc'>KT14 6DS</span></td><td>Terraced</td><td>Freehold</td><td class='num'>£475,000</td><td class='num'>78 m²</td><td class='num'>£6,090</td></tr><tr><td class='dt'>11 Jul 2025</td><td>15<span class='pc'>KT14 6DS</span></td><td>Terraced</td><td>Freehold</td><td class='num'>£400,000</td><td class='num'>72 m²</td><td class='num'>£5,556</td></tr><tr><td class='dt'>22 Jul 2024</td><td>7<span class='pc'>KT14 6DS</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£388,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>12 May 2023</td><td>20<span class='pc'>KT14 6DS</span></td><td>Detached</td><td>Freehold</td><td class='num'>£530,000</td><td class='num'>67 m²</td><td class='num'>£7,910</td></tr><tr><td class='dt'>17 Jun 2022</td><td>17<span class='pc'>KT14 6DS</span></td><td>Terraced</td><td>Freehold</td><td class='num'>£375,000</td><td class='num'>72 m²</td><td class='num'>£5,208</td></tr><tr><td class='dt'>03 Dec 2021</td><td>6<span class='pc'>KT14 6DS</span></td><td>Terraced</td><td>Freehold</td><td class='num'>£347,000</td><td class='num'>68 m²</td><td class='num'>£5,103</td></tr><tr><td class='dt'>24 Sep 2021</td><td>14<span class='pc'>KT14 6DS</span></td><td>Terraced</td><td>Freehold</td><td class='num'>£390,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>14 May 2021</td><td>Flat 4 BIRCHWOOD COURT<span class='pc'>KT14 6FB</span></td><td>Flat</td><td>Leasehold</td><td class='num'>£362,500</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>11 Feb 2021</td><td>8<span class='pc'>KT14 6DS</span></td><td>Terraced</td><td>Freehold</td><td class='num'>£380,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>16 Nov 2020</td><td>Flat 6 BIRCHWOOD COURT<span class='pc'>KT14 6FB</span></td><td>Flat</td><td>Leasehold</td><td class='num'>£348,000</td><td class='num'>85 m²</td><td class='num'>£4,094</td></tr><tr><td class='dt'>14 Nov 2017</td><td>20<span class='pc'>KT14 6DS</span></td><td>Detached</td><td>Freehold</td><td class='num'>£427,500</td><td class='num'>67 m²</td><td class='num'>£6,381</td></tr><tr><td class='dt'>01 Nov 2017</td><td>8<span class='pc'>KT14 6DS</span></td><td>Terraced</td><td>Freehold</td><td class='num'>£355,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>15 Sep 2017</td><td>14<span class='pc'>KT14 6DS</span></td><td>Terraced</td><td>Freehold</td><td class='num'>£348,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>09 Jun 2017</td><td>21<span class='pc'>KT14 6DS</span></td><td>Detached</td><td>Freehold</td><td class='num'>£599,250</td><td class='num'>128 m²</td><td class='num'>£4,682</td></tr><tr><td class='dt'>31 Mar 2017</td><td>2<span class='pc'>KT14 6DS</span></td><td>Terraced</td><td>Freehold</td><td class='num'>£325,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>07 Feb 2014</td><td>Flat 3 BIRCHWOOD COURT<span class='pc'>KT14 6FB</span></td><td>Flat</td><td>Leasehold</td><td class='num'>£300,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>08 Mar 2013</td><td>11<span class='pc'>KT14 6DS</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£245,000</td><td class='num'>69 m²</td><td class='num'>£3,551</td></tr><tr><td class='dt'>04 Mar 2013</td><td>14<span class='pc'>KT14 6DS</span></td><td>Terraced</td><td>Freehold</td><td class='num'>£249,950</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>20 Mar 2012</td><td>Flat 6 BIRCHWOOD COURT<span class='pc'>KT14 6FB</span></td><td>Flat <span class='nb'>new build</span></td><td>Leasehold</td><td class='num'>£267,000</td><td class='num'>85 m²</td><td class='num'>£3,141</td></tr><tr><td class='dt'>09 Mar 2012</td><td>Flat 1 BIRCHWOOD COURT<span class='pc'>KT14 6FB</span></td><td>Flat</td><td>Leasehold</td><td class='num'>£292,500</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>22 Dec 2011</td><td>Flat 3 BIRCHWOOD COURT<span class='pc'>KT14 6FB</span></td><td>Flat <span class='nb'>new build</span></td><td>Leasehold</td><td class='num'>£250,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>22 Dec 2011</td><td>Flat 2 BIRCHWOOD COURT<span class='pc'>KT14 6FB</span></td><td>Flat <span class='nb'>new build</span></td><td>Leasehold</td><td class='num'>£299,950</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>16 Dec 2011</td><td>Flat 6 BIRCHWOOD COURT<span class='pc'>KT14 6FB</span></td><td>Flat <span class='nb'>new build</span></td><td>Leasehold</td><td class='num'>£279,950</td><td class='num'>85 m²</td><td class='num'>£3,294</td></tr><tr><td class='dt'>09 Dec 2011</td><td>Flat 4 BIRCHWOOD COURT<span class='pc'>KT14 6FB</span></td><td>Flat <span class='nb'>new build</span></td><td>Leasehold</td><td class='num'>£290,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>11 Apr 2008</td><td>13<span class='pc'>KT14 6DS</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£240,000</td><td class='num'>—</td><td class='num'>—</td></tr></tbody></table>
+    <tbody><tr><td class='dt'>20 May 2026</td><td>14</td><td class='dt'>KT14 6DS</td><td>Terraced</td><td>Freehold</td><td class='num'>£425,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>08 Dec 2025</td><td>21</td><td class='dt'>KT14 6DS</td><td>Detached</td><td>Freehold</td><td class='num'>£740,000</td><td class='num'>128 m²</td><td class='num'>£5,781</td></tr><tr><td class='dt'>31 Jul 2025</td><td>6</td><td class='dt'>KT14 6DS</td><td>Terraced</td><td>Freehold</td><td class='num'>£475,000</td><td class='num'>78 m²</td><td class='num'>£6,090</td></tr><tr><td class='dt'>11 Jul 2025</td><td>15</td><td class='dt'>KT14 6DS</td><td>Terraced</td><td>Freehold</td><td class='num'>£400,000</td><td class='num'>72 m²</td><td class='num'>£5,556</td></tr><tr><td class='dt'>22 Jul 2024</td><td>7</td><td class='dt'>KT14 6DS</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£388,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>12 May 2023</td><td>20</td><td class='dt'>KT14 6DS</td><td>Detached</td><td>Freehold</td><td class='num'>£530,000</td><td class='num'>67 m²</td><td class='num'>£7,910</td></tr><tr><td class='dt'>17 Jun 2022</td><td>17</td><td class='dt'>KT14 6DS</td><td>Terraced</td><td>Freehold</td><td class='num'>£375,000</td><td class='num'>72 m²</td><td class='num'>£5,208</td></tr><tr><td class='dt'>03 Dec 2021</td><td>6</td><td class='dt'>KT14 6DS</td><td>Terraced</td><td>Freehold</td><td class='num'>£347,000</td><td class='num'>68 m²</td><td class='num'>£5,103</td></tr><tr><td class='dt'>24 Sep 2021</td><td>14</td><td class='dt'>KT14 6DS</td><td>Terraced</td><td>Freehold</td><td class='num'>£390,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>14 May 2021</td><td>Flat 4 BIRCHWOOD COURT</td><td class='dt'>KT14 6FB</td><td>Flat</td><td>Leasehold</td><td class='num'>£362,500</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>11 Feb 2021</td><td>8</td><td class='dt'>KT14 6DS</td><td>Terraced</td><td>Freehold</td><td class='num'>£380,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>16 Nov 2020</td><td>Flat 6 BIRCHWOOD COURT</td><td class='dt'>KT14 6FB</td><td>Flat</td><td>Leasehold</td><td class='num'>£348,000</td><td class='num'>85 m²</td><td class='num'>£4,094</td></tr><tr><td class='dt'>14 Nov 2017</td><td>20</td><td class='dt'>KT14 6DS</td><td>Detached</td><td>Freehold</td><td class='num'>£427,500</td><td class='num'>67 m²</td><td class='num'>£6,381</td></tr><tr><td class='dt'>01 Nov 2017</td><td>8</td><td class='dt'>KT14 6DS</td><td>Terraced</td><td>Freehold</td><td class='num'>£355,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>15 Sep 2017</td><td>14</td><td class='dt'>KT14 6DS</td><td>Terraced</td><td>Freehold</td><td class='num'>£348,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>09 Jun 2017</td><td>21</td><td class='dt'>KT14 6DS</td><td>Detached</td><td>Freehold</td><td class='num'>£599,250</td><td class='num'>128 m²</td><td class='num'>£4,682</td></tr><tr><td class='dt'>31 Mar 2017</td><td>2</td><td class='dt'>KT14 6DS</td><td>Terraced</td><td>Freehold</td><td class='num'>£325,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>07 Feb 2014</td><td>Flat 3 BIRCHWOOD COURT</td><td class='dt'>KT14 6FB</td><td>Flat</td><td>Leasehold</td><td class='num'>£300,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>08 Mar 2013</td><td>11</td><td class='dt'>KT14 6DS</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£245,000</td><td class='num'>69 m²</td><td class='num'>£3,551</td></tr><tr><td class='dt'>04 Mar 2013</td><td>14</td><td class='dt'>KT14 6DS</td><td>Terraced</td><td>Freehold</td><td class='num'>£249,950</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>20 Mar 2012</td><td>Flat 6 BIRCHWOOD COURT</td><td class='dt'>KT14 6FB</td><td>Flat <span class='nb'>new build</span></td><td>Leasehold</td><td class='num'>£267,000</td><td class='num'>85 m²</td><td class='num'>£3,141</td></tr><tr><td class='dt'>09 Mar 2012</td><td>Flat 1 BIRCHWOOD COURT</td><td class='dt'>KT14 6FB</td><td>Flat</td><td>Leasehold</td><td class='num'>£292,500</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>22 Dec 2011</td><td>Flat 3 BIRCHWOOD COURT</td><td class='dt'>KT14 6FB</td><td>Flat <span class='nb'>new build</span></td><td>Leasehold</td><td class='num'>£250,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>22 Dec 2011</td><td>Flat 2 BIRCHWOOD COURT</td><td class='dt'>KT14 6FB</td><td>Flat <span class='nb'>new build</span></td><td>Leasehold</td><td class='num'>£299,950</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>16 Dec 2011</td><td>Flat 6 BIRCHWOOD COURT</td><td class='dt'>KT14 6FB</td><td>Flat <span class='nb'>new build</span></td><td>Leasehold</td><td class='num'>£279,950</td><td class='num'>85 m²</td><td class='num'>£3,294</td></tr><tr><td class='dt'>09 Dec 2011</td><td>Flat 4 BIRCHWOOD COURT</td><td class='dt'>KT14 6FB</td><td>Flat <span class='nb'>new build</span></td><td>Leasehold</td><td class='num'>£290,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>11 Apr 2008</td><td>13</td><td class='dt'>KT14 6DS</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£240,000</td><td class='num'>—</td><td class='num'>—</td></tr></tbody></table>
   </div>
+
+  
 
   <h2>Other streets with a price history</h2>
   <div class="chips"><a class='chip' href='/sold-prices/rh1/st-johns-road'>St Johns Road RH1 <span style='color:var(--muted)'>£360,000</span></a><a class='chip' href='/sold-prices/kt13/cavendish-road'>Cavendish Road KT13 <span style='color:var(--muted)'>£975,000</span></a><a class='chip' href='/sold-prices/rh1/shirley-avenue'>Shirley Avenue RH1 <span style='color:var(--muted)'>£460,000</span></a></div>
@@ -305,6 +341,7 @@
   <a href="/guides">Guides</a>
   <a href="/privacy">Privacy</a>
   <a href="/terms">Terms</a>
+  <a href="/methodology">Methodology</a>
   <div style="flex-basis:100%;text-transform:none;letter-spacing:0.03em;color:var(--muted);">Contains HM Land Registry data © Crown copyright and database right 2026. Licensed under the Open Government Licence v3.0. Trace Lab Studio LTD, registered in England and Wales no. 17340427. Registered office: 128 City Road, London, EC1V 2NX.</div>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>

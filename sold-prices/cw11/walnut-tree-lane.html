@@ -64,7 +64,7 @@
   "description": "Last sold \u00a3455,000 on 16 Jul 2025. 17 sales on Walnut Tree Lane, Sandbach CW11 since 2010, 2025 median \u00a3455,000. Every price, date, type and floor area from HM Land Registry.",
   "url": "https://soldbystreet.co.uk/sold-prices/cw11/walnut-tree-lane",
   "temporalCoverage": "2010/2025",
-  "dateModified": "2026-09-28",
+  "dateModified": "2026-09-29",
   "variableMeasured": [
     {
       "@type": "PropertyValue",
@@ -98,8 +98,21 @@
       "@type": "Place",
       "name": "CW11, Sandbach",
       "url": "https://soldbystreet.co.uk/sold-prices/cw11"
-    }
+    },
+    "containsPlace": [
+      {
+        "@type": "Place",
+        "name": "CW11 1RH",
+        "url": "https://soldbystreet.co.uk/sold-prices/cw11/walnut-tree-lane#cw11-1rh",
+        "address": {
+          "@type": "PostalAddress",
+          "postalCode": "CW11 1RH",
+          "addressCountry": "GB"
+        }
+      }
+    ]
   },
+  "measurementTechnique": "https://soldbystreet.co.uk/methodology",
   "isPartOf": {
     "@type": "Dataset",
     "name": "Sold house prices in CW11 (Sandbach)",
@@ -121,6 +134,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
+  tr:target td{background:var(--cream);}
+  .qa h3{font-size:1rem;margin:1.2rem 0 .3rem;}
+  .qa p{margin:0 0 .4rem;}
   :root{--ink:#0f0e0d;--paper:#f5f2ee;--cream:#ede9e3;--accent:#c8401a;
     --muted:#7a7570;--border:#d4cfc9;--up:#2d5a3d;--down:#9b2c2c;--psm:#5a7a9e;}
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -247,7 +263,15 @@
     move it. Figures count completed sales lodged with HM Land Registry; bulk and
     repossession transfers are excluded. 2025 is the latest complete year with sales on
     this street; newer sales take 2–3 months to be registered, so the current year is shown
-    as a part year and not compared.</p>
+    as a part year and not compared. <a href="/methodology">How these figures are worked out</a>.</p>
+
+  <h2 id="postcodes">Postcodes on Walnut Tree Lane</h2>
+  <p>Walnut Tree Lane has recorded sales under 1 postcode: CW11 1RH. Each sale below shows its full postcode.</p>
+  <div class="scroll-x">
+  <table><thead><tr><th>Postcode</th><th class="num">Sales since 2010</th>
+    <th>Latest sale</th><th>Type</th><th class="num">Price</th></tr></thead>
+    <tbody><tr id='cw11-1rh'><td class='dt'>CW11 1RH</td><td class='num'>17</td><td class='dt'>16 Jul 2025</td><td>Terraced</td><td class='num'>£455,000</td></tr></tbody></table>
+  </div>
 
   <div class="alert" id="sbsAlert" data-postcode="CW11 1" data-query="Walnut Tree Lane, CW11">
     <h3>Get an email when a home on Walnut Tree Lane sells</h3>
@@ -290,10 +314,12 @@
   <p>All 17 sales since 2010, newest first. Floor area comes from the matching EPC
     certificate where one exists, which is why some rows have no £/m².</p>
   <div class="scroll">
-  <table><thead><tr><th>Date</th><th>Address</th><th>Type</th><th>Tenure</th>
+  <table><thead><tr><th>Date</th><th>Address</th><th>Postcode</th><th>Type</th><th>Tenure</th>
     <th class="num">Price</th><th class="num">Floor area</th><th class="num">£/m²</th></tr></thead>
-    <tbody><tr><td class='dt'>16 Jul 2025</td><td>2 SCHOOL FARM COURT<span class='pc'>CW11 1RH</span></td><td>Terraced</td><td>Freehold</td><td class='num'>£455,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>12 Jul 2024</td><td>4 SCHOOL FARM COURT<span class='pc'>CW11 1RH</span></td><td>Terraced</td><td>Freehold</td><td class='num'>£283,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>15 Jan 2024</td><td>SCHOOL FARM<span class='pc'>CW11 1RH</span></td><td>Detached</td><td>Freehold</td><td class='num'>£415,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>15 Sep 2023</td><td>1 WALNUT TREE COTTAGES<span class='pc'>CW11 1RH</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£250,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>19 Dec 2022</td><td>3 SCHOOL COTTAGES<span class='pc'>CW11 1RH</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£403,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>17 Sep 2021</td><td>SCHOOL FARM<span class='pc'>CW11 1RH</span></td><td>Detached</td><td>Freehold</td><td class='num'>£395,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>28 Apr 2021</td><td>OAK LODGE<span class='pc'>CW11 1RH</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£430,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>25 Feb 2020</td><td>3 SCHOOL COTTAGES<span class='pc'>CW11 1RH</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£360,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>02 Aug 2019</td><td>WILLOW LODGE<span class='pc'>CW11 1RH</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£454,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>18 Mar 2019</td><td>4 SCHOOL FARM COURT<span class='pc'>CW11 1RH</span></td><td>Terraced</td><td>Freehold</td><td class='num'>£223,500</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>10 Aug 2018</td><td>3 SCHOOL FARM COURT<span class='pc'>CW11 1RH</span></td><td>Terraced</td><td>Freehold</td><td class='num'>£425,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>04 Apr 2018</td><td>SWALLOWS ROOST<span class='pc'>CW11 1RH</span></td><td>Terraced</td><td>Freehold</td><td class='num'>£760,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>07 Apr 2017</td><td>3 SCHOOL COTTAGES<span class='pc'>CW11 1RH</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£325,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>19 Aug 2016</td><td>THE RIDINGS<span class='pc'>CW11 1RH</span></td><td>Terraced</td><td>Freehold</td><td class='num'>£695,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>26 Apr 2013</td><td>2 SCHOOL COTTAGES<span class='pc'>CW11 1RH</span></td><td>Terraced</td><td>Freehold</td><td class='num'>£240,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>14 Dec 2011</td><td>3 SCHOOL FARM COURT<span class='pc'>CW11 1RH</span></td><td>Terraced</td><td>Freehold</td><td class='num'>£365,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>15 Dec 2010</td><td>WALNUT BARN<span class='pc'>CW11 1RH</span></td><td>Terraced</td><td>Freehold</td><td class='num'>£418,500</td><td class='num'>—</td><td class='num'>—</td></tr></tbody></table>
+    <tbody><tr><td class='dt'>16 Jul 2025</td><td>2 SCHOOL FARM COURT</td><td class='dt'>CW11 1RH</td><td>Terraced</td><td>Freehold</td><td class='num'>£455,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>12 Jul 2024</td><td>4 SCHOOL FARM COURT</td><td class='dt'>CW11 1RH</td><td>Terraced</td><td>Freehold</td><td class='num'>£283,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>15 Jan 2024</td><td>SCHOOL FARM</td><td class='dt'>CW11 1RH</td><td>Detached</td><td>Freehold</td><td class='num'>£415,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>15 Sep 2023</td><td>1 WALNUT TREE COTTAGES</td><td class='dt'>CW11 1RH</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£250,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>19 Dec 2022</td><td>3 SCHOOL COTTAGES</td><td class='dt'>CW11 1RH</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£403,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>17 Sep 2021</td><td>SCHOOL FARM</td><td class='dt'>CW11 1RH</td><td>Detached</td><td>Freehold</td><td class='num'>£395,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>28 Apr 2021</td><td>OAK LODGE</td><td class='dt'>CW11 1RH</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£430,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>25 Feb 2020</td><td>3 SCHOOL COTTAGES</td><td class='dt'>CW11 1RH</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£360,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>02 Aug 2019</td><td>WILLOW LODGE</td><td class='dt'>CW11 1RH</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£454,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>18 Mar 2019</td><td>4 SCHOOL FARM COURT</td><td class='dt'>CW11 1RH</td><td>Terraced</td><td>Freehold</td><td class='num'>£223,500</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>10 Aug 2018</td><td>3 SCHOOL FARM COURT</td><td class='dt'>CW11 1RH</td><td>Terraced</td><td>Freehold</td><td class='num'>£425,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>04 Apr 2018</td><td>SWALLOWS ROOST</td><td class='dt'>CW11 1RH</td><td>Terraced</td><td>Freehold</td><td class='num'>£760,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>07 Apr 2017</td><td>3 SCHOOL COTTAGES</td><td class='dt'>CW11 1RH</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£325,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>19 Aug 2016</td><td>THE RIDINGS</td><td class='dt'>CW11 1RH</td><td>Terraced</td><td>Freehold</td><td class='num'>£695,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>26 Apr 2013</td><td>2 SCHOOL COTTAGES</td><td class='dt'>CW11 1RH</td><td>Terraced</td><td>Freehold</td><td class='num'>£240,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>14 Dec 2011</td><td>3 SCHOOL FARM COURT</td><td class='dt'>CW11 1RH</td><td>Terraced</td><td>Freehold</td><td class='num'>£365,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>15 Dec 2010</td><td>WALNUT BARN</td><td class='dt'>CW11 1RH</td><td>Terraced</td><td>Freehold</td><td class='num'>£418,500</td><td class='num'>—</td><td class='num'>—</td></tr></tbody></table>
   </div>
+
+  
 
   <h2>Other streets with a price history</h2>
   <div class="chips"><a class='chip' href='/sold-prices/cw1/broughton-road'>Broughton Road CW1 <span style='color:var(--muted)'>£170,000</span></a><a class='chip' href='/sold-prices/cw5/hospital-street'>Hospital Street CW5 <span style='color:var(--muted)'>£250,000</span></a></div>
@@ -303,6 +329,7 @@
   <a href="/guides">Guides</a>
   <a href="/privacy">Privacy</a>
   <a href="/terms">Terms</a>
+  <a href="/methodology">Methodology</a>
   <div style="flex-basis:100%;text-transform:none;letter-spacing:0.03em;color:var(--muted);">Contains HM Land Registry data © Crown copyright and database right 2026. Licensed under the Open Government Licence v3.0. Trace Lab Studio LTD, registered in England and Wales no. 17340427. Registered office: 128 City Road, London, EC1V 2NX.</div>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>

@@ -64,7 +64,7 @@
   "description": "Last sold \u00a3460,000 on 10 Dec 2025. 42 sales on Homefield Road, Seaford BN25 since 2008, 2025 median \u00a3460,000. Every price, date, type and floor area from HM Land Registry.",
   "url": "https://soldbystreet.co.uk/sold-prices/bn25/homefield-road",
   "temporalCoverage": "2008/2025",
-  "dateModified": "2026-09-28",
+  "dateModified": "2026-09-29",
   "variableMeasured": [
     {
       "@type": "PropertyValue",
@@ -98,8 +98,61 @@
       "@type": "Place",
       "name": "BN25, Seaford",
       "url": "https://soldbystreet.co.uk/sold-prices/bn25"
-    }
+    },
+    "containsPlace": [
+      {
+        "@type": "Place",
+        "name": "BN25 3DY",
+        "url": "https://soldbystreet.co.uk/sold-prices/bn25/homefield-road#bn25-3dy",
+        "address": {
+          "@type": "PostalAddress",
+          "postalCode": "BN25 3DY",
+          "addressCountry": "GB"
+        }
+      },
+      {
+        "@type": "Place",
+        "name": "BN25 3DX",
+        "url": "https://soldbystreet.co.uk/sold-prices/bn25/homefield-road#bn25-3dx",
+        "address": {
+          "@type": "PostalAddress",
+          "postalCode": "BN25 3DX",
+          "addressCountry": "GB"
+        }
+      },
+      {
+        "@type": "Place",
+        "name": "BN25 3DG",
+        "url": "https://soldbystreet.co.uk/sold-prices/bn25/homefield-road#bn25-3dg",
+        "address": {
+          "@type": "PostalAddress",
+          "postalCode": "BN25 3DG",
+          "addressCountry": "GB"
+        }
+      },
+      {
+        "@type": "Place",
+        "name": "BN25 3DP",
+        "url": "https://soldbystreet.co.uk/sold-prices/bn25/homefield-road#bn25-3dp",
+        "address": {
+          "@type": "PostalAddress",
+          "postalCode": "BN25 3DP",
+          "addressCountry": "GB"
+        }
+      },
+      {
+        "@type": "Place",
+        "name": "BN25 3DL",
+        "url": "https://soldbystreet.co.uk/sold-prices/bn25/homefield-road#bn25-3dl",
+        "address": {
+          "@type": "PostalAddress",
+          "postalCode": "BN25 3DL",
+          "addressCountry": "GB"
+        }
+      }
+    ]
   },
+  "measurementTechnique": "https://soldbystreet.co.uk/methodology",
   "isPartOf": {
     "@type": "Dataset",
     "name": "Sold house prices in BN25 (Seaford)",
@@ -121,6 +174,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
+  tr:target td{background:var(--cream);}
+  .qa h3{font-size:1rem;margin:1.2rem 0 .3rem;}
+  .qa p{margin:0 0 .4rem;}
   :root{--ink:#0f0e0d;--paper:#f5f2ee;--cream:#ede9e3;--accent:#c8401a;
     --muted:#7a7570;--border:#d4cfc9;--up:#2d5a3d;--down:#9b2c2c;--psm:#5a7a9e;}
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -249,7 +305,15 @@
     move it. Figures count completed sales lodged with HM Land Registry; bulk and
     repossession transfers are excluded. 2025 is the latest complete year with sales on
     this street; newer sales take 2–3 months to be registered, so the current year is shown
-    as a part year and not compared.</p>
+    as a part year and not compared. <a href="/methodology">How these figures are worked out</a>.</p>
+
+  <h2 id="postcodes">Postcodes on Homefield Road</h2>
+  <p>Homefield Road has recorded sales under 5 postcodes: BN25 3DG, BN25 3DL, BN25 3DP, BN25 3DX and BN25 3DY. Each sale below shows its full postcode.</p>
+  <div class="scroll-x">
+  <table><thead><tr><th>Postcode</th><th class="num">Sales since 2008</th>
+    <th>Latest sale</th><th>Type</th><th class="num">Price</th></tr></thead>
+    <tbody><tr id='bn25-3dy'><td class='dt'>BN25 3DY</td><td class='num'>17</td><td class='dt'>14 Feb 2025</td><td>Semi-Detached</td><td class='num'>£317,500</td></tr><tr id='bn25-3dx'><td class='dt'>BN25 3DX</td><td class='num'>10</td><td class='dt'>10 Dec 2025</td><td>Detached</td><td class='num'>£460,000</td></tr><tr id='bn25-3dg'><td class='dt'>BN25 3DG</td><td class='num'>7</td><td class='dt'>27 Aug 2025</td><td>Terraced</td><td class='num'>£629,000</td></tr><tr id='bn25-3dp'><td class='dt'>BN25 3DP</td><td class='num'>5</td><td class='dt'>23 Nov 2021</td><td>Detached</td><td class='num'>£475,000</td></tr><tr id='bn25-3dl'><td class='dt'>BN25 3DL</td><td class='num'>3</td><td class='dt'>18 Feb 2021</td><td>Detached</td><td class='num'>£440,000</td></tr></tbody></table>
+  </div>
 
   <div class="alert" id="sbsAlert" data-postcode="BN25 3" data-query="Homefield Road, BN25">
     <h3>Get an email when a home on Homefield Road sells</h3>
@@ -292,10 +356,12 @@
   <p>All 42 sales since 2008, newest first. Floor area comes from the matching EPC
     certificate where one exists, which is why some rows have no £/m².</p>
   <div class="scroll">
-  <table><thead><tr><th>Date</th><th>Address</th><th>Type</th><th>Tenure</th>
+  <table><thead><tr><th>Date</th><th>Address</th><th>Postcode</th><th>Type</th><th>Tenure</th>
     <th class="num">Price</th><th class="num">Floor area</th><th class="num">£/m²</th></tr></thead>
-    <tbody><tr><td class='dt'>10 Dec 2025</td><td>52<span class='pc'>BN25 3DX</span></td><td>Detached</td><td>Freehold</td><td class='num'>£460,000</td><td class='num'>93 m²</td><td class='num'>£4,946</td></tr><tr><td class='dt'>27 Aug 2025</td><td>2<span class='pc'>BN25 3DG</span></td><td>Terraced</td><td>Freehold</td><td class='num'>£629,000</td><td class='num'>149 m²</td><td class='num'>£4,221</td></tr><tr><td class='dt'>14 Feb 2025</td><td>70<span class='pc'>BN25 3DY</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£317,500</td><td class='num'>57 m²</td><td class='num'>£5,570</td></tr><tr><td class='dt'>07 Nov 2023</td><td>64<span class='pc'>BN25 3DY</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£355,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>06 Jul 2023</td><td>48<span class='pc'>BN25 3DX</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£315,000</td><td class='num'>58 m²</td><td class='num'>£5,431</td></tr><tr><td class='dt'>19 Jun 2023</td><td>50<span class='pc'>BN25 3DX</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£307,500</td><td class='num'>54 m²</td><td class='num'>£5,694</td></tr><tr><td class='dt'>23 Nov 2021</td><td>29<span class='pc'>BN25 3DP</span></td><td>Detached</td><td>Freehold</td><td class='num'>£475,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>18 Mar 2021</td><td>59<span class='pc'>BN25 3DY</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£290,000</td><td class='num'>65 m²</td><td class='num'>£4,462</td></tr><tr><td class='dt'>18 Feb 2021</td><td>26<span class='pc'>BN25 3DL</span></td><td>Detached</td><td>Freehold</td><td class='num'>£440,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>21 Dec 2020</td><td>42<span class='pc'>BN25 3DX</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£375,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>19 May 2020</td><td>EASEMORE HOUSE, 3<span class='pc'>BN25 3DG</span></td><td>Detached</td><td>Freehold</td><td class='num'>£1,150,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>15 May 2020</td><td>62<span class='pc'>BN25 3DY</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£256,500</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>23 Oct 2019</td><td>23<span class='pc'>BN25 3DP</span></td><td>Detached</td><td>Freehold</td><td class='num'>£425,000</td><td class='num'>152 m²</td><td class='num'>£2,796</td></tr><tr><td class='dt'>14 Jun 2019</td><td>66<span class='pc'>BN25 3DY</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£257,500</td><td class='num'>64 m²</td><td class='num'>£4,023</td></tr><tr><td class='dt'>12 Apr 2019</td><td>44<span class='pc'>BN25 3DX</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£280,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>27 Feb 2019</td><td>2<span class='pc'>BN25 3DG</span></td><td>Terraced</td><td>Freehold</td><td class='num'>£430,000</td><td class='num'>149 m²</td><td class='num'>£2,886</td></tr><tr><td class='dt'>08 Feb 2019</td><td>15<span class='pc'>BN25 3DG</span></td><td>Detached</td><td>Freehold</td><td class='num'>£395,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>28 Mar 2018</td><td>65<span class='pc'>BN25 3DY</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£337,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>09 May 2017</td><td>6<span class='pc'>BN25 3DG</span></td><td>Detached</td><td>Freehold</td><td class='num'>£513,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>18 Oct 2016</td><td>63<span class='pc'>BN25 3DY</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£320,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>07 Mar 2016</td><td>65<span class='pc'>BN25 3DY</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£332,500</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>20 May 2015</td><td>64<span class='pc'>BN25 3DY</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£255,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>02 Jan 2015</td><td>44<span class='pc'>BN25 3DX</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£228,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>23 May 2014</td><td>42<span class='pc'>BN25 3DX</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£232,500</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>25 Apr 2014</td><td>74<span class='pc'>BN25 3DY</span></td><td>Detached</td><td>Freehold</td><td class='num'>£274,950</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>22 Apr 2014</td><td>5<span class='pc'>BN25 3DG</span></td><td>Detached</td><td>Freehold</td><td class='num'>£495,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>11 Apr 2014</td><td>44<span class='pc'>BN25 3DX</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£195,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>31 Jan 2014</td><td>72<span class='pc'>BN25 3DY</span></td><td>Detached</td><td>Freehold</td><td class='num'>£342,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>18 Oct 2013</td><td>61<span class='pc'>BN25 3DY</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£194,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>16 Oct 2013</td><td>27<span class='pc'>BN25 3DP</span></td><td>Detached</td><td>Freehold</td><td class='num'>£280,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>23 Aug 2013</td><td>19<span class='pc'>BN25 3DL</span></td><td>Detached</td><td>Freehold</td><td class='num'>£365,000</td><td class='num'>107 m²</td><td class='num'>£3,411</td></tr><tr><td class='dt'>05 Mar 2012</td><td>46<span class='pc'>BN25 3DX</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£233,500</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>04 Nov 2011</td><td>27<span class='pc'>BN25 3DP</span></td><td>Detached</td><td>Freehold</td><td class='num'>£210,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>14 Oct 2011</td><td>32<span class='pc'>BN25 3DP</span></td><td>Detached</td><td>Freehold</td><td class='num'>£250,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>12 Aug 2011</td><td>74<span class='pc'>BN25 3DY</span></td><td>Detached</td><td>Freehold</td><td class='num'>£244,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>21 Apr 2011</td><td>63<span class='pc'>BN25 3DY</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£184,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>14 Jan 2011</td><td>52<span class='pc'>BN25 3DX</span></td><td>Detached</td><td>Freehold</td><td class='num'>£249,999</td><td class='num'>93 m²</td><td class='num'>£2,688</td></tr><tr><td class='dt'>25 May 2010</td><td>11<span class='pc'>BN25 3DG</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£350,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>29 Jan 2010</td><td>55<span class='pc'>BN25 3DY</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£245,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>10 Jul 2009</td><td>65<span class='pc'>BN25 3DY</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£160,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>13 Aug 2008</td><td>19<span class='pc'>BN25 3DL</span></td><td>Detached</td><td>Freehold</td><td class='num'>£390,000</td><td class='num'>107 m²</td><td class='num'>£3,645</td></tr><tr><td class='dt'>10 Jan 2008</td><td>72<span class='pc'>BN25 3DY</span></td><td>Detached</td><td>Freehold</td><td class='num'>£325,000</td><td class='num'>—</td><td class='num'>—</td></tr></tbody></table>
+    <tbody><tr><td class='dt'>10 Dec 2025</td><td>52</td><td class='dt'>BN25 3DX</td><td>Detached</td><td>Freehold</td><td class='num'>£460,000</td><td class='num'>93 m²</td><td class='num'>£4,946</td></tr><tr><td class='dt'>27 Aug 2025</td><td>2</td><td class='dt'>BN25 3DG</td><td>Terraced</td><td>Freehold</td><td class='num'>£629,000</td><td class='num'>149 m²</td><td class='num'>£4,221</td></tr><tr><td class='dt'>14 Feb 2025</td><td>70</td><td class='dt'>BN25 3DY</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£317,500</td><td class='num'>57 m²</td><td class='num'>£5,570</td></tr><tr><td class='dt'>07 Nov 2023</td><td>64</td><td class='dt'>BN25 3DY</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£355,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>06 Jul 2023</td><td>48</td><td class='dt'>BN25 3DX</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£315,000</td><td class='num'>58 m²</td><td class='num'>£5,431</td></tr><tr><td class='dt'>19 Jun 2023</td><td>50</td><td class='dt'>BN25 3DX</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£307,500</td><td class='num'>54 m²</td><td class='num'>£5,694</td></tr><tr><td class='dt'>23 Nov 2021</td><td>29</td><td class='dt'>BN25 3DP</td><td>Detached</td><td>Freehold</td><td class='num'>£475,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>18 Mar 2021</td><td>59</td><td class='dt'>BN25 3DY</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£290,000</td><td class='num'>65 m²</td><td class='num'>£4,462</td></tr><tr><td class='dt'>18 Feb 2021</td><td>26</td><td class='dt'>BN25 3DL</td><td>Detached</td><td>Freehold</td><td class='num'>£440,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>21 Dec 2020</td><td>42</td><td class='dt'>BN25 3DX</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£375,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>19 May 2020</td><td>EASEMORE HOUSE, 3</td><td class='dt'>BN25 3DG</td><td>Detached</td><td>Freehold</td><td class='num'>£1,150,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>15 May 2020</td><td>62</td><td class='dt'>BN25 3DY</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£256,500</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>23 Oct 2019</td><td>23</td><td class='dt'>BN25 3DP</td><td>Detached</td><td>Freehold</td><td class='num'>£425,000</td><td class='num'>152 m²</td><td class='num'>£2,796</td></tr><tr><td class='dt'>14 Jun 2019</td><td>66</td><td class='dt'>BN25 3DY</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£257,500</td><td class='num'>64 m²</td><td class='num'>£4,023</td></tr><tr><td class='dt'>12 Apr 2019</td><td>44</td><td class='dt'>BN25 3DX</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£280,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>27 Feb 2019</td><td>2</td><td class='dt'>BN25 3DG</td><td>Terraced</td><td>Freehold</td><td class='num'>£430,000</td><td class='num'>149 m²</td><td class='num'>£2,886</td></tr><tr><td class='dt'>08 Feb 2019</td><td>15</td><td class='dt'>BN25 3DG</td><td>Detached</td><td>Freehold</td><td class='num'>£395,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>28 Mar 2018</td><td>65</td><td class='dt'>BN25 3DY</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£337,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>09 May 2017</td><td>6</td><td class='dt'>BN25 3DG</td><td>Detached</td><td>Freehold</td><td class='num'>£513,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>18 Oct 2016</td><td>63</td><td class='dt'>BN25 3DY</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£320,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>07 Mar 2016</td><td>65</td><td class='dt'>BN25 3DY</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£332,500</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>20 May 2015</td><td>64</td><td class='dt'>BN25 3DY</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£255,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>02 Jan 2015</td><td>44</td><td class='dt'>BN25 3DX</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£228,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>23 May 2014</td><td>42</td><td class='dt'>BN25 3DX</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£232,500</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>25 Apr 2014</td><td>74</td><td class='dt'>BN25 3DY</td><td>Detached</td><td>Freehold</td><td class='num'>£274,950</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>22 Apr 2014</td><td>5</td><td class='dt'>BN25 3DG</td><td>Detached</td><td>Freehold</td><td class='num'>£495,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>11 Apr 2014</td><td>44</td><td class='dt'>BN25 3DX</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£195,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>31 Jan 2014</td><td>72</td><td class='dt'>BN25 3DY</td><td>Detached</td><td>Freehold</td><td class='num'>£342,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>18 Oct 2013</td><td>61</td><td class='dt'>BN25 3DY</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£194,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>16 Oct 2013</td><td>27</td><td class='dt'>BN25 3DP</td><td>Detached</td><td>Freehold</td><td class='num'>£280,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>23 Aug 2013</td><td>19</td><td class='dt'>BN25 3DL</td><td>Detached</td><td>Freehold</td><td class='num'>£365,000</td><td class='num'>107 m²</td><td class='num'>£3,411</td></tr><tr><td class='dt'>05 Mar 2012</td><td>46</td><td class='dt'>BN25 3DX</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£233,500</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>04 Nov 2011</td><td>27</td><td class='dt'>BN25 3DP</td><td>Detached</td><td>Freehold</td><td class='num'>£210,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>14 Oct 2011</td><td>32</td><td class='dt'>BN25 3DP</td><td>Detached</td><td>Freehold</td><td class='num'>£250,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>12 Aug 2011</td><td>74</td><td class='dt'>BN25 3DY</td><td>Detached</td><td>Freehold</td><td class='num'>£244,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>21 Apr 2011</td><td>63</td><td class='dt'>BN25 3DY</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£184,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>14 Jan 2011</td><td>52</td><td class='dt'>BN25 3DX</td><td>Detached</td><td>Freehold</td><td class='num'>£249,999</td><td class='num'>93 m²</td><td class='num'>£2,688</td></tr><tr><td class='dt'>25 May 2010</td><td>11</td><td class='dt'>BN25 3DG</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£350,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>29 Jan 2010</td><td>55</td><td class='dt'>BN25 3DY</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£245,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>10 Jul 2009</td><td>65</td><td class='dt'>BN25 3DY</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£160,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>13 Aug 2008</td><td>19</td><td class='dt'>BN25 3DL</td><td>Detached</td><td>Freehold</td><td class='num'>£390,000</td><td class='num'>107 m²</td><td class='num'>£3,645</td></tr><tr><td class='dt'>10 Jan 2008</td><td>72</td><td class='dt'>BN25 3DY</td><td>Detached</td><td>Freehold</td><td class='num'>£325,000</td><td class='num'>—</td><td class='num'>—</td></tr></tbody></table>
   </div>
+
+  
 
   <h2>Other streets with a price history</h2>
   <div class="chips"><a class='chip' href='/sold-prices/bn23/macquarie-quay'>Macquarie Quay BN23 <span style='color:var(--muted)'>£238,000</span></a></div>
@@ -305,6 +371,7 @@
   <a href="/guides">Guides</a>
   <a href="/privacy">Privacy</a>
   <a href="/terms">Terms</a>
+  <a href="/methodology">Methodology</a>
   <div style="flex-basis:100%;text-transform:none;letter-spacing:0.03em;color:var(--muted);">Contains HM Land Registry data © Crown copyright and database right 2026. Licensed under the Open Government Licence v3.0. Trace Lab Studio LTD, registered in England and Wales no. 17340427. Registered office: 128 City Road, London, EC1V 2NX.</div>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>

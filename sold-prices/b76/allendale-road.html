@@ -64,7 +64,7 @@
   "description": "Last sold \u00a3350,000 on 25 Jun 2026. 33 sales on Allendale Road, Sutton Coldfield B76 since 2008, 2025 median \u00a3430,000. Every price, date, type and floor area from HM Land Registry.",
   "url": "https://soldbystreet.co.uk/sold-prices/b76/allendale-road",
   "temporalCoverage": "2008/2026",
-  "dateModified": "2026-09-28",
+  "dateModified": "2026-09-29",
   "variableMeasured": [
     {
       "@type": "PropertyValue",
@@ -98,8 +98,41 @@
       "@type": "Place",
       "name": "B76, Sutton Coldfield",
       "url": "https://soldbystreet.co.uk/sold-prices/b76"
-    }
+    },
+    "containsPlace": [
+      {
+        "@type": "Place",
+        "name": "B76 1NL",
+        "url": "https://soldbystreet.co.uk/sold-prices/b76/allendale-road#b76-1nl",
+        "address": {
+          "@type": "PostalAddress",
+          "postalCode": "B76 1NL",
+          "addressCountry": "GB"
+        }
+      },
+      {
+        "@type": "Place",
+        "name": "B76 1NN",
+        "url": "https://soldbystreet.co.uk/sold-prices/b76/allendale-road#b76-1nn",
+        "address": {
+          "@type": "PostalAddress",
+          "postalCode": "B76 1NN",
+          "addressCountry": "GB"
+        }
+      },
+      {
+        "@type": "Place",
+        "name": "B76 1NJ",
+        "url": "https://soldbystreet.co.uk/sold-prices/b76/allendale-road#b76-1nj",
+        "address": {
+          "@type": "PostalAddress",
+          "postalCode": "B76 1NJ",
+          "addressCountry": "GB"
+        }
+      }
+    ]
   },
+  "measurementTechnique": "https://soldbystreet.co.uk/methodology",
   "isPartOf": {
     "@type": "Dataset",
     "name": "Sold house prices in B76 (Sutton Coldfield)",
@@ -121,6 +154,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
+  tr:target td{background:var(--cream);}
+  .qa h3{font-size:1rem;margin:1.2rem 0 .3rem;}
+  .qa p{margin:0 0 .4rem;}
   :root{--ink:#0f0e0d;--paper:#f5f2ee;--cream:#ede9e3;--accent:#c8401a;
     --muted:#7a7570;--border:#d4cfc9;--up:#2d5a3d;--down:#9b2c2c;--psm:#5a7a9e;}
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -249,7 +285,15 @@
     move it. Figures count completed sales lodged with HM Land Registry; bulk and
     repossession transfers are excluded. 2025 is the latest complete year with sales on
     this street; newer sales take 2–3 months to be registered, so the current year is shown
-    as a part year and not compared.</p>
+    as a part year and not compared. <a href="/methodology">How these figures are worked out</a>.</p>
+
+  <h2 id="postcodes">Postcodes on Allendale Road</h2>
+  <p>Allendale Road has recorded sales under 3 postcodes: B76 1NJ, B76 1NL and B76 1NN. Each sale below shows its full postcode.</p>
+  <div class="scroll-x">
+  <table><thead><tr><th>Postcode</th><th class="num">Sales since 2008</th>
+    <th>Latest sale</th><th>Type</th><th class="num">Price</th></tr></thead>
+    <tbody><tr id='b76-1nl'><td class='dt'>B76 1NL</td><td class='num'>21</td><td class='dt'>25 Jun 2026</td><td>Semi-Detached</td><td class='num'>£350,000</td></tr><tr id='b76-1nn'><td class='dt'>B76 1NN</td><td class='num'>8</td><td class='dt'>17 Feb 2025</td><td>Detached</td><td class='num'>£430,000</td></tr><tr id='b76-1nj'><td class='dt'>B76 1NJ</td><td class='num'>4</td><td class='dt'>05 Jan 2024</td><td>Detached</td><td class='num'>£395,000</td></tr></tbody></table>
+  </div>
 
   <div class="alert" id="sbsAlert" data-postcode="B76 1" data-query="Allendale Road, B76">
     <h3>Get an email when a home on Allendale Road sells</h3>
@@ -292,10 +336,12 @@
   <p>All 33 sales since 2008, newest first. Floor area comes from the matching EPC
     certificate where one exists, which is why some rows have no £/m².</p>
   <div class="scroll">
-  <table><thead><tr><th>Date</th><th>Address</th><th>Type</th><th>Tenure</th>
+  <table><thead><tr><th>Date</th><th>Address</th><th>Postcode</th><th>Type</th><th>Tenure</th>
     <th class="num">Price</th><th class="num">Floor area</th><th class="num">£/m²</th></tr></thead>
-    <tbody><tr><td class='dt'>25 Jun 2026</td><td>41<span class='pc'>B76 1NL</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£350,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>17 Feb 2025</td><td>8<span class='pc'>B76 1NN</span></td><td>Detached</td><td>Leasehold</td><td class='num'>£430,000</td><td class='num'>73 m²</td><td class='num'>£5,890</td></tr><tr><td class='dt'>02 Aug 2024</td><td>27<span class='pc'>B76 1NL</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£320,000</td><td class='num'>92 m²</td><td class='num'>£3,478</td></tr><tr><td class='dt'>22 May 2024</td><td>66<span class='pc'>B76 1NL</span></td><td>Detached</td><td>Freehold</td><td class='num'>£180,000</td><td class='num'>86 m²</td><td class='num'>£2,093</td></tr><tr><td class='dt'>05 Jan 2024</td><td>45<span class='pc'>B76 1NJ</span></td><td>Detached</td><td>Leasehold</td><td class='num'>£395,000</td><td class='num'>89 m²</td><td class='num'>£4,438</td></tr><tr><td class='dt'>30 Nov 2023</td><td>5<span class='pc'>B76 1NN</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£325,000</td><td class='num'>91 m²</td><td class='num'>£3,571</td></tr><tr><td class='dt'>20 Aug 2021</td><td>40<span class='pc'>B76 1NL</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£370,500</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>30 Apr 2021</td><td>46<span class='pc'>B76 1NL</span></td><td>Semi-Detached</td><td>Leasehold</td><td class='num'>£330,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>25 Mar 2021</td><td>2<span class='pc'>B76 1NN</span></td><td>Detached</td><td>Freehold</td><td class='num'>£412,500</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>25 Sep 2020</td><td>7<span class='pc'>B76 1NN</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£340,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>27 Mar 2020</td><td>31<span class='pc'>B76 1NL</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£335,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>19 Feb 2018</td><td>29<span class='pc'>B76 1NL</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£264,500</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>23 Jan 2018</td><td>54<span class='pc'>B76 1NL</span></td><td>Detached</td><td>Freehold</td><td class='num'>£375,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>27 Sep 2017</td><td>62<span class='pc'>B76 1NL</span></td><td>Detached</td><td>Freehold</td><td class='num'>£425,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>22 Aug 2017</td><td>3<span class='pc'>B76 1NN</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£310,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>31 May 2017</td><td>78<span class='pc'>B76 1NJ</span></td><td>Detached</td><td>Leasehold</td><td class='num'>£245,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>17 Feb 2017</td><td>52<span class='pc'>B76 1NL</span></td><td>Detached</td><td>Freehold</td><td class='num'>£380,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>19 Dec 2014</td><td>36<span class='pc'>B76 1NL</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£265,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>24 Oct 2013</td><td>31<span class='pc'>B76 1NL</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£237,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>07 Oct 2013</td><td>48<span class='pc'>B76 1NL</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£250,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>01 Nov 2012</td><td>64<span class='pc'>B76 1NL</span></td><td>Detached</td><td>Freehold</td><td class='num'>£236,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>05 Oct 2012</td><td>44<span class='pc'>B76 1NL</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£194,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>28 Feb 2012</td><td>80<span class='pc'>B76 1NJ</span></td><td>Detached</td><td>Freehold</td><td class='num'>£237,500</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>25 Nov 2011</td><td>60<span class='pc'>B76 1NL</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£220,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>18 Nov 2011</td><td>25<span class='pc'>B76 1NL</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£180,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>10 Jun 2011</td><td>62<span class='pc'>B76 1NL</span></td><td>Detached</td><td>Freehold</td><td class='num'>£275,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>07 Apr 2011</td><td>1<span class='pc'>B76 1NN</span></td><td>Detached</td><td>Freehold</td><td class='num'>£293,950</td><td class='num'>104 m²</td><td class='num'>£2,826</td></tr><tr><td class='dt'>15 Dec 2010</td><td>64<span class='pc'>B76 1NL</span></td><td>Detached</td><td>Freehold</td><td class='num'>£249,995</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>18 Oct 2010</td><td>37<span class='pc'>B76 1NL</span></td><td>Detached</td><td>Freehold</td><td class='num'>£200,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>24 Sep 2010</td><td>16<span class='pc'>B76 1NN</span></td><td>Semi-Detached</td><td>Leasehold</td><td class='num'>£237,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>17 Sep 2010</td><td>16<span class='pc'>B76 1NN</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£237,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>16 Feb 2009</td><td>43<span class='pc'>B76 1NJ</span></td><td>Detached</td><td>Freehold</td><td class='num'>£225,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>03 Oct 2008</td><td>48<span class='pc'>B76 1NL</span></td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£204,500</td><td class='num'>—</td><td class='num'>—</td></tr></tbody></table>
+    <tbody><tr><td class='dt'>25 Jun 2026</td><td>41</td><td class='dt'>B76 1NL</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£350,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>17 Feb 2025</td><td>8</td><td class='dt'>B76 1NN</td><td>Detached</td><td>Leasehold</td><td class='num'>£430,000</td><td class='num'>73 m²</td><td class='num'>£5,890</td></tr><tr><td class='dt'>02 Aug 2024</td><td>27</td><td class='dt'>B76 1NL</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£320,000</td><td class='num'>92 m²</td><td class='num'>£3,478</td></tr><tr><td class='dt'>22 May 2024</td><td>66</td><td class='dt'>B76 1NL</td><td>Detached</td><td>Freehold</td><td class='num'>£180,000</td><td class='num'>86 m²</td><td class='num'>£2,093</td></tr><tr><td class='dt'>05 Jan 2024</td><td>45</td><td class='dt'>B76 1NJ</td><td>Detached</td><td>Leasehold</td><td class='num'>£395,000</td><td class='num'>89 m²</td><td class='num'>£4,438</td></tr><tr><td class='dt'>30 Nov 2023</td><td>5</td><td class='dt'>B76 1NN</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£325,000</td><td class='num'>91 m²</td><td class='num'>£3,571</td></tr><tr><td class='dt'>20 Aug 2021</td><td>40</td><td class='dt'>B76 1NL</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£370,500</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>30 Apr 2021</td><td>46</td><td class='dt'>B76 1NL</td><td>Semi-Detached</td><td>Leasehold</td><td class='num'>£330,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>25 Mar 2021</td><td>2</td><td class='dt'>B76 1NN</td><td>Detached</td><td>Freehold</td><td class='num'>£412,500</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>25 Sep 2020</td><td>7</td><td class='dt'>B76 1NN</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£340,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>27 Mar 2020</td><td>31</td><td class='dt'>B76 1NL</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£335,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>19 Feb 2018</td><td>29</td><td class='dt'>B76 1NL</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£264,500</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>23 Jan 2018</td><td>54</td><td class='dt'>B76 1NL</td><td>Detached</td><td>Freehold</td><td class='num'>£375,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>27 Sep 2017</td><td>62</td><td class='dt'>B76 1NL</td><td>Detached</td><td>Freehold</td><td class='num'>£425,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>22 Aug 2017</td><td>3</td><td class='dt'>B76 1NN</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£310,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>31 May 2017</td><td>78</td><td class='dt'>B76 1NJ</td><td>Detached</td><td>Leasehold</td><td class='num'>£245,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>17 Feb 2017</td><td>52</td><td class='dt'>B76 1NL</td><td>Detached</td><td>Freehold</td><td class='num'>£380,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>19 Dec 2014</td><td>36</td><td class='dt'>B76 1NL</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£265,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>24 Oct 2013</td><td>31</td><td class='dt'>B76 1NL</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£237,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>07 Oct 2013</td><td>48</td><td class='dt'>B76 1NL</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£250,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>01 Nov 2012</td><td>64</td><td class='dt'>B76 1NL</td><td>Detached</td><td>Freehold</td><td class='num'>£236,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>05 Oct 2012</td><td>44</td><td class='dt'>B76 1NL</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£194,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>28 Feb 2012</td><td>80</td><td class='dt'>B76 1NJ</td><td>Detached</td><td>Freehold</td><td class='num'>£237,500</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>25 Nov 2011</td><td>60</td><td class='dt'>B76 1NL</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£220,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>18 Nov 2011</td><td>25</td><td class='dt'>B76 1NL</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£180,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>10 Jun 2011</td><td>62</td><td class='dt'>B76 1NL</td><td>Detached</td><td>Freehold</td><td class='num'>£275,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>07 Apr 2011</td><td>1</td><td class='dt'>B76 1NN</td><td>Detached</td><td>Freehold</td><td class='num'>£293,950</td><td class='num'>104 m²</td><td class='num'>£2,826</td></tr><tr><td class='dt'>15 Dec 2010</td><td>64</td><td class='dt'>B76 1NL</td><td>Detached</td><td>Freehold</td><td class='num'>£249,995</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>18 Oct 2010</td><td>37</td><td class='dt'>B76 1NL</td><td>Detached</td><td>Freehold</td><td class='num'>£200,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>24 Sep 2010</td><td>16</td><td class='dt'>B76 1NN</td><td>Semi-Detached</td><td>Leasehold</td><td class='num'>£237,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>17 Sep 2010</td><td>16</td><td class='dt'>B76 1NN</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£237,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>16 Feb 2009</td><td>43</td><td class='dt'>B76 1NJ</td><td>Detached</td><td>Freehold</td><td class='num'>£225,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>03 Oct 2008</td><td>48</td><td class='dt'>B76 1NL</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£204,500</td><td class='num'>—</td><td class='num'>—</td></tr></tbody></table>
   </div>
+
+  
 
   <h2>Other streets with a price history</h2>
   <div class="chips"><a class='chip' href='/sold-prices/b74/lilac-avenue'>Lilac Avenue B74 <span style='color:var(--muted)'>£315,000</span></a><a class='chip' href='/sold-prices/b90/brownley-road'>Brownley Road B90 <span style='color:var(--muted)'>£400,000</span></a></div>
@@ -305,6 +351,7 @@
   <a href="/guides">Guides</a>
   <a href="/privacy">Privacy</a>
   <a href="/terms">Terms</a>
+  <a href="/methodology">Methodology</a>
   <div style="flex-basis:100%;text-transform:none;letter-spacing:0.03em;color:var(--muted);">Contains HM Land Registry data © Crown copyright and database right 2026. Licensed under the Open Government Licence v3.0. Trace Lab Studio LTD, registered in England and Wales no. 17340427. Registered office: 128 City Road, London, EC1V 2NX.</div>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
