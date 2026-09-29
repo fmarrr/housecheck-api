@@ -64,6 +64,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="/sold-prices/search-index.js" defer></script>
 <style>
   :root {
     --ink: #0f0e0d;
@@ -420,6 +421,16 @@
     margin-top: 0.2rem;
     font-weight: 300;
   }
+
+  .street-page-link {
+    display: inline-block;
+    margin-top: 0.45rem;
+    font-size: 0.78rem;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+  }
+  .street-page-link:hover { color: var(--ink); }
 
   .street-sector {
     font-family: 'DM Mono', monospace;
@@ -899,6 +910,7 @@
     <a href="/guides" style="font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);text-decoration:none;" data-i18n="footer-guides">Guides</a>
     <a href="/privacy" style="font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);text-decoration:none;" data-i18n="footer-privacy">Privacy</a>
     <a href="/terms" style="font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);text-decoration:none;" data-i18n="footer-terms">Terms</a>
+    <a href="/methodology" style="font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);text-decoration:none;">Methodology</a>
   </div>
   <div style="flex-basis:100%;font-family:'DM Mono',monospace;font-size:0.62rem;color:var(--muted);letter-spacing:0.04em;">Trace Lab Studio LTD, registered in England and Wales no. 17340427. Registered office: 128 City Road, London, EC1V 2NX.</div>
 </footer>
@@ -1015,9 +1027,9 @@ document.querySelectorAll('.type-pill').forEach(pill => {
     document.querySelectorAll('.type-pill').forEach(p => p.classList.remove('active'));
     pill.classList.add('active');
     selectedType = pill.dataset.type;
-    // re-run search if there's already a query
+    // re-run search if there's already a query (stay here: a filter click is not a new search)
     const q = document.getElementById('searchInput').value.trim();
-    if (q) doSearch();
+    if (q) doSearch({ noRedirect: true });
   });
 });
 
@@ -1171,7 +1183,9 @@ function renderSearchHistory() {
   input.addEventListener('blur', () => setTimeout(hideSearchHistory, 120));
 })();
 
-async function doSearch() {
+// opts.fromUrl: replaying ?q= from the address bar (page load, Back/Forward).
+// opts.noRedirect: re-running the same search after a filter click.
+async function doSearch(opts = {}) {
   const q = document.getElementById('searchInput').value.trim();
   if (!q) return;
 
@@ -1184,9 +1198,31 @@ async function doSearch() {
 
   const pc = q.trim().toUpperCase().replace(/\s+/g, ' ');
   const pcNorm = !pc.includes(' ') && pc.length >= 5 ? pc.slice(0, -3) + ' ' + pc.slice(-3) : pc;
-  gtag('event', 'search', { search_term: pcNorm });
+  if (!opts.fromUrl) gtag('event', 'search', { search_term: pcNorm });
   addSearchHistory(pcNorm);
   hideSearchHistory();
+
+  // Give every search its own address (/?q=SW6+2LE) so it can be shared,
+  // bookmarked and returned to with Back. The canonical stays "/", so these
+  // URLs are never indexed as separate pages.
+  const want = '/?q=' + encodeURIComponent(pcNorm).replace(/%20/g, '+');
+  if (!opts.fromUrl && location.pathname + location.search !== want) {
+    history.pushState({ q: pcNorm }, '', want);
+  }
+
+  // A full postcode whose street has its own page goes straight to that page,
+  // at the postcode's section. Never when replaying from the URL: Back from the
+  // street page must show these results, not bounce forward again.
+  const page = !opts.fromUrl && !opts.noRedirect && !selectedType
+    && ((window.SBS_PAGES && window.SBS_PAGES.pc) || {})[pcNorm];
+  if (page) {
+    let gone = false;
+    const go = () => { if (!gone) { gone = true; location.assign(page + '#' + pcNorm.toLowerCase().replace(' ', '-')); } };
+    gtag('event', 'search_to_street_page', { search_term: pcNorm, page_path: page,
+      transport_type: 'beacon', event_callback: go });
+    setTimeout(go, 300);  // GA blocked or slow: go anyway
+    return;
+  }
 
   const el = document.getElementById('results');
   el.classList.remove('hidden');
@@ -1208,6 +1244,24 @@ async function doSearch() {
       </div>`;
   }
 }
+
+// Replay the search in the address bar: on first load (a shared or bookmarked
+// link), on Back/Forward, and when the browser restores this page from its cache.
+function searchFromUrl() {
+  const q = new URLSearchParams(location.search).get('q') || '';
+  const input = document.getElementById('searchInput');
+  input.value = q;
+  if (q) { doSearch({ fromUrl: true }); return; }
+  const el = document.getElementById('results');
+  el.classList.add('hidden');
+  el.innerHTML = '';
+}
+window.addEventListener('popstate', searchFromUrl);
+window.addEventListener('pageshow', e => { if (e.persisted) searchFromUrl(); });
+// After the whole script has run, so every function and variable doSearch touches exists.
+document.addEventListener('DOMContentLoaded', () => {
+  if (new URLSearchParams(location.search).get('q')) searchFromUrl();
+});
 
 // ── MAP ────────────────────────────────────────────────────────────────────
 let mapInstance = null;
@@ -1367,6 +1421,15 @@ function wireAlertForm() {
   });
 }
 
+// Link a result card to the street's own page when one exists.
+function streetPageLink(street) {
+  const st = (window.SBS_PAGES && window.SBS_PAGES.st) || {};
+  const url = st[`${street.postcode_sector}|${String(street.street || '').toUpperCase()}`];
+  if (!url) return '';
+  const zh = document.documentElement.lang === 'zh-Hans';
+  return `<a class="street-page-link" href="${url}">${zh ? '查看该街道2008年以来全部成交 →' : 'Every sale on this street since 2008 →'}</a>`;
+}
+
 function renderResults(data, q) {
   const el = document.getElementById('results');
 
@@ -1407,6 +1470,7 @@ function renderResults(data, q) {
         <div>
           <div class="street-name">${street.street}</div>
           <div class="street-location">${street.town_city}${street.district ? ' · ' + street.district : ''}</div>
+          ${streetPageLink(street)}
         </div>
         <div class="street-sector">${street.postcode_sector || '—'}</div>
       </div>
