@@ -13,8 +13,8 @@
 </script>
 <script defer src="/_vercel/insights/script.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>House values in my street — free sold prices by postcode | SoldByStreet</title>
-<meta name="description" content="Type a postcode and see what houses sold for in your street — free, from HM Land Registry (2008–2026). Street median prices, year-on-year trends and every individual sale.">
+<title>House Values in My Street – Free, Since 2008</title>
+<meta name="description" content="Every sale on your street since 2008, from HM Land Registry. Free street report and price check, updated every month. Search by postcode.">
 <meta name="robots" content="index, follow">
 <meta name="google-site-verification" content="-Ug8VI5xKlSHJ94AwsT7xrX6QlAV4ee0e16W_Z8bAIY">
 <link rel="canonical" href="https://soldbystreet.co.uk/">
@@ -27,13 +27,13 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://soldbystreet.co.uk/">
 <meta property="og:site_name" content="Houses SoldByStreet">
-<meta property="og:title" content="House values in my street — free sold prices by postcode | SoldByStreet">
-<meta property="og:description" content="Type a postcode and see what houses sold for in your street — free, from HM Land Registry (2008–2026). Street median prices, year-on-year trends and every individual sale.">
+<meta property="og:title" content="House Values in My Street – Free, Since 2008">
+<meta property="og:description" content="Every sale on your street since 2008, from HM Land Registry. Free street report and price check, updated every month. Search by postcode.">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="House values in my street — free sold prices by postcode | SoldByStreet">
-<meta name="twitter:description" content="Type a postcode and see what houses sold for in your street — free, from HM Land Registry (2008–2026). Street median prices, year-on-year trends and every individual sale.">
+<meta name="twitter:title" content="House Values in My Street – Free, Since 2008">
+<meta name="twitter:description" content="Every sale on your street since 2008, from HM Land Registry. Free street report and price check, updated every month. Search by postcode.">
 
 <!-- Structured Data -->
 <script type="application/ld+json">
@@ -60,11 +60,15 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="/sold-prices/search-index.js" defer></script>
+<script src="/sold-prices/map-points.js" defer></script>
+<link rel="stylesheet" href="/assets/site-nav.css">
+<link rel="stylesheet" href="/assets/site-type.css">
+<script src="/assets/site-nav.js" defer></script>
 <style>
   :root {
     --ink: #0f0e0d;
@@ -86,7 +90,7 @@
     letter-spacing: 0.12em; color: var(--accent); margin-bottom: 0.6rem;
   }
   .browse-h2 {
-    font-family: 'DM Serif Display', serif; font-size: 1.5rem;
+    font-family: 'Gloock', serif; font-size: 1.5rem;
     letter-spacing: -0.01em; margin-bottom: 0.6rem;
   }
   .browse-p {
@@ -185,7 +189,7 @@
   }
 
   .logo {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'Gloock', serif;
     font-size: 1.4rem;
     letter-spacing: -0.02em;
     text-decoration: none;
@@ -194,6 +198,7 @@
   .logo span { color: var(--accent); font-style: italic; }
 
   .header-nav { display: flex; align-items: center; gap: 1.5rem; }
+  .header-right { display: flex; align-items: center; gap: 0.75rem; }
 
   .nav-link {
     font-family: 'DM Mono', monospace;
@@ -256,7 +261,7 @@
   }
 
   h1 {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'Gloock', serif;
     font-size: clamp(2rem, 4.5vw, 3.4rem);
     line-height: 1.08;
     letter-spacing: -0.02em;
@@ -359,6 +364,25 @@
     margin-top: 1.25rem;
   }
 
+  /* centred hero: eyebrow, headline, line, search box and pills */
+  .hero { text-align: center; }
+  .hero .hero-eyebrow { color: var(--accent); font-weight: 500; }
+  .hero h1 { text-wrap: balance; max-width: 15ch; margin-left: auto; margin-right: auto; font-size: clamp(2.3rem, 6vw, 4.2rem); }
+  .hero > p[data-i18n="hero-p"] { margin-left: auto; margin-right: auto; max-width: 740px; color: var(--ink); opacity: .8; }
+  .hero .search-box, .hero .search-wrap { margin-left: auto; margin-right: auto; }
+  .hero .type-pills { justify-content: center; margin-top: 0.5rem; }
+  .sf-label { display: block; font-family: 'DM Mono', monospace; font-size: 0.68rem; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--ink); margin-bottom: 0.45rem; text-align: left; }
+  .sf-label span { color: var(--muted); text-transform: none; letter-spacing: 0.02em; }
+  .hero .sf-type { text-align: center; margin-top: 1.4rem; margin-bottom: 0; }
+  .type-filter { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; margin: 0 0 1rem;
+    font-family: 'DM Mono', monospace; font-size: 0.72rem; }
+  .type-filter b { background: var(--ink); color: var(--paper); padding: 0.25rem 0.6rem; font-weight: 500; }
+  .type-filter button { background: none; border: 0; color: #2c55d6; font: 600 0.85rem 'DM Sans', sans-serif;
+    cursor: pointer; text-decoration: underline; padding: 0; }
+  .hero .landing-map, .hero .hero-body, .hero .search-history { text-align: left; }
+  .hero .hero-body { margin-left: auto; margin-right: auto; }
+
   .type-pill {
     font-family: 'DM Mono', monospace;
     font-size: 0.7rem;
@@ -410,7 +434,7 @@
   }
 
   .street-name {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'Gloock', serif;
     font-size: 1.5rem;
     letter-spacing: -0.01em;
   }
@@ -422,15 +446,39 @@
     font-weight: 300;
   }
 
-  .street-page-link {
-    display: inline-block;
-    margin-top: 0.45rem;
-    font-size: 0.78rem;
-    color: var(--accent);
-    text-decoration: none;
-    border-bottom: 1px solid currentColor;
+  /* result-card actions: one filled button for the main next step, outlined for the rest */
+  .street-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.1rem;
   }
-  .street-page-link:hover { color: var(--ink); }
+  .sa-btn {
+    --cta: #2c55d6;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 2.5rem;
+    padding: 0.55rem 1.05rem;
+    border-radius: 8px;
+    border: 1.5px solid #c3cff3;
+    background: #fff;
+    color: var(--cta);
+    font: 600 0.88rem/1.2 'DM Sans', sans-serif;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+  }
+  .sa-btn:hover { border-color: var(--cta); background: #f3f6fe; }
+  .sa-btn:focus-visible { outline: 2px solid var(--cta); outline-offset: 2px; }
+  .sa-btn.primary { background: var(--cta); border-color: var(--cta); color: #fff; }
+  .sa-btn.primary:hover { background: #2347b8; border-color: #2347b8; }
+  .sa-btn.done { color: #2d5a3d; border-color: #9cc3a8; background: #f1f8f3; }
+  @media (max-width: 600px) {
+    .street-actions { flex-direction: column; }
+    .sa-btn { justify-content: center; }
+  }
 
   .street-sector {
     font-family: 'DM Mono', monospace;
@@ -465,7 +513,7 @@
   }
 
   .metric-value {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'Gloock', serif;
     font-size: 1.7rem;
     letter-spacing: -0.02em;
     line-height: 1;
@@ -502,7 +550,7 @@
   .epc-stat { display: flex; flex-direction: column; gap: 0.15rem; }
   .epc-stat .metric-label { margin-bottom: 0; }
   .epc-stat-value {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'Gloock', serif;
     font-size: 1.3rem;
     letter-spacing: -0.02em;
     line-height: 1;
@@ -693,6 +741,32 @@
 
   .hidden { display: none; }
 
+  /* landing map: streets with a report, draggable */
+  .landing-map { margin-top: 2rem; }
+  .lm-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap;
+    font-family: 'DM Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--muted); margin-bottom: 0.5rem; }
+  .lm-head span:first-child { color: var(--ink); }
+  #landingMap { height: 380px; border: 1.5px solid var(--ink); position: relative; z-index: 1; }
+  @media (max-width: 600px) { #landingMap { height: 320px; } }
+  .lm-pop { font-family: 'DM Sans', sans-serif; font-size: 0.85rem; line-height: 1.45; }
+  .lm-pop b { font-family: 'Gloock', serif; font-weight: 400; font-size: 1.05rem; display: block; }
+  .lm-pop .sub { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--muted); }
+  .mp { display: inline-block; white-space: nowrap; transform: translate(-50%, -50%); font: 600 0.72rem/1 'DM Sans', sans-serif;
+    padding: 0.28rem 0.45rem; border-radius: 999px; box-shadow: 0 1px 3px rgba(15,14,13,.25); cursor: pointer; }
+  .mp.hub { background: #fff; color: var(--ink); border: 1.5px solid var(--ink); }
+  .mp.hub b { font-family: 'DM Mono', monospace; font-weight: 500; }
+  .mp.st { background: #2c55d6; color: #fff; border: 1.5px solid #fff; }
+  .mp .nm { display: none; font-weight: 500; }
+  .lm-names .mp .nm { display: inline; }
+  .lm-legend { background: rgba(255,255,255,.94); border: 1.5px solid var(--ink); padding: 0.4rem 0.6rem;
+    font: 400 0.72rem/1.3 'DM Sans', sans-serif; color: var(--ink); max-width: 260px; }
+  @media (max-width: 600px) { .lm-legend { max-width: 170px; font-size: 0.66rem; }
+    #landingMap .leaflet-control-attribution { font-size: 9px; } }
+  .lm-legend .mp { transform: none; padding: 0.15rem 0.4rem; margin-right: 0.3rem; box-shadow: none; }
+  .lm-pop a { display: inline-block; margin-top: 0.45rem; background: #2c55d6; color: #fff !important;
+    padding: 0.4rem 0.75rem; border-radius: 6px; font-weight: 600; text-decoration: none; }
+
   /* map */
   #map-panel {
     height: 300px;
@@ -764,7 +838,7 @@
     padding: 1.4rem 1.5rem;
   }
   .sbs-alert-title {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'Gloock', serif;
     font-size: 1.25rem;
     color: var(--ink);
     margin: 0 0 0.35rem;
@@ -820,40 +894,70 @@
 <body>
 
 <header>
-  <div class="logo">SoldBy<span>Street</span></div>
-  <nav class="header-nav">
-    <a href="/sold-prices" class="nav-link" data-i18n="nav-streets">Streets</a>
-    <a href="/guides" class="nav-link" data-i18n="nav-guides">Guides</a>
-    <div class="lang-switcher">
-      <button class="lang-btn" data-lang="en" onclick="applyLang('en')">EN</button>
-      <span class="lang-divider">|</span>
-      <button class="lang-btn" data-lang="zh" onclick="applyLang('zh')">中文</button>
+  <a href="/" class="logo">SoldBy<span>Street</span></a>
+  <div class="header-right">
+<nav class="sbs-nav" aria-label="Main">
+    <button class="sbs-nav-link sbs-menu-btn" type="button" aria-expanded="false" aria-controls="sbsNavPanel" data-i18n="nav-menu">Menu</button>
+    <div class="sbs-nav-panel" id="sbsNavPanel">
+      <a class="sbs-nav-link" href="/street-report" data-nav="report" data-i18n="nav-report">Street report</a>
+      <a class="sbs-nav-link" href="/price-check" data-nav="check" data-i18n="nav-check">Check a price</a>
+      <a class="sbs-nav-link" href="/sold-prices" data-nav="compare" data-i18n="nav-compare">Compare streets</a>
+      <div class="sbs-tools">
+        <button class="sbs-nav-link sbs-tools-btn" type="button" aria-expanded="false" aria-controls="sbsTools"><span data-i18n="nav-tools">Tools</span><span class="sbs-caret">▾</span></button>
+        <div class="sbs-tools-menu" id="sbsTools" hidden>
+          <div>
+            <div class="sbs-col-h" data-i18n="tools-prices">Prices</div>
+            <a href="/street-report" data-nav="tools_report" data-i18n="t-report">Street report<span>Every sale on your street since 2008</span></a>
+            <a href="/sold-prices" data-nav="tools_compare" data-i18n="t-compare">Sold prices by street and district<span>Compare streets district by district</span></a>
+            <a href="/price-check" data-nav="tools_check" data-i18n="t-check">Check a price<span>Fair-price range, and your asking price against it</span></a>
+          </div>
+          <div>
+            <div class="sbs-col-h" data-i18n="tools-data">About the data</div>
+            <a href="/methodology" data-nav="tools_method" data-i18n="t-method">How the figures are worked out<span>Sources, exclusions, medians</span></a>
+            <a href="/guides" data-nav="tools_guides" data-i18n="t-guides">Guides<span>Using sold prices to buy or sell</span></a>
+          </div>
+        </div>
+      </div>
+      <a class="sbs-nav-link" href="/contact" data-nav="contact" data-i18n="nav-contact">Contact</a>
     </div>
-    <span class="tagline">HM Land Registry · Street level · 2008–2026</span>
   </nav>
+  <div class="lang-switcher">
+    <button class="lang-btn" data-lang="en" onclick="applyLang('en')">EN</button>
+    <span class="lang-divider">|</span>
+    <button class="lang-btn" data-lang="zh" onclick="applyLang('zh')">中文</button>
+  </div>
+  </div>
 </header>
 
 <div class="hero">
-  <div class="hero-eyebrow" data-i18n="eyebrow">UK House Price Intelligence</div>
-  <h1 data-i18n="h1">What did houses sell for <em>on my street?</em></h1>
-  <p data-i18n="hero-p">See what houses sold for on your street. Search by postcode, see street level trends and year-on-year data straight from HM Land Registry.</p>
+  <div class="hero-eyebrow" data-i18n="eyebrow">HM Land Registry · 2008 to 3 months ago</div>
+  <h1 data-i18n="h1">The street report gives you the <em>real house values</em></h1>
+  <p data-i18n="hero-p">Check the house values in your street before you buy, sell or make an offer. Your street report is worked out from every sale on your street since 2008, from HM Land Registry and updated every month: what people actually paid, not asking prices. Size and condition are not measured.</p>
 
   <div class="search-box">
+    <label class="sf-label" for="searchInput" data-i18n="sf-label">Your postcode</label>
     <div class="search-wrap">
       <input id="searchInput" type="text" placeholder="e.g. NW3 5TJ or NW3 5" maxlength="10" autocomplete="off">
-      <button class="search-btn" onclick="doSearch()" data-i18n="search-btn">Search</button>
+      <button class="search-btn" onclick="doSearch()" data-i18n="search-btn">Show my street</button>
     </div>
     <div id="searchHistory" class="search-history" hidden></div>
   </div>
-  <div class="search-hint" data-i18n="search-hint">Full postcode · or postcode sector</div>
+  <div class="search-hint" data-i18n="search-hint">Full postcode for your street · or a sector (SW6 2) for all its streets</div>
 
-  <div class="type-pills">
+  <div class="sf-label sf-type" data-i18n="type-label">Property type <span>· optional · pick before or after you search</span></div>
+  <div class="type-pills" role="group" aria-label="Property type">
     <div class="type-pill active" data-type="" data-i18n="pill-all">All types</div>
     <div class="type-pill" data-type="Detached" data-i18n="pill-detached">Detached</div>
     <div class="type-pill" data-type="Semi-Detached" data-i18n="pill-semi">Semi-Detached</div>
     <div class="type-pill" data-type="Terraced" data-i18n="pill-terraced">Terraced</div>
     <div class="type-pill" data-type="Flat/Maisonette" data-i18n="pill-flat">Flat / Maisonette</div>
     <div class="type-pill" data-type="Other" data-i18n="pill-other">Other</div>
+  </div>
+
+  <div class="landing-map" id="landingMapWrap">
+    <div class="lm-head"><span data-i18n="lm-title">Sold prices on the map</span>
+      <span class="lm-hint" data-i18n="lm-hint">Drag and zoom · tap a price</span></div>
+    <div id="landingMap" role="region" aria-label="Map of streets with a street report"></div>
   </div>
 
   <p class="hero-body" data-i18n="hero-body">Wondering what houses sold for on your street — or the one you're about to buy on?<br><br>Search sold prices by postcode to see every registered HM Land Registry sale: median price, year-on-year trend, and transaction count going back to 2008.<br><br>All data comes directly from the Price Paid Dataset — the same records used by solicitors and surveyors. No estimates, no agent spin. Just the real numbers, street by street.</p>
@@ -946,14 +1050,27 @@
 // ── I18N ───────────────────────────────────────────────────────────────────
 var i18n = {
   en: {
+    'nav-contact': 'Contact', 'nav-menu': 'Menu', 'nav-report': 'Street report',
+    'nav-check': 'Check a price', 'nav-compare': 'Compare streets', 'nav-tools': 'Tools',
+    'tools-prices': 'Prices', 'tools-data': 'About the data',
+    't-report': 'Street report<span>Every sale on your street since 2008</span>',
+    't-compare': 'Sold prices by street and district<span>Compare streets district by district</span>',
+    't-check': 'Check a price<span>Fair-price range, and your asking price against it</span>',
+    
+    't-method': 'How the figures are worked out<span>Sources, exclusions, medians</span>',
+    't-guides': 'Guides<span>Using sold prices to buy or sell</span>',
     'nav-streets': 'Streets',
     'nav-guides': 'Guides',
-    'eyebrow': 'UK House Price Intelligence',
-    'h1': 'What did houses sell for <em>on my street?</em>',
-    'hero-p': 'See what houses sold for on your street. Search by postcode, see street level trends and year-on-year data straight from HM Land Registry.',
+    'eyebrow': 'HM Land Registry · 2008 to 3 months ago',
+    'h1': 'The street report gives you the <em>real house values</em>',
+    'hero-p': 'Check the house values in your street before you buy, sell or make an offer. Your street report is worked out from every sale on your street since 2008, from HM Land Registry and updated every month: what people actually paid, not asking prices. Size and condition are not measured.',
+    'lm-title': 'Sold prices on the map', 'lm-hint': 'Drag and zoom · tap a price',
     'hero-body': 'Wondering what houses sold for on your street — or the one you\'re about to buy on?<br><br>Search sold prices by postcode to see every registered HM Land Registry sale: median price, year-on-year trend, and transaction count going back to 2008.<br><br>All data comes directly from the Price Paid Dataset — the same records used by solicitors and surveyors. No estimates, no agent spin. Just the real numbers, street by street.',
-    'search-btn': 'Search',
-    'search-hint': 'Full postcode · or postcode sector',
+    'search-btn': 'Show my street',
+    'search-hint': 'Full postcode for your street · or a sector (SW6 2) for all its streets',
+    'sf-label': 'Your postcode',
+    'type-label': 'Property type <span>· optional · pick before or after you search</span>',
+    'show-all': 'Show all types', 'showing': 'Showing',
     'pill-all': 'All types',
     'pill-detached': 'Detached',
     'pill-semi': 'Semi-Detached',
@@ -971,14 +1088,27 @@ var i18n = {
     'footer-terms': 'Terms'
   },
   zh: {
+    'nav-contact': '联系我们', 'nav-menu': '菜单', 'nav-report': '街道报告',
+    'nav-check': '估算房价', 'nav-compare': '对比街道', 'nav-tools': '工具',
+    'tools-prices': '价格', 'tools-data': '关于数据',
+    't-report': '街道报告<span>2008年以来该街道全部成交</span>',
+    't-compare': '按街道和邮区查成交价<span>对比110个邮区的街道</span>',
+    't-check': '估算房价<span>合理价格区间，并对比挂牌价</span>',
+    
+    't-method': '数据计算方法<span>来源、排除项、中位数</span>',
+    't-guides': '指南<span>买房卖房如何用成交价</span>',
     'nav-streets': '街道',
     'nav-guides': '指南',
-    'eyebrow': '英国房价情报',
-    'h1': '我所在街道的<em>成交价是多少？</em>',
-    'hero-p': '查看你所在街道的房屋成交价格。按邮政编码搜索，直接从英国土地登记局获取街道级趋势和年度数据。',
+    'eyebrow': '英国土地登记局 · 2008年至三个月前',
+    'h1': '街道报告告诉你<em>真实的房屋价值</em>',
+    'hero-p': '在购买、出售或出价之前，先查看你所在街道的房屋价值。街道报告根据英国土地登记局记录的、你所在街道自2008年以来的每一笔成交计算，每月更新：是买家实际支付的价格，而不是挂牌价。不包括房屋面积和状况。',
+    'lm-title': '地图上的成交价', 'lm-hint': '拖动缩放地图 · 点击价格',
     'hero-body': '想知道你所在街道的成交价，或者你准备购买的那条街的行情？<br><br>按邮政编码搜索，查看英国土地登记局登记的每一笔成交记录：中位价、同比趋势，以及追溯至2008年的成交量。<br><br>所有数据直接来源于价格支付数据集——与律师和测量师使用的记录相同。没有估算，没有中介包装。只有街道级别的真实数字。',
-    'search-btn': '搜索',
-    'search-hint': '完整邮政编码 · 或区段',
+    'search-btn': '查看我的街道',
+    'search-hint': '完整邮编查看你的街道 · 或区段（如 SW6 2）查看所有街道',
+    'sf-label': '你的邮编',
+    'type-label': '房屋类型 <span>· 可选 · 搜索前后都可选择</span>',
+    'show-all': '显示全部类型', 'showing': '当前显示',
     'pill-all': '全部类型',
     'pill-detached': '独立屋',
     'pill-semi': '半独立屋',
@@ -1022,11 +1152,18 @@ const API_BASE = 'https://housecheck-api-580723587126.europe-west2.run.app';
 // ── PROPERTY TYPE PILLS ────────────────────────────────────────────────────
 let selectedType = '';
 
+function setType(t) {
+  const pill = [...document.querySelectorAll('.type-pill')].find(p => p.dataset.type === t)
+            || document.querySelector('.type-pill[data-type=""]');
+  document.querySelectorAll('.type-pill').forEach(p => { p.classList.remove('active'); p.setAttribute('aria-pressed', 'false'); });
+  pill.classList.add('active'); pill.setAttribute('aria-pressed', 'true');
+  selectedType = pill.dataset.type;
+}
 document.querySelectorAll('.type-pill').forEach(pill => {
+  pill.setAttribute('role', 'button'); pill.tabIndex = 0;
+  pill.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pill.click(); } });
   pill.addEventListener('click', () => {
-    document.querySelectorAll('.type-pill').forEach(p => p.classList.remove('active'));
-    pill.classList.add('active');
-    selectedType = pill.dataset.type;
+    setType(pill.dataset.type);
     // re-run search if there's already a query (stay here: a filter click is not a new search)
     const q = document.getElementById('searchInput').value.trim();
     if (q) doSearch({ noRedirect: true });
@@ -1205,25 +1342,13 @@ async function doSearch(opts = {}) {
   // Give every search its own address (/?q=SW6+2LE) so it can be shared,
   // bookmarked and returned to with Back. The canonical stays "/", so these
   // URLs are never indexed as separate pages.
-  const want = '/?q=' + encodeURIComponent(pcNorm).replace(/%20/g, '+');
+  const want = '/?q=' + encodeURIComponent(pcNorm).replace(/%20/g, '+')
+    + (selectedType ? '&type=' + encodeURIComponent(selectedType) : '');
   if (!opts.fromUrl && location.pathname + location.search !== want) {
     history.pushState({ q: pcNorm }, '', want);
   }
 
-  // A full postcode whose street has its own page goes straight to that page,
-  // at the postcode's section. Never when replaying from the URL: Back from the
-  // street page must show these results, not bounce forward again.
-  const page = !opts.fromUrl && !opts.noRedirect && !selectedType
-    && ((window.SBS_PAGES && window.SBS_PAGES.pc) || {})[pcNorm];
-  if (page) {
-    let gone = false;
-    const go = () => { if (!gone) { gone = true; location.assign(page + '#' + pcNorm.toLowerCase().replace(' ', '-')); } };
-    gtag('event', 'search_to_street_page', { search_term: pcNorm, page_path: page,
-      transport_type: 'beacon', event_callback: go });
-    setTimeout(go, 300);  // GA blocked or slow: go anyway
-    return;
-  }
-
+  showLandingMap(false);
   const el = document.getElementById('results');
   el.classList.remove('hidden');
   el.innerHTML = `<div class="loading"><div class="spinner"></div>Searching Land Registry data…</div>`;
@@ -1249,12 +1374,14 @@ async function doSearch(opts = {}) {
 // link), on Back/Forward, and when the browser restores this page from its cache.
 function searchFromUrl() {
   const q = new URLSearchParams(location.search).get('q') || '';
+  setType(new URLSearchParams(location.search).get('type') || '');
   const input = document.getElementById('searchInput');
   input.value = q;
   if (q) { doSearch({ fromUrl: true }); return; }
   const el = document.getElementById('results');
   el.classList.add('hidden');
   el.innerHTML = '';
+  showLandingMap(true);
 }
 window.addEventListener('popstate', searchFromUrl);
 window.addEventListener('pageshow', e => { if (e.persisted) searchFromUrl(); });
@@ -1352,7 +1479,7 @@ async function renderMap(streets, sector, query) {
   const infoPanel = document.createElement('div');
   infoPanel.className = 'map-legend';
   infoPanel.innerHTML = `
-    <div style="font-family:'DM Serif Display',serif;font-size:0.95rem;margin-bottom:4px">${first.street}</div>
+    <div style="font-family:'Gloock',serif;font-size:0.95rem;margin-bottom:4px">${first.street}</div>
     <div style="font-family:'DM Mono',monospace;font-size:0.65rem;color:#7a7570">
       Latest ${fmtK(fl?.median_price)} · ${fl?.year ?? '—'}
       ${fp ? `<br>Prev &nbsp;&nbsp;${fmtK(fp.median_price)} · ${fp.year}` : ''}
@@ -1421,14 +1548,63 @@ function wireAlertForm() {
   });
 }
 
-// Link a result card to the street's own page when one exists.
-function streetPageLink(street) {
-  const st = (window.SBS_PAGES && window.SBS_PAGES.st) || {};
-  const url = st[`${street.postcode_sector}|${String(street.street || '').toUpperCase()}`];
-  if (!url) return '';
+// Action buttons on a result card. One filled button = the most useful next step:
+// the street report when the street has a page, otherwise the price check. Buttons
+// only appear when their target exists, so none of them leads to a 404.
+function streetActions(street, data, q) {
+  const pages = window.SBS_PAGES || {};
+  const name = String(street.street || '');
+  const sector = String(street.postcode_sector || '');
+  const page = (pages.st || {})[`${sector}|${name.toUpperCase()}`];
+  const oc = sector.split(' ')[0].toUpperCase();
+  const secSlug = sector.toLowerCase().replace(' ', '-');
+  // nearby streets, always offered: the district page with this sector's streets first;
+  // a district page without that feature (SW6); else the sector search; else all districts
+  const onSector = String(q || '').trim().toUpperCase().replace(/\s+/g, ' ') === sector.toUpperCase();
+  const anyHub = (window.SBS_MAP_HUBS || []).some(h => h[2] === oc);
+  const near = (pages.hub || []).includes(oc) ? `/sold-prices/${oc.toLowerCase()}#near-${secSlug}`
+             : anyHub ? `/sold-prices/${oc.toLowerCase()}`
+             : onSector ? '/sold-prices' : `/?q=${encodeURIComponent(sector).replace(/%20/g, '+')}`;
+  // the property type picked on the search carries into the price check
+  const ptype = ['Flat/Maisonette', 'Terraced', 'Semi-Detached', 'Detached'].includes(data.property_type) ? data.property_type : '';
+  const check = `/price-check?street=${encodeURIComponent(name)}&sector=${encodeURIComponent(sector)}`
+              + (ptype ? `&type=${encodeURIComponent(ptype)}` : '')
+              + (page ? `&page=${encodeURIComponent(page)}` : '');
   const zh = document.documentElement.lang === 'zh-Hans';
-  return `<a class="street-page-link" href="${url}">${zh ? '查看该街道2008年以来全部成交 →' : 'Every sale on this street since 2008 →'}</a>`;
+  const t = zh
+    ? { page: '获取街道报告', check: '估算房价', near: '对比附近街道', share: '分享' }
+    : { page: 'Get your street report', check: 'Check a price', near: 'Compare nearby streets', share: 'Share' };
+  const btns = [];
+  const report = page || `/street-report?street=${encodeURIComponent(name)}&sector=${encodeURIComponent(sector)}`;
+  btns.push(`<a class="sa-btn primary" href="${report}" data-act="street_report">${t.page} →</a>`);
+  btns.push(`<a class="sa-btn" href="${check}" data-act="price_check">${t.check}</a>`);
+  btns.push(`<a class="sa-btn" href="${near}" data-act="nearby">${t.near}</a>`);
+  btns.push(`<button type="button" class="sa-btn" data-act="share">${t.share}</button>`);
+  return `<div class="street-actions">${btns.join('')}</div>`;
 }
+
+// One listener for every card's buttons (cards are re-rendered on each search).
+document.addEventListener('click', async e => {
+  const b = e.target.closest('.sa-btn');
+  if (!b) return;
+  const act = b.dataset.act;
+  gtag('event', 'result_action', { action: act });
+  if (act === 'share') {
+    const url = location.href;
+    try {
+      if (navigator.share) { await navigator.share({ title: document.title, url }); return; }
+      await navigator.clipboard.writeText(url);
+    } catch (err) {
+      if (err && err.name === 'AbortError') return;   // share sheet dismissed
+      const i = document.createElement('input'); i.value = url; document.body.appendChild(i);
+      i.select(); document.execCommand('copy'); i.remove();
+    }
+    const zh = document.documentElement.lang === 'zh-Hans';
+    const old = b.textContent;
+    b.textContent = zh ? '链接已复制' : 'Link copied'; b.classList.add('done');
+    setTimeout(() => { b.textContent = old; b.classList.remove('done'); }, 2000);
+  }
+});
 
 function renderResults(data, q) {
   const el = document.getElementById('results');
@@ -1445,7 +1621,10 @@ function renderResults(data, q) {
     : `street name "${q}"`;
   const typeLabel = data.property_type ? ` · ${data.property_type}` : '';
 
-  let html = `<div class="search-meta">${data.streets.length} street${data.streets.length > 1 ? 's' : ''} found · matched on ${modeLabel}${typeLabel}</div>`;
+  const zhT = document.documentElement.lang === 'zh-Hans';
+  const typeBar = data.property_type ? `<div class="type-filter"><span>${zhT ? '当前显示' : 'Showing'}</span><b>${esc(data.property_type)}</b>
+    <button type="button" onclick="setType('');doSearch({noRedirect:true})">${zhT ? '显示全部类型' : 'Show all types'}</button></div>` : '';
+  let html = typeBar + `<div class="search-meta">${data.streets.length} street${data.streets.length > 1 ? 's' : ''} found · matched on ${modeLabel}${typeLabel}</div>`;
 
   data.streets.forEach((street, idx) => {
     const years = street.years.sort((a, b) => a.year - b.year);
@@ -1470,9 +1649,9 @@ function renderResults(data, q) {
         <div>
           <div class="street-name">${street.street}</div>
           <div class="street-location">${street.town_city}${street.district ? ' · ' + street.district : ''}</div>
-          ${streetPageLink(street)}
         </div>
         <div class="street-sector">${street.postcode_sector || '—'}</div>
+        ${streetActions(street, data, q)}
       </div>
 
       <div class="metrics-row">
@@ -1686,6 +1865,71 @@ function renderResults(data, q) {
     });
   }, 50);
 }
+
+// ── LANDING MAP ────────────────────────────────────────────────────────────
+// Zoomed out: one price label per district page. Zoomed in (12+): one per street with
+// a report, with the street name from 14. Tap any label for its page.
+let landingMap = null;
+function initLandingMap() {
+  const box = document.getElementById('landingMap');
+  if (!box || landingMap || !window.L || !window.SBS_MAP) return;
+  landingMap = L.map(box, { scrollWheelZoom: false, zoomControl: true, tap: true, minZoom: 6 })
+    .setView([51.49, -0.13], 11);
+  // coloured OpenStreetMap tiles (parks, water, roads, station names); light use is within
+  // the OSM tile policy, which needs the attribution below
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    maxZoom: 19 }).addTo(landingMap);
+  const zh = () => document.documentElement.lang === 'zh-Hans';
+  const pill = (html, cls) => L.divIcon({ className: '', html: `<span class="mp ${cls}">${html}</span>`, iconSize: null });
+  const hubs = L.layerGroup(), streets = L.layerGroup();
+  // count street pages per district from the street list (the hub file's number is
+  // qualifying streets, not pages)
+  const pagesIn = {};
+  window.SBS_MAP.forEach(p => { pagesIn[p[3]] = (pagesIn[p[3]] || 0) + 1; });
+  (window.SBS_MAP_HUBS || []).forEach(([lat, lng, oc, area, url, med]) => {
+    const n = pagesIn[oc] || 0;
+    L.marker([lat, lng], { icon: pill(`<b>${esc(oc)}</b>${med ? ' ' + fmtK(med) : ''}`, 'hub'), riseOnHover: true })
+      .bindPopup(() => `<div class="lm-pop"><b>${esc(oc)}${area ? ' · ' + esc(area) : ''}</b>
+        <span class="sub">${zh() ? '最近一年中位价' : 'Median, latest year'}: ${fmtK(med)}${n ? ` · ${n} ${zh() ? '条街道报告' : n === 1 ? 'street report' : 'street reports'}` : ''}</span><br>
+        <a href="${url}" data-map="hub">${zh() ? '对比街道' : 'Compare its streets'} →</a></div>`)
+      .addTo(hubs);
+  });
+  window.SBS_MAP.forEach(([lat, lng, name, oc, url, med, n]) => {
+    L.marker([lat, lng], { icon: pill(`<span class="nm">${esc(name)} </span>${med ? fmtK(med) : n + ' sales'}`, 'st'), riseOnHover: true })
+      .bindPopup(() => `<div class="lm-pop"><b>${esc(name)}</b><span class="sub">${esc(oc)} · ${n} ${zh() ? '笔成交' : 'sales'}${med ? ` · ${zh() ? '近三年中位价' : 'median, last 3 years'} ${fmtK(med)}` : ''}</span><br>
+        <a href="${url}" data-map="street">${zh() ? '查看街道报告' : 'Street report'} →</a></div>`)
+      .addTo(streets);
+  });
+  const legend = L.control({ position: 'topright' });
+  legend.onAdd = () => { const d = L.DomUtil.create('div', 'lm-legend'); d.id = 'lmLegend'; return d; };
+  legend.addTo(landingMap);
+  function byZoom() {
+    const z = landingMap.getZoom();
+    const showStreets = z >= 12, showHubs = z <= 12;
+    showStreets ? streets.addTo(landingMap) : streets.remove();
+    showHubs ? hubs.addTo(landingMap) : hubs.remove();
+    box.classList.toggle('lm-names', z >= 14);
+    document.getElementById('lmLegend').innerHTML = zh()
+      ? (showStreets ? '<span class="mp st">£</span> 街道：近三年中位价 · 点击查看报告' : '<span class="mp hub">£</span> 邮编区：最近一年中位价 · 放大查看街道')
+      : (showStreets ? '<span class="mp st">£</span> Street: median, last 3 years · tap for its report'
+                     : '<span class="mp hub">£</span> District: median, latest year · zoom in for streets');
+  }
+  landingMap.on('zoomend', byZoom);
+  byZoom();
+  landingMap.on('popupopen', () => gtag('event', 'map_dot_open'));
+  box.addEventListener('click', e => { const a = e.target.closest('a[data-map]'); if (a) gtag('event', 'map_to_page', { kind: a.dataset.map }); });
+}
+function showLandingMap(show) {
+  const w = document.getElementById('landingMapWrap');
+  if (!w) return;
+  w.hidden = !show;
+  if (show) { initLandingMap(); if (landingMap) setTimeout(() => landingMap.invalidateSize(), 0); }
+}
+document.addEventListener('DOMContentLoaded', () => {
+  if (!new URLSearchParams(location.search).get('q')) showLandingMap(true);
+  else showLandingMap(false);
+});
 </script>
 </body>
 </html>
