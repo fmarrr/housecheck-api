@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Query, HTTPException
+from fastapi import FastAPI, Query, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
@@ -31,17 +31,23 @@ SITE_URL        = os.getenv("SITE_URL", "https://soldbystreet.co.uk")
 GA_MEASUREMENT_ID = os.getenv("GA_MEASUREMENT_ID", "G-9WWR5FF5VK")
 GA_API_SECRET     = os.getenv("GA_API_SECRET")
 
+# Contact form: messages are emailed to CONTACT_TO (set on deploy) and not stored.
+CONTACT_TO = os.getenv("CONTACT_TO")
 
-def send_email(to_email: str, subject: str, html: str) -> bool:
+
+def send_email(to_email: str, subject: str, html: str, reply_to: Optional[str] = None) -> bool:
     """Send one email via the Resend API. Best-effort: returns False on any failure."""
     if not RESEND_API_KEY:
         return False
-    data = json.dumps({
+    payload = {
         "from": ALERTS_FROM,
         "to": [to_email],
         "subject": subject,
         "html": html,
-    }).encode()
+    }
+    if reply_to:
+        payload["reply_to"] = reply_to
+    data = json.dumps(payload).encode()
     req = urllib.request.Request(
         "https://api.resend.com/emails",
         data=data,
@@ -565,6 +571,61 @@ a{{color:#c8401a;}}</style></head>
 <body><h2 style="color:#c8401a;">You've been unsubscribed</h2>
 <p>You won't receive any more sold-price alerts. You can re-subscribe anytime at
 <a href="{SITE_URL}">soldbystreet.co.uk</a>.</p></body></html>""")
+
+
+class ContactIn(BaseModel):
+    name: Optional[str] = None
+    email: str
+    topic: Optional[str] = None
+    message: str
+    page: Optional[str] = None
+    website: Optional[str] = None   # honeypot: hidden from people, filled in by bots
+
+
+CONTACT_TOPICS = {"data": "Question about the data", "mistake": "Report a mistake",
+                  "partnership": "Partnership or press", "other": "Other"}
+_contact_hits: dict = {}   # ip -> recent send times (per instance; a light brake, not a wall)
+
+
+@app.post("/contact")
+def contact(body: ContactIn, request: Request):
+    """
+    Email a contact-form message to the site owner, with Reply-To set to the sender.
+    Nothing is written to BigQuery: the message exists only in that email.
+    """
+    if (body.website or "").strip():
+        return {"status": "sent"}          # bot: pretend it worked, send nothing
+    email = body.email.strip().lower()
+    message = (body.message or "").strip()
+    if not EMAIL_RE.match(email):
+        raise HTTPException(status_code=400, detail="Please enter a valid email address, so we can reply.")
+    if not 10 <= len(message) <= 3000:
+        raise HTTPException(status_code=400, detail="Please write a message between 10 and 3,000 characters.")
+    if not CONTACT_TO or not RESEND_API_KEY:
+        raise HTTPException(status_code=503, detail="The contact form is not available right now.")
+
+    import time
+    ip = (request.headers.get("x-forwarded-for") or (request.client.host if request.client else "")).split(",")[0].strip()
+    now = time.time()
+    recent = [t for t in _contact_hits.get(ip, []) if now - t < 3600]
+    if len(recent) >= 5:
+        raise HTTPException(status_code=429, detail="Too many messages from here. Please try again later.")
+    _contact_hits[ip] = recent + [now]
+
+    esc = lambda x: (x or "").replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+    name = (body.name or "").strip()[:120]
+    topic = CONTACT_TOPICS.get((body.topic or "").strip(), "Other")
+    html = f"""\
+<div style="font-family:Arial,Helvetica,sans-serif;max-width:560px;color:#0f0e0d;">
+  <p style="font-size:13px;color:#7a7570;margin:0 0 12px;">SoldByStreet contact form · {esc(topic)}</p>
+  <p style="font-size:15px;margin:0 0 4px;"><strong>{esc(name) or "(no name)"}</strong> &lt;{esc(email)}&gt;</p>
+  <p style="font-size:13px;color:#7a7570;margin:0 0 16px;">Sent from {esc((body.page or "")[:200]) or "the site"}</p>
+  <div style="font-size:15px;line-height:1.55;white-space:pre-wrap;border-left:3px solid #c8401a;padding-left:12px;">{esc(message)}</div>
+  <p style="font-size:12px;color:#7a7570;margin-top:20px;">Reply to this email to answer them directly.</p>
+</div>"""
+    if not send_email(CONTACT_TO, f"[SoldByStreet] {topic}: {name or email}", html, reply_to=email):
+        raise HTTPException(status_code=502, detail="Your message could not be sent. Please try again in a moment.")
+    return {"status": "sent"}
 
 
 @app.get("/health")
