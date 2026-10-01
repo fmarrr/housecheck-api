@@ -207,11 +207,11 @@
     <p class="intro" style="margin-bottom:0;padding-bottom:0;border:0">Every sold price on your street since 2008,
       how prices have moved, and what a typical home sells for. Free, from HM Land Registry records.</p>
     <form class="sr-form" id="srForm">
-      <input id="srInput" name="q" placeholder="Your postcode, e.g. SW6 2LE" autocomplete="postal-code"
+      <input id="srInput" name="q" placeholder="Your postcode, e.g. B74 3TB" autocomplete="postal-code"
              maxlength="10" aria-label="Your postcode">
       <button class="sr-go" type="submit">Get your street report</button>
     </form>
-    <div class="sr-hint">Full postcode for your street · or a sector (SW6 2) to pick from its streets</div>
+    <div class="sr-hint">Full postcode for your street · or a sector (B74 3) to pick from its streets</div>
     <div id="srPick"></div>
     <h2>What's in a street report</h2>
     <div class="sr-what"><div><b>Every sale since 2008</b><p>Date, address, property type, tenure and price for each recorded sale.</p></div><div><b>How prices have moved</b><p>The street&#x27;s median price year by year, so you can see the direction.</p></div><div><b>What&#x27;s typical</b><p>The middle half of recent sales for flats, terraced, semi-detached and detached homes.</p></div><div><b>Next steps</b><p>Check an asking price against the street, and compare nearby streets.</p></div></div>
@@ -262,7 +262,7 @@ async function findStreets(e) {
   if (e) e.preventDefault();
   const raw = $('srInput').value.trim();
   if (!raw) return;
-  if (!PC_RE.test(raw)) { $('srPick').innerHTML = '<div class="sr-msg">Enter a UK postcode, for example <strong>SW6 2LE</strong> or <strong>SW6 2</strong>.</div>'; return; }
+  if (!PC_RE.test(raw)) { $('srPick').innerHTML = '<div class="sr-msg">Enter a UK postcode, for example <strong>B74 3TB</strong> or <strong>B74 3</strong>.</div>'; return; }
   const pc = normPc(raw);
   gtag('event', 'street_report_search', {search_term: pc});
   const want = '/street-report?q=' + encodeURIComponent(pc).replace(/%20/g, '+');
@@ -274,7 +274,7 @@ async function findStreets(e) {
   try {
     const d = await (await fetch(`${API}/search?q=${encodeURIComponent(pc)}`)).json();
     const st = (d.streets || []).filter(s => s.postcode_sector);
-    if (!st.length) { $('srPick').innerHTML = '<div class="sr-msg">No recorded sales for that postcode. Try the sector (for example SW6 2).</div>'; return; }
+    if (!st.length) { $('srPick').innerHTML = '<div class="sr-msg">No recorded sales for that postcode. Try the sector (for example B74 3).</div>'; return; }
     if (st.length === 1) { location.assign(reportUrl(st[0].street, st[0].postcode_sector)); return; }
     const sales = s => (s.years || []).reduce((a, y) => a + (y.transaction_count || 0), 0);
     st.sort((a, b) => sales(b) - sales(a));
