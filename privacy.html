@@ -12,7 +12,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Privacy Policy — Houses SoldByStreet</title>
-<meta name="description" content="Privacy policy for Houses SoldByStreet — how we handle your data when you search UK house prices.">
+<meta name="description" content="Privacy policy for Houses SoldByStreet: what data we collect when you search UK house prices, sign up for alerts or contact us, how long we keep it and your rights.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://soldbystreet.co.uk/privacy">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
@@ -22,7 +22,7 @@
      crossorigin="anonymous"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --ink: #0f0e0d;
@@ -56,7 +56,7 @@
   }
 
   .logo {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'Gloock', serif;
     font-size: 1.4rem;
     letter-spacing: -0.02em;
     text-decoration: none;
@@ -88,7 +88,7 @@
   }
 
   h1 {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'Gloock', serif;
     font-size: 2.4rem;
     letter-spacing: -0.02em;
     line-height: 1.1;
@@ -105,7 +105,7 @@
   }
 
   h2 {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'Gloock', serif;
     font-size: 1.3rem;
     letter-spacing: -0.01em;
     margin-top: 2.5rem;
@@ -193,6 +193,7 @@
     h1 { font-size: 1.8rem; }
   }
 </style>
+<link rel="stylesheet" href="/assets/site-type.css">
 </head>
 <body>
 
@@ -204,50 +205,70 @@
 <main>
   <div class="eyebrow">Legal</div>
   <h1>Privacy Policy</h1>
-  <div class="last-updated">Last updated: May 2026</div>
+  <div class="last-updated">Last updated: 1 October 2026</div>
 
-  <p>Houses SoldByStreet ("we", "us") operates the website at <a href="https://soldbystreet.co.uk">soldbystreet.co.uk</a>. This policy explains what data we collect when you use the site and how it is handled.</p>
+  <p>Houses SoldByStreet ("we", "us") operates the website at <a href="https://soldbystreet.co.uk">soldbystreet.co.uk</a>. This policy explains what personal data we collect when you use the site, why, how long we keep it and who else handles it.</p>
   <p>We are registered with the UK Information Commissioner's Office (ICO) under registration number <strong>ZA540758</strong>.</p>
 
   <div class="info-box">
     <strong>Summary</strong>
-    We do not create accounts, track individuals, or sell data. We receive postcodes you search and standard server log data. No cookies are set by us.
+    You can search without an account. We keep a log of searches (including your IP address) for up to 14 months to run and improve the site. Analytics cookies are set only if you accept them. If you sign up for email alerts or send us a message, we use your email address only for that. We never sell data.
   </div>
 
   <h2>What data we collect</h2>
-  <p><strong>Search queries (postcodes).</strong> When you search for a postcode, it is sent to our API as a URL query parameter. We do not store search queries in a database. The query is used only to retrieve and return price data from our dataset.</p>
-  <p><strong>Server logs.</strong> Our API hosting provider (Google Cloud Run) automatically records standard server log data for each request, including your IP address, the request URL, timestamp, and response status. These logs are retained for up to 30 days and are used solely for monitoring and debugging.</p>
-  <p><strong>Website hosting logs.</strong> Our website is hosted on Vercel, which may log IP addresses and request metadata. See <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener">Vercel's privacy policy</a>.</p>
+  <p><strong>Searches.</strong> When you search a postcode, it is sent to our API. Our hosting provider (Google Cloud) records each request: your IP address, the address requested (which includes the postcode), the time and your browser type. We keep these records in Google BigQuery for up to 14 months, to fix problems, prevent abuse and understand which areas people search for.</p>
+  <p><strong>Email alerts.</strong> If you sign up for alerts, we store your email address, the postcode area you searched and the date you signed up in our database (Google BigQuery), and send you a welcome email and monthly alerts. Every email has a one-click unsubscribe link. After you unsubscribe we stop emailing you; ask us and we will delete your details completely.</p>
+  <p><strong>Contact form.</strong> If you send us a message through the <a href="/contact">contact form</a>, we receive your name (optional), email address, topic and message by email so we can reply. They are not stored in our database or added to any mailing list. We keep the email for up to 12 months, then delete it.</p>
+  <p><strong>Analytics (only with your consent).</strong> If you accept analytics cookies, Google Analytics records how the site is used: pages viewed, searches made, approximate location and device type. When you sign up for alerts, we tell Google Analytics that a sign-up happened, linked to your analytics ID but not to your email address. Vercel Web Analytics also counts page views without cookies and without identifying you.</p>
+  <p><strong>Website hosting logs.</strong> Our website is hosted on Vercel, which logs IP addresses and request details for security and operations. See <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener">Vercel's privacy policy</a>.</p>
 
   <h2>Cookies</h2>
-  <p>We do not set any cookies. No tracking, advertising, or analytics cookies are used on this site.</p>
-  <p>Third-party services we load (Google Fonts and jsDelivr CDN for charting) may set their own cookies or log your IP address subject to their own policies. These are used only to deliver fonts and chart functionality.</p>
-
-  <h2>Third-party services</h2>
   <ul>
-    <li><strong>Google Fonts</strong> — fonts are loaded from Google's CDN. See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's privacy policy</a>.</li>
-    <li><strong>jsDelivr</strong> — Chart.js is loaded from jsDelivr's CDN. See <a href="https://www.jsdelivr.com/terms/privacy-policy-jsdelivr-net" target="_blank" rel="noopener">jsDelivr's privacy policy</a>.</li>
-    <li><strong>Google Cloud Run</strong> — our API backend is hosted on Google Cloud Run. See <a href="https://cloud.google.com/terms/cloud-privacy-notice" target="_blank" rel="noopener">Google Cloud's privacy notice</a>.</li>
+    <li><strong>cookieyes-consent</strong> (necessary) remembers your cookie choice, for up to 1 year.</li>
+    <li><strong>_ga and _ga_*</strong> (analytics) are Google Analytics cookies, set only if you accept analytics cookies, for up to 2 years.</li>
+  </ul>
+  <p>You can change your choice at any time from the cookie banner's settings. Rejecting analytics cookies does not affect how the site works.</p>
+
+  <h2>Services that handle data for us</h2>
+  <ul>
+    <li><strong>Google Cloud (Cloud Run and BigQuery)</strong>: runs our API and stores search logs and alert sign-ups. <a href="https://cloud.google.com/terms/cloud-privacy-notice" target="_blank" rel="noopener">Privacy notice</a>.</li>
+    <li><strong>Google Analytics</strong>: usage statistics, only with your consent. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy policy</a>.</li>
+    <li><strong>Resend</strong>: sends our emails, including alerts and contact-form messages. <a href="https://resend.com/legal/privacy-policy" target="_blank" rel="noopener">Privacy policy</a>.</li>
+    <li><strong>CookieYes</strong>: the cookie banner. <a href="https://www.cookieyes.com/privacy-policy/" target="_blank" rel="noopener">Privacy policy</a>.</li>
+    <li><strong>Vercel</strong>: hosts the website and counts page views. <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener">Privacy policy</a>.</li>
+  </ul>
+  <p>Your browser also loads files or map data directly from these services, which see your IP address: Google Fonts (fonts), jsDelivr and unpkg (chart and map code), OpenStreetMap and Esri (map images), and postcodes.io (the postcode you searched is sent to it to place the map).</p>
+  <p>Some of these providers are based in the United States. Where data leaves the UK, it is protected by the provider's safeguards approved under UK data protection law, such as the UK International Data Transfer Addendum or the UK-US data bridge.</p>
+
+  <h2>How long we keep data</h2>
+  <ul>
+    <li>Search logs: up to 14 months.</li>
+    <li>Email alert sign-ups: until you unsubscribe, or until you ask us to delete them.</li>
+    <li>Contact-form messages: up to 12 months.</li>
+    <li>Google Analytics data: up to 14 months, under our Google Analytics retention setting.</li>
   </ul>
 
   <h2>Data source</h2>
-  <p>All house price data is sourced from <a href="https://www.gov.uk/government/collections/price-paid-data" target="_blank" rel="noopener">HM Land Registry Price Paid Data</a>, published under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" target="_blank" rel="noopener">Open Government Licence v3.0</a>. HM Land Registry is not responsible for the accuracy of this site.</p>
+  <p>All house price data is sourced from <a href="https://www.gov.uk/government/collections/price-paid-data" target="_blank" rel="noopener">HM Land Registry Price Paid Data</a>, published under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" target="_blank" rel="noopener">Open Government Licence v3.0</a>. HM Land Registry is not responsible for the accuracy of this site. Floor areas come from the Energy Performance Certificate register, also under the Open Government Licence.</p>
 
   <h2>Legal basis for processing</h2>
-  <p>We process data under <strong>legitimate interests</strong> (Article 6(1)(f) UK GDPR) — specifically, operating and maintaining a functional web service. Server logs are necessary to detect errors and prevent abuse.</p>
+  <ul>
+    <li><strong>Search logs, hosting logs and contact-form replies:</strong> legitimate interests (Article 6(1)(f) UK GDPR): running a working, secure service and answering people who write to us.</li>
+    <li><strong>Email alerts and analytics cookies:</strong> consent (Article 6(1)(a)). You can withdraw it at any time by unsubscribing or changing your cookie choice.</li>
+  </ul>
 
   <h2>Your rights under UK GDPR</h2>
   <p>You have the right to:</p>
   <ul>
-    <li>Access personal data we hold about you</li>
-    <li>Request erasure of your personal data</li>
-    <li>Restrict or object to processing</li>
+    <li>Access the personal data we hold about you</li>
+    <li>Ask us to correct or erase it</li>
+    <li>Restrict or object to processing, and withdraw consent</li>
     <li>Lodge a complaint with the <a href="https://ico.org.uk" target="_blank" rel="noopener">Information Commissioner's Office (ICO)</a></li>
   </ul>
-  <p>Because we do not store search queries or create user profiles, we hold minimal personal data (server logs only, retained 30 days). Requests for access or erasure can be made by contacting us below.</p>
+  <p>To use any of these rights, contact us below. We will reply within one month.</p>
 
   <h2>Contact</h2>
-  <p>For privacy-related enquiries, email: <a href="mailto:housecheck.it@gmail.com">housecheck.it@gmail.com</a></p>
+  <p>For privacy-related enquiries, email <a href="mailto:housecheck.it@gmail.com">housecheck.it@gmail.com</a> or use our <a href="/contact">contact form</a>.</p>
 
   <h2>Changes to this policy</h2>
   <p>We may update this policy from time to time. The "last updated" date at the top of this page will reflect any changes.</p>
