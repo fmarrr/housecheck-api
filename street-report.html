@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/7b30e2f2d9316ee4614729dbf30f3c60/script.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9WWR5FF5VK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-9WWR5FF5VK');
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get Your Street Report – Every Sold Price on Your Street Since 2008</title>
+<meta name="description" content="Free street report from HM Land Registry records: every sold price on your street since 2008, how prices have moved, and what a typical home sells for by property type.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://soldbystreet.co.uk/street-report">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://soldbystreet.co.uk/street-report">
+<meta property="og:title" content="Get Your Street Report – Every Sold Price on Your Street Since 2008">
+<meta property="og:description" content="Free street report from HM Land Registry records: every sold price on your street since 2008, how prices have moved, and what a typical home sells for by property type.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site-nav.css">
+<link rel="stylesheet" href="/assets/site-type.css">
+<script src="/assets/site-nav.js" defer></script>
+<style>
+  tr:target td{background:var(--cream);}
+  .bands{display:grid;gap:1.2rem;margin:0 0 1rem;}
+  .band{border:1.5px solid var(--ink);background:#fff;padding:1.1rem 1.2rem 1rem;}
+  .band-h{display:flex;align-items:center;gap:.5rem;margin-bottom:.9rem;flex-wrap:wrap;}
+  .band-n{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--muted);margin-left:auto;}
+  .band-bar{position:relative;height:30px;margin:0 0 .7rem;}
+  .band-bar .z{position:absolute;top:8px;height:14px;}
+  .band-bar .z.lo,.band-bar .z.hi{background:var(--cream);}
+  .band-bar .z.mid{border:1.5px solid;}
+  .band-bar .md{position:absolute;top:2px;height:26px;border-left:2px solid var(--ink);}
+  .band-bar .bd{position:absolute;top:12px;width:7px;height:7px;margin-left:-3.5px;border-radius:50%;background:var(--ink);opacity:.55;}
+  .band-k{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:.5rem;font-family:'DM Mono',monospace;font-size:.68rem;color:var(--muted);line-height:1.5;}
+  .band-k b{color:var(--ink);font-weight:500;}.band-k .mid{text-align:center;}.band-k .hi{text-align:right;}
+  .band-go{display:inline-block;margin-top:.8rem;color:#2c55d6;font-weight:600;font-size:.88rem;text-decoration:none;}
+  .band-go:hover{text-decoration:underline;}
+  tr.near td{background:#eef2fd;}
+  .near-note{border-left:3px solid #2c55d6;padding:.5rem .8rem;background:#fff;font-size:.9rem;}
+  .qa h3{font-size:1rem;margin:1.2rem 0 .3rem;}
+  .qa p{margin:0 0 .4rem;}
+  :root{--ink:#0f0e0d;--paper:#f5f2ee;--cream:#ede9e3;--accent:#c8401a;
+    --muted:#7a7570;--border:#d4cfc9;--up:#2d5a3d;--down:#9b2c2c;--psm:#5a7a9e;}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;}
+  a{color:inherit;}
+  header{border-bottom:1.5px solid var(--ink);padding:0 2.5rem;display:flex;align-items:center;
+    justify-content:space-between;height:60px;background:var(--paper);position:sticky;top:0;z-index:100;}
+  .logo{font-family:'Gloock',serif;font-size:1.4rem;letter-spacing:-0.02em;
+    text-decoration:none;color:var(--ink);}
+  .logo span{color:var(--accent);font-style:italic;}
+  .header-nav{display:flex;align-items:center;gap:1.5rem;}
+  .nav-link{font-family:'DM Mono',monospace;font-size:0.65rem;text-transform:uppercase;
+    letter-spacing:0.08em;color:var(--ink);text-decoration:none;border:1px solid var(--border);
+    padding:0.28rem 0.7rem;transition:background .15s,border-color .15s;}
+  .nav-link:hover{background:var(--cream);border-color:var(--ink);}
+  .wrap{max-width:880px;margin:0 auto;padding:3.5rem 2.5rem 5rem;}
+  .breadcrumb{font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;
+    letter-spacing:0.1em;color:var(--muted);margin-bottom:2rem;}
+  .breadcrumb a{text-decoration:none;}.breadcrumb a:hover{color:var(--ink);}
+  .breadcrumb span{margin:0 0.5rem;}
+  .tag{font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;
+    letter-spacing:0.12em;color:var(--accent);margin-bottom:0.75rem;}
+  h1{font-family:'Gloock',serif;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.1;
+    letter-spacing:-0.02em;margin-bottom:1.25rem;}
+  h1 em{font-style:italic;color:var(--accent);}
+  .intro{font-size:1.05rem;line-height:1.7;color:var(--muted);font-weight:300;
+    margin-bottom:2.5rem;padding-bottom:2.5rem;border-bottom:1.5px solid var(--ink);}
+  h2{font-family:'Gloock',serif;font-size:1.4rem;letter-spacing:-0.01em;margin:3rem 0 1rem;}
+  p{font-size:0.95rem;line-height:1.75;color:#2a2826;margin-bottom:1.1rem;font-weight:300;}
+  .stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;
+    background:var(--border);border:1.5px solid var(--ink);margin:0 0 1rem;}
+  .stat{background:white;padding:1.25rem 1.25rem 1.1rem;}
+  .stat .label{font-family:'DM Mono',monospace;font-size:0.6rem;text-transform:uppercase;
+    letter-spacing:0.1em;color:var(--muted);margin-bottom:0.5rem;}
+  .stat .value{font-family:'Gloock',serif;font-size:1.7rem;line-height:1;}
+  .stat .sub{font-family:'DM Mono',monospace;font-size:0.7rem;margin-top:0.4rem;color:var(--muted);}
+  .up{color:var(--up);}.down{color:var(--down);}.thin{color:var(--muted);}
+  .note{font-family:'DM Mono',monospace;font-size:0.66rem;color:var(--muted);
+    line-height:1.6;margin-bottom:2rem;}
+  .alert{border:1.5px solid var(--ink);background:white;padding:1.6rem 1.8rem;margin:0 0 1rem;}
+  .alert h3{font-family:'Gloock',serif;font-size:1.25rem;margin-bottom:0.4rem;}
+  .alert p{font-size:0.88rem;color:var(--muted);margin-bottom:1rem;}
+  .alert form{display:flex;gap:0.6rem;flex-wrap:wrap;}
+  .alert input{flex:1 1 220px;font-family:'DM Sans',sans-serif;font-size:0.9rem;
+    padding:0.7rem 0.85rem;border:1.5px solid var(--border);background:var(--paper);color:var(--ink);}
+  .alert input:focus{outline:none;border-color:var(--ink);}
+  .alert button{font-family:'DM Mono',monospace;font-size:0.72rem;text-transform:uppercase;
+    letter-spacing:0.08em;background:var(--ink);color:var(--paper);border:none;
+    padding:0.7rem 1.4rem;cursor:pointer;}
+  .alert button:disabled{opacity:0.5;cursor:default;}
+  .alert .msg{font-family:'DM Mono',monospace;font-size:0.7rem;margin-top:0.8rem;line-height:1.5;}
+  .alert .msg.ok{color:var(--up);}.alert .msg.err{color:var(--down);}
+  .alert .fine{font-family:'DM Mono',monospace;font-size:0.62rem;color:var(--muted);
+    margin:0.8rem 0 0;}
+  .chart-wrap{border:1.5px solid var(--ink);background:white;height:320px;padding:1.2rem 1.2rem 0.5rem;margin:1rem 0 0;}
+  .legend{display:flex;flex-wrap:wrap;gap:1.1rem;border:1.5px solid var(--ink);border-top:none;
+    background:white;padding:0.7rem 1.3rem;font-family:'DM Mono',monospace;
+    font-size:0.64rem;color:var(--muted);margin-bottom:1rem;}
+  .legend i.k{display:inline-block;width:18px;height:0;vertical-align:middle;margin-right:6px;}
+  .sw{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;
+    vertical-align:baseline;}
+  table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:0.85rem;}
+  th,td{text-align:left;padding:0.6rem 0.7rem;border-bottom:1px solid var(--border);}
+  th{font-family:'DM Mono',monospace;font-size:0.6rem;text-transform:uppercase;
+    letter-spacing:0.08em;color:var(--muted);border-bottom:1.5px solid var(--ink);}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
+  tr.hl td{background:var(--cream);font-weight:500;}
+  td.dt{font-family:'DM Mono',monospace;font-size:0.72rem;white-space:nowrap;}
+  .cnt{display:block;font-family:'DM Mono',monospace;font-size:0.58rem;color:var(--muted);
+    margin-top:0.15rem;}
+  .scroll-x{overflow-x:auto;}
+  .scroll-x table{min-width:560px;}
+  .pc{display:block;font-family:'DM Mono',monospace;font-size:0.62rem;color:var(--muted);}
+  .nb{font-family:'DM Mono',monospace;font-size:0.58rem;text-transform:uppercase;
+    letter-spacing:0.06em;color:var(--accent);}
+  tbody tr:hover td{background:var(--cream);}
+  .scroll{max-height:640px;overflow:auto;border:1.5px solid var(--ink);background:white;}
+  .scroll table{margin:0;}
+  .scroll th{position:sticky;top:0;background:white;z-index:2;}
+  .chips{display:flex;flex-wrap:wrap;gap:0.5rem;margin:0.5rem 0 2rem;}
+  .chip{font-family:'DM Mono',monospace;font-size:0.7rem;text-decoration:none;
+    border:1px solid var(--border);padding:0.4rem 0.8rem;transition:background .15s,border-color .15s;}
+  .chip:hover{background:var(--cream);border-color:var(--ink);}
+  .backlink{display:inline-block;font-family:'DM Mono',monospace;font-size:0.68rem;
+    text-transform:uppercase;letter-spacing:0.07em;text-decoration:none;color:var(--accent);
+    border-bottom:1px solid var(--accent);padding-bottom:2px;}
+  footer{border-top:1.5px solid var(--ink);padding:2rem 2.5rem;display:flex;flex-wrap:wrap;gap:1.5rem;
+    font-family:'DM Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.08em;}
+  footer a{text-decoration:none;color:var(--muted);}footer a:hover{color:var(--ink);}
+  @media(max-width:600px){header,.wrap{padding-left:1.2rem;padding-right:1.2rem;}
+    th,td{padding:0.5rem 0.4rem;font-size:0.8rem;}.chart-wrap{height:270px;}
+    .scroll{max-height:520px;}.alert{padding:1.3rem;}}
+
+  .sr-form{display:flex;flex-wrap:wrap;gap:.6rem;background:#fff;border:1.5px solid var(--ink);
+    padding:1.1rem 1.2rem;margin:1.5rem 0 .5rem;max-width:640px}
+  .sr-form input{flex:1 1 220px;font:400 1.05rem 'DM Sans',sans-serif;color:var(--ink);padding:.75rem .85rem;
+    border:1.5px solid var(--border);background:var(--paper);border-radius:6px;min-width:0}
+  .sr-form input:focus{outline:none;border-color:#2c55d6}
+  .sr-go{flex:0 0 auto;min-height:3rem;border:0;border-radius:8px;background:#2c55d6;color:#fff;
+    font:600 1rem 'DM Sans',sans-serif;cursor:pointer;padding:0 1.3rem}
+  .sr-go:hover{background:#2347b8}.sr-go:focus-visible{outline:2px solid #2c55d6;outline-offset:2px}
+  .sr-hint{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--muted);margin-bottom:2rem}
+  .sr-what{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin:1rem 0 2rem}
+  .sr-what div{border-top:2px solid #2c55d6;padding-top:.7rem}
+  .sr-what b{display:block;margin-bottom:.25rem}
+  .sr-what p{font-size:.92rem;color:var(--muted);margin:0}
+  .sr-pick{display:grid;gap:.5rem;margin:1rem 0 2rem}
+  .sr-pick a{display:flex;justify-content:space-between;gap:1rem;align-items:center;padding:.8rem 1rem;
+    background:#fff;border:1.5px solid #c3cff3;border-radius:8px;text-decoration:none;color:var(--ink)}
+  .sr-pick a:hover{border-color:#2c55d6;background:#f3f6fe}
+  .sr-pick .go{color:#2c55d6;font-weight:600;font-size:.88rem;white-space:nowrap}
+  .sr-pick .sub{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--muted)}
+  .sr-msg{padding:1rem 1.25rem;border:1.5px dashed var(--border);background:#fff;margin:1.5rem 0}
+  .sr-actions{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.2rem 0 2rem}
+  .sr-actions a,.sr-actions button{display:inline-flex;align-items:center;min-height:2.6rem;padding:.55rem 1.05rem;
+    border-radius:8px;border:1.5px solid #c3cff3;color:#2c55d6;font:600 .9rem 'DM Sans',sans-serif;
+    text-decoration:none;background:#fff;cursor:pointer}
+  .sr-actions a.primary{background:#2c55d6;border-color:#2c55d6;color:#fff}
+  .sr-actions a:hover,.sr-actions button:hover{border-color:#2c55d6}
+
+</style>
+</head>
+<body>
+<header>
+  <a href="/" class="logo">SoldBy<span>Street</span></a>
+  <nav class="sbs-nav" aria-label="Main">
+    <button class="sbs-nav-link sbs-menu-btn" type="button" aria-expanded="false" aria-controls="sbsNavPanel">Menu</button>
+    <div class="sbs-nav-panel" id="sbsNavPanel">
+      <a class="sbs-nav-link sbs-nav-search" href="/" data-nav="search"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.6-4.6"/></svg>Search</a>
+      <a class="sbs-nav-link" href="/street-report" data-nav="report">Street report</a>
+      <a class="sbs-nav-link" href="/price-check" data-nav="check">Check a price</a>
+      <a class="sbs-nav-link" href="/sold-prices" data-nav="compare">Compare streets</a>
+      <div class="sbs-tools">
+        <button class="sbs-nav-link sbs-tools-btn" type="button" aria-expanded="false" aria-controls="sbsTools">Tools<span class="sbs-caret">▾</span></button>
+        <div class="sbs-tools-menu" id="sbsTools" hidden>
+          <div>
+            <div class="sbs-col-h">Prices</div>
+            <a href="/street-report" data-nav="tools_report">Street report<span>Every sale on your street since 2008</span></a>
+            <a href="/sold-prices" data-nav="tools_compare">Sold prices by street and district<span>Compare streets district by district</span></a>
+            <a href="/price-check" data-nav="tools_check">Check a price<span>Fair-price range, and your asking price against it</span></a>
+          </div>
+          <div>
+            <div class="sbs-col-h">About the data</div>
+            <a href="/methodology" data-nav="tools_method">How the figures are worked out<span>Sources, exclusions, medians</span></a>
+            <a href="/guides" data-nav="tools_guides">Guides<span>Using sold prices to buy or sell</span></a>
+          </div>
+        </div>
+      </div>
+      <a class="sbs-nav-link" href="/contact" data-nav="contact">Contact</a>
+    </div>
+  </nav>
+</header>
+<div class="wrap">
+  <section id="srLanding">
+    <div class="breadcrumb"><a href="/">Home</a><span>·</span>Street report</div>
+    <h1>Get your <em>street report</em></h1>
+    <p class="intro" style="margin-bottom:0;padding-bottom:0;border:0">Every sold price on your street since 2008,
+      how prices have moved, and what a typical home sells for. Free, from HM Land Registry records.</p>
+    <form class="sr-form" id="srForm">
+      <input id="srInput" name="q" placeholder="Your postcode, e.g. SW6 2LE" autocomplete="postal-code"
+             maxlength="10" aria-label="Your postcode">
+      <button class="sr-go" type="submit">Get your street report</button>
+    </form>
+    <div class="sr-hint">Full postcode for your street · or a sector (SW6 2) to pick from its streets</div>
+    <div id="srPick"></div>
+    <h2>What's in a street report</h2>
+    <div class="sr-what"><div><b>Every sale since 2008</b><p>Date, address, property type, tenure and price for each recorded sale.</p></div><div><b>How prices have moved</b><p>The street&#x27;s median price year by year, so you can see the direction.</p></div><div><b>What&#x27;s typical</b><p>The middle half of recent sales for flats, terraced, semi-detached and detached homes.</p></div><div><b>Next steps</b><p>Check an asking price against the street, and compare nearby streets.</p></div></div>
+    <p><a class="backlink" href="/sold-prices">Or browse sold prices by street and district →</a></p>
+  </section>
+  <section id="srReport" hidden>
+    <div class="breadcrumb"><a href="/">Home</a><span>·</span><a href="/street-report">Street report</a><span>·</span><span id="srCrumb"></span></div>
+    <div class="tag" id="srWhere"></div>
+    <h1>Street report: <em id="srName"></em></h1>
+    <div id="srOut"></div>
+    <p><a class="backlink" href="/street-report">← Get another street report</a></p>
+  </section>
+</div>
+<footer>
+  <a href="/guides">Guides</a>
+  <a href="/privacy">Privacy</a>
+  <a href="/terms">Terms</a>
+  <a href="/methodology">Methodology</a>
+  <div style="flex-basis:100%;text-transform:none;letter-spacing:0.03em;color:var(--muted);">Contains HM Land Registry data © Crown copyright and database right 2026. Licensed under the Open Government Licence v3.0. Trace Lab Studio LTD, registered in England and Wales no. 17340427. Registered office: 128 City Road, London, EC1V 2NX.</div>
+</footer>
+<script src="/sold-prices/search-index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+
+const API = 'https://housecheck-api-580723587126.europe-west2.run.app';
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const gbp = n => '£' + Math.round(n).toLocaleString('en-GB');
+const r5 = n => Math.round(n / 5000) * 5000;
+const bandGbp = n => { n = r5(n); return n >= 1e6 ? '£' + (n / 1e6).toFixed(2).replace(/\.00$/, '') + 'm' : '£' + Math.round(n / 1000) + 'k'; };
+const title = s => String(s || '').toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+const params = new URLSearchParams(location.search);
+const CUR = new Date().getFullYear();
+const PC_RE = /^[A-Z]{1,2}\d[A-Z\d]?\s*\d([A-Z]{2})?$/i;
+const TYPES = [['Flat/Maisonette', 'Flats', '#5a7a9e', 'a flat'], ['Terraced', 'Terraced', '#c8401a', 'a terraced house'],
+               ['Semi-Detached', 'Semi-detached', '#2d5a3d', 'a semi-detached house'], ['Detached', 'Detached', '#8a6d3b', 'a detached house']];
+const pages = () => window.SBS_PAGES || {pc: {}, st: {}, hub: []};
+const pageFor = (street, sector) => (pages().st || {})[`${sector}|${String(street).toUpperCase()}`] || '';
+const reportUrl = (street, sector) => pageFor(street, sector)
+  || `/street-report?street=${encodeURIComponent(street)}&sector=${encodeURIComponent(sector)}`;
+const normPc = q => { const p = q.trim().toUpperCase().replace(/\s+/g, ' ');
+  return !p.includes(' ') && p.length >= 5 ? p.slice(0, -3) + ' ' + p.slice(-3) : p; };
+
+function q(v, p) { const i = (v.length - 1) * p, lo = Math.floor(i), hi = Math.ceil(i); return v[lo] + (v[hi] - v[lo]) * (i - lo); }
+
+// ── landing: postcode -> your street's report ───────────────────────────────
+async function findStreets(e) {
+  if (e) e.preventDefault();
+  const raw = $('srInput').value.trim();
+  if (!raw) return;
+  if (!PC_RE.test(raw)) { $('srPick').innerHTML = '<div class="sr-msg">Enter a UK postcode, for example <strong>SW6 2LE</strong> or <strong>SW6 2</strong>.</div>'; return; }
+  const pc = normPc(raw);
+  gtag('event', 'street_report_search', {search_term: pc});
+  const want = '/street-report?q=' + encodeURIComponent(pc).replace(/%20/g, '+');
+  if (location.pathname + location.search !== want) history.pushState({}, '', want);
+  // a full postcode whose street has its own page: straight there, at that postcode
+  const direct = (pages().pc || {})[pc];
+  if (direct) { location.assign(direct + '#' + pc.toLowerCase().replace(' ', '-')); return; }
+  $('srPick').innerHTML = '<div class="sr-msg">Finding streets…</div>';
+  try {
+    const d = await (await fetch(`${API}/search?q=${encodeURIComponent(pc)}`)).json();
+    const st = (d.streets || []).filter(s => s.postcode_sector);
+    if (!st.length) { $('srPick').innerHTML = '<div class="sr-msg">No recorded sales for that postcode. Try the sector (for example SW6 2).</div>'; return; }
+    if (st.length === 1) { location.assign(reportUrl(st[0].street, st[0].postcode_sector)); return; }
+    const sales = s => (s.years || []).reduce((a, y) => a + (y.transaction_count || 0), 0);
+    st.sort((a, b) => sales(b) - sales(a));
+    $('srPick').innerHTML = `<h2>Pick your street</h2><p>${st.length} streets with recorded sales in ${esc(d.sector || pc)}.</p>
+      <div class="sr-pick">${st.map(s => `<a href="${esc(reportUrl(s.street, s.postcode_sector))}">
+        <span>${esc(title(s.street))} <span class="sub">&nbsp;${esc(s.postcode_sector)} · ${sales(s)} sales since 2008</span></span>
+        <span class="go">Get report →</span></a>`).join('')}</div>`;
+  } catch (err) { $('srPick').innerHTML = '<div class="sr-msg">The search did not respond. Try again in a moment.</div>'; }
+}
+
+// ── report for a street without a static page ──────────────────────────────
+async function drawReport(street, sector) {
+  const name = title(street);
+  document.title = `${name}, ${sector} Street Report – Sold Prices Since 2008 | SoldByStreet`;
+  const m = document.createElement('meta'); m.name = 'robots'; m.content = 'noindex, follow';
+  document.querySelector('meta[name="robots"]').replaceWith(m);
+  $('srLanding').hidden = true; $('srReport').hidden = false;
+  $('srName').textContent = name; $('srCrumb').textContent = name;
+  $('srOut').innerHTML = '<div class="sr-msg">Loading every recorded sale on this street…</div>';
+  let info, sales = [];
+  try {
+    const d = await (await fetch(`${API}/search?q=${encodeURIComponent(sector)}`)).json();
+    info = (d.streets || []).find(s => String(s.street).toUpperCase() === street.toUpperCase() && s.postcode_sector === sector);
+    if (!info) throw new Error('not found');
+    const yrs = info.years.filter(y => y.transaction_count > 0).map(y => y.year);
+    const res = await Promise.all(yrs.map(y => fetch(`${API}/transactions?street=${encodeURIComponent(street)}&sector=${encodeURIComponent(sector)}&year=${y}`)
+      .then(r => r.ok ? r.json() : {transactions: []}).catch(() => ({transactions: []}))));
+    sales = res.flatMap(r => r.transactions || []).filter(t => t.price >= 10000)
+               .sort((a, b) => b.sale_date.localeCompare(a.sale_date));
+  } catch (err) {
+    $('srOut').innerHTML = `<div class="sr-msg">We couldn't find recorded sales for ${esc(name)} in ${esc(sector)}.
+      <a href="/street-report">Search another postcode</a>.</div>`;
+    return;
+  }
+  gtag('event', 'street_report_view', {street, sector, sales: sales.length});
+  $('srWhere').textContent = [title(info.town_city), title(info.district)].filter(Boolean).join(' · ');
+  // figures: the latest complete year with sales (the current year is always part-registered)
+  const byY = {};
+  sales.forEach(t => (byY[+t.sale_date.slice(0, 4)] ||= []).push(t.price));
+  const full = Object.keys(byY).map(Number).filter(y => y < CUR).sort((a, b) => b - a);
+  const LY = full[0], PY = full[1];
+  const med = y => { const a = (byY[y] || []).slice().sort((x, z) => x - z); return a.length ? q(a, .5) : null; };
+  const n = y => (byY[y] || []).length;
+  const chg = LY && PY === LY - 1 && n(LY) >= 5 && n(PY) >= 5 ? Math.round((med(LY) - med(PY)) / med(PY) * 100) : null;
+  const first = sales.length ? sales[sales.length - 1].sale_date.slice(0, 4) : '';
+  const latest = sales[0];
+  const stats = `<div class="stat-row">
+    <div class="stat"><div class="label">Latest sale</div><div class="value">${latest ? gbp(latest.price) : '—'}</div>
+      <div class="sub">${latest ? new Date(latest.sale_date).toLocaleDateString('en-GB', {day: 'numeric', month: 'short', year: 'numeric'}) : ''}</div></div>
+    <div class="stat"><div class="label">Median ${LY || ''}</div><div class="value">${LY ? gbp(med(LY)) : '—'}</div>
+      <div class="sub ${chg > 0 ? 'up' : chg < 0 ? 'down' : ''}">${LY ? n(LY) + (n(LY) === 1 ? ' sale' : ' sales') : ''}${chg != null ? ` · ${chg > 0 ? '▲' : chg < 0 ? '▼' : ''} ${Math.abs(chg)}% vs ${PY}` : ''}</div></div>
+    <div class="stat"><div class="label">Sales since ${first}</div><div class="value">${sales.length}</div>
+      <div class="sub">recorded with HM Land Registry</div></div>
+  </div>`;
+  const years = Object.keys(byY).map(Number).sort((a, b) => a - b);
+  const trend = years.length >= 3 ? `<h2>How prices have moved</h2>
+    <p>Median sold price each year, all property types together. Years with a single sale are left out of the line.</p>
+    <div class="chart-wrap"><canvas id="srChart"></canvas></div>` : '';
+  const oc = sector.split(' ')[0].toUpperCase();
+  const near = (pages().hub || []).includes(oc) ? `/sold-prices/${oc.toLowerCase()}#near-${sector.toLowerCase().replace(' ', '-')}`
+                                                 : `/?q=${encodeURIComponent(sector).replace(/%20/g, '+')}`;
+  const check = `/price-check?street=${encodeURIComponent(street)}&sector=${encodeURIComponent(sector)}`;
+  const rows = sales.map(t => `<tr><td class="dt">${t.sale_date}</td><td>${esc(title(t.address || ''))}</td>
+      <td class="dt">${esc(t.postcode || '')}</td><td>${esc(t.property_type || '')}</td><td>${esc(t.tenure || '')}</td>
+      <td class="num">${gbp(t.price)}</td></tr>`).join('');
+  $('srOut').innerHTML = `
+    <p class="intro">${latest ? `The most recent recorded sale on ${esc(name)} (${esc(sector)}) was ${gbp(latest.price)}.` : ''}
+      ${sales.length} sales since ${first}${LY ? `; in ${LY}, ${n(LY)} sold at a median of ${gbp(med(LY))}` : ''}.</p>
+    ${stats}
+    <div class="sr-actions">
+      <a class="primary" href="${check}">Check a price on ${esc(name)} →</a>
+      <a href="${near}">Compare nearby streets</a>
+      <button type="button" id="srShare">Share this report</button>
+    </div>
+    ${trend}
+    ${bands(sales, name, street, sector)}
+    <h2>Every recorded sale on ${esc(name)}</h2>
+    <p>All ${sales.length} sales since ${first}, newest first.</p>
+    <div class="scroll"><table><thead><tr><th>Date</th><th>Address</th><th>Postcode</th><th>Type</th><th>Tenure</th>
+      <th class="num">Price</th></tr></thead><tbody>${rows}</tbody></table></div>
+    <p class="note">From HM Land Registry Price Paid Data. Sales take 2–3 months to be registered, so ${CUR} is a part year.
+      Figures on this report are not filtered for repossessions or bulk transfers, so a single odd price can appear in
+      the table. <a href="/methodology">How the figures are worked out</a>.</p>`;
+  if (trend) drawChart(years, byY, med);
+  $('srShare').addEventListener('click', async e => {
+    try { if (navigator.share) { await navigator.share({title: document.title, url: location.href}); return; }
+          await navigator.clipboard.writeText(location.href); e.target.textContent = 'Link copied'; } catch (err) {}
+  });
+}
+
+function drawChart(years, byY, med) {
+  const data = years.map(y => byY[y].length >= 2 ? med(y) : null);
+  new Chart($('srChart'), {type: 'line',
+    data: {labels: years, datasets: [{label: 'Median', data, borderColor: '#0f0e0d', backgroundColor: '#0f0e0d',
+      borderWidth: 2, pointRadius: 3, tension: .3, spanGaps: true}]},
+    options: {responsive: true, maintainAspectRatio: false, interaction: {mode: 'index', intersect: false},
+      plugins: {legend: {display: false}, tooltip: {filter: c => c.raw != null,
+        callbacks: {label: c => ' Median £' + Math.round(c.raw).toLocaleString('en-GB') + ' (' + byY[years[c.dataIndex]].length + ' sales)'}}},
+      scales: {y: {ticks: {callback: v => v >= 1e6 ? '£' + (v / 1e6).toFixed(1) + 'm' : '£' + Math.round(v / 1000) + 'k',
+        font: {family: 'DM Mono', size: 10}}, grid: {color: '#ede9e3'}},
+        x: {ticks: {font: {family: 'DM Mono', size: 10}}, grid: {display: false}}}}});
+}
+
+// Same rules as the static street pages and /price-check.
+function bands(sales, name, street, sector) {
+  const out = [];
+  for (const [key, label, col, noun] of TYPES) {
+    const win = y => sales.filter(t => t.property_type === key && +t.sale_date.slice(0, 4) >= y).map(t => t.price);
+    let minY = CUR - 3, v = win(minY);
+    if (v.length < 5) { minY = CUR - 5; v = win(minY); }
+    if (v.length < 5) continue;
+    v.sort((a, b) => a - b);
+    if (v.length >= 8) { const a = q(v, .25), b = q(v, .75), i = b - a; v = v.filter(x => x >= a - 1.5 * i && x <= b + 1.5 * i); }
+    const lo = q(v, .25), md = q(v, .5), hi = q(v, .75);
+    const pad = (v[v.length - 1] - v[0]) * .06 || 50000, mn = v[0] - pad, mx = v[v.length - 1] + pad;
+    const X = x => ((x - mn) / (mx - mn) * 100).toFixed(1);
+    const tint = '#' + [1, 3, 5].map(i => Math.round(parseInt(col.slice(i, i + 2), 16) * .3 + 255 * .7).toString(16).padStart(2, '0')).join('');
+    const check = `/price-check?street=${encodeURIComponent(street)}&sector=${encodeURIComponent(sector)}&type=${encodeURIComponent(key)}`;
+    out.push(`<div class="band"><div class="band-h"><span class="sw" style="background:${col}"></span><b>${label}</b>
+      <span class="band-n">${v.length} sales, ${minY}–${CUR}</span></div>
+      <div class="band-bar" aria-hidden="true"><div class="z lo" style="left:0;width:${X(lo)}%"></div>
+        <div class="z mid" style="left:${X(lo)}%;width:${(X(hi) - X(lo)).toFixed(1)}%;background:${tint};border-color:${col}"></div>
+        <div class="z hi" style="left:${X(hi)}%;right:0"></div><i class="md" style="left:${X(md)}%"></i>
+        ${v.map(x => `<i class="bd" style="left:${X(x)}%"></i>`).join('')}</div>
+      <div class="band-k"><span>Below typical<br><b>under ${bandGbp(lo)}</b></span>
+        <span class="mid">Typical<br><b>${bandGbp(lo)} – ${bandGbp(hi)}</b><br>middle sale ${bandGbp(md)}</span>
+        <span class="hi">Above typical<br><b>over ${bandGbp(hi)}</b></span></div>
+      <a class="band-go" href="${check}">Check an asking price for ${noun} here →</a></div>`);
+  }
+  if (!out.length) return '';
+  return `<h2>What a typical price looks like on ${esc(name)}</h2>
+    <p>The middle half of recent sales for each property type. Each dot is one sale; the black line is the middle sale.</p>
+    <div class="bands">${out.join('')}</div>
+    <p class="note">Recent = ${CUR - 3} to ${CUR}; ${CUR - 5}–${CUR} where a type had fewer than five sales. No band under five.
+      Size is not taken into account.</p>`;
+}
+
+// ── route ──────────────────────────────────────────────────────────────────
+function route() {
+  const street = params.get('street'), sector = params.get('sector');
+  if (street && sector) {
+    const page = pageFor(street, sector);
+    if (page) { location.replace(page); return; }
+    drawReport(street, sector);
+    return;
+  }
+  $('srForm').addEventListener('submit', findStreets);
+  const pq = params.get('q');
+  if (pq) { $('srInput').value = pq; findStreets(); }
+}
+window.addEventListener('popstate', () => location.reload());
+route();
+
+</script>
+</body>
+</html>

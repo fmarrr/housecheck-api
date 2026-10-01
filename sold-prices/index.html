@@ -288,7 +288,10 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site-nav.css">
+<link rel="stylesheet" href="/assets/site-type.css">
+<script src="/assets/site-nav.js" defer></script>
 <style>
   :root{--ink:#0f0e0d;--paper:#f5f2ee;--cream:#ede9e3;--accent:#c8401a;
     --muted:#7a7570;--border:#d4cfc9;}
@@ -297,7 +300,7 @@
   a{color:inherit;}
   header{border-bottom:1.5px solid var(--ink);padding:0 2.5rem;display:flex;align-items:center;
     justify-content:space-between;height:60px;background:var(--paper);position:sticky;top:0;z-index:100;}
-  .logo{font-family:'DM Serif Display',serif;font-size:1.4rem;letter-spacing:-0.02em;
+  .logo{font-family:'Gloock',serif;font-size:1.4rem;letter-spacing:-0.02em;
     text-decoration:none;color:var(--ink);}
   .logo span{color:var(--accent);font-style:italic;}
   .header-nav{display:flex;align-items:center;gap:1.5rem;}
@@ -309,12 +312,12 @@
   .breadcrumb{font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;
     letter-spacing:0.1em;color:var(--muted);margin-bottom:2rem;}
   .breadcrumb a{text-decoration:none;}.breadcrumb span{margin:0 0.5rem;}
-  h1{font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.1;
+  h1{font-family:'Gloock',serif;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.1;
     letter-spacing:-0.02em;margin-bottom:1.25rem;}
   h1 em{font-style:italic;color:var(--accent);}
   .intro{font-size:1.05rem;line-height:1.7;color:var(--muted);font-weight:300;
     margin-bottom:2.5rem;padding-bottom:2.5rem;border-bottom:1.5px solid var(--ink);}
-  h2{font-family:'DM Serif Display',serif;font-size:1.3rem;margin:2.6rem 0 0.6rem;}
+  h2{font-family:'Gloock',serif;font-size:1.3rem;margin:2.6rem 0 0.6rem;}
   h2 .cnt{font-family:'DM Mono',monospace;font-size:0.6rem;text-transform:uppercase;
     letter-spacing:0.1em;color:var(--muted);}
   p{font-size:0.95rem;line-height:1.75;color:#2a2826;margin-bottom:1.1rem;font-weight:300;}
@@ -344,9 +347,31 @@
 <body>
 <header>
   <a href="/" class="logo">SoldBy<span>Street</span></a>
-  <nav class="header-nav">
-    <a href="/" class="nav-link">Search</a>
-    <a href="/guides" class="nav-link">Guides</a>
+  <nav class="sbs-nav" aria-label="Main">
+    <button class="sbs-nav-link sbs-menu-btn" type="button" aria-expanded="false" aria-controls="sbsNavPanel">Menu</button>
+    <div class="sbs-nav-panel" id="sbsNavPanel">
+      <a class="sbs-nav-link sbs-nav-search" href="/" data-nav="search"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.6-4.6"/></svg>Search</a>
+      <a class="sbs-nav-link" href="/street-report" data-nav="report">Street report</a>
+      <a class="sbs-nav-link" href="/price-check" data-nav="check">Check a price</a>
+      <a class="sbs-nav-link" href="/sold-prices" data-nav="compare">Compare streets</a>
+      <div class="sbs-tools">
+        <button class="sbs-nav-link sbs-tools-btn" type="button" aria-expanded="false" aria-controls="sbsTools">Tools<span class="sbs-caret">▾</span></button>
+        <div class="sbs-tools-menu" id="sbsTools" hidden>
+          <div>
+            <div class="sbs-col-h">Prices</div>
+            <a href="/street-report" data-nav="tools_report">Street report<span>Every sale on your street since 2008</span></a>
+            <a href="/sold-prices" data-nav="tools_compare">Sold prices by street and district<span>Compare streets district by district</span></a>
+            <a href="/price-check" data-nav="tools_check">Check a price<span>Fair-price range, and your asking price against it</span></a>
+          </div>
+          <div>
+            <div class="sbs-col-h">About the data</div>
+            <a href="/methodology" data-nav="tools_method">How the figures are worked out<span>Sources, exclusions, medians</span></a>
+            <a href="/guides" data-nav="tools_guides">Guides<span>Using sold prices to buy or sell</span></a>
+          </div>
+        </div>
+      </div>
+      <a class="sbs-nav-link" href="/contact" data-nav="contact">Contact</a>
+    </div>
   </nav>
 </header>
 <div class="wrap">

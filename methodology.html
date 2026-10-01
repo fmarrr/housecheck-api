@@ -50,7 +50,7 @@
   "name": "How SoldByStreet Works Out Sold Prices \u2013 Methodology",
   "description": "Where the figures come from, what is excluded and how medians, trends and \u00a3/m\u00b2 are calculated for 14,579,371 HM Land Registry sales, 2008\u20132026.",
   "url": "https://soldbystreet.co.uk/methodology",
-  "dateModified": "2026-09-29",
+  "dateModified": "2026-10-01",
   "about": {
     "@type": "Dataset",
     "name": "Sold house prices by street",
@@ -70,9 +70,28 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site-nav.css">
+<link rel="stylesheet" href="/assets/site-type.css">
+<script src="/assets/site-nav.js" defer></script>
 <style>
   tr:target td{background:var(--cream);}
+  .bands{display:grid;gap:1.2rem;margin:0 0 1rem;}
+  .band{border:1.5px solid var(--ink);background:#fff;padding:1.1rem 1.2rem 1rem;}
+  .band-h{display:flex;align-items:center;gap:.5rem;margin-bottom:.9rem;flex-wrap:wrap;}
+  .band-n{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--muted);margin-left:auto;}
+  .band-bar{position:relative;height:30px;margin:0 0 .7rem;}
+  .band-bar .z{position:absolute;top:8px;height:14px;}
+  .band-bar .z.lo,.band-bar .z.hi{background:var(--cream);}
+  .band-bar .z.mid{border:1.5px solid;}
+  .band-bar .md{position:absolute;top:2px;height:26px;border-left:2px solid var(--ink);}
+  .band-bar .bd{position:absolute;top:12px;width:7px;height:7px;margin-left:-3.5px;border-radius:50%;background:var(--ink);opacity:.55;}
+  .band-k{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:.5rem;font-family:'DM Mono',monospace;font-size:.68rem;color:var(--muted);line-height:1.5;}
+  .band-k b{color:var(--ink);font-weight:500;}.band-k .mid{text-align:center;}.band-k .hi{text-align:right;}
+  .band-go{display:inline-block;margin-top:.8rem;color:#2c55d6;font-weight:600;font-size:.88rem;text-decoration:none;}
+  .band-go:hover{text-decoration:underline;}
+  tr.near td{background:#eef2fd;}
+  .near-note{border-left:3px solid #2c55d6;padding:.5rem .8rem;background:#fff;font-size:.9rem;}
   .qa h3{font-size:1rem;margin:1.2rem 0 .3rem;}
   .qa p{margin:0 0 .4rem;}
   :root{--ink:#0f0e0d;--paper:#f5f2ee;--cream:#ede9e3;--accent:#c8401a;
@@ -82,7 +101,7 @@
   a{color:inherit;}
   header{border-bottom:1.5px solid var(--ink);padding:0 2.5rem;display:flex;align-items:center;
     justify-content:space-between;height:60px;background:var(--paper);position:sticky;top:0;z-index:100;}
-  .logo{font-family:'DM Serif Display',serif;font-size:1.4rem;letter-spacing:-0.02em;
+  .logo{font-family:'Gloock',serif;font-size:1.4rem;letter-spacing:-0.02em;
     text-decoration:none;color:var(--ink);}
   .logo span{color:var(--accent);font-style:italic;}
   .header-nav{display:flex;align-items:center;gap:1.5rem;}
@@ -97,25 +116,25 @@
   .breadcrumb span{margin:0 0.5rem;}
   .tag{font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;
     letter-spacing:0.12em;color:var(--accent);margin-bottom:0.75rem;}
-  h1{font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.1;
+  h1{font-family:'Gloock',serif;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.1;
     letter-spacing:-0.02em;margin-bottom:1.25rem;}
   h1 em{font-style:italic;color:var(--accent);}
   .intro{font-size:1.05rem;line-height:1.7;color:var(--muted);font-weight:300;
     margin-bottom:2.5rem;padding-bottom:2.5rem;border-bottom:1.5px solid var(--ink);}
-  h2{font-family:'DM Serif Display',serif;font-size:1.4rem;letter-spacing:-0.01em;margin:3rem 0 1rem;}
+  h2{font-family:'Gloock',serif;font-size:1.4rem;letter-spacing:-0.01em;margin:3rem 0 1rem;}
   p{font-size:0.95rem;line-height:1.75;color:#2a2826;margin-bottom:1.1rem;font-weight:300;}
   .stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;
     background:var(--border);border:1.5px solid var(--ink);margin:0 0 1rem;}
   .stat{background:white;padding:1.25rem 1.25rem 1.1rem;}
   .stat .label{font-family:'DM Mono',monospace;font-size:0.6rem;text-transform:uppercase;
     letter-spacing:0.1em;color:var(--muted);margin-bottom:0.5rem;}
-  .stat .value{font-family:'DM Serif Display',serif;font-size:1.7rem;line-height:1;}
+  .stat .value{font-family:'Gloock',serif;font-size:1.7rem;line-height:1;}
   .stat .sub{font-family:'DM Mono',monospace;font-size:0.7rem;margin-top:0.4rem;color:var(--muted);}
   .up{color:var(--up);}.down{color:var(--down);}.thin{color:var(--muted);}
   .note{font-family:'DM Mono',monospace;font-size:0.66rem;color:var(--muted);
     line-height:1.6;margin-bottom:2rem;}
   .alert{border:1.5px solid var(--ink);background:white;padding:1.6rem 1.8rem;margin:0 0 1rem;}
-  .alert h3{font-family:'DM Serif Display',serif;font-size:1.25rem;margin-bottom:0.4rem;}
+  .alert h3{font-family:'Gloock',serif;font-size:1.25rem;margin-bottom:0.4rem;}
   .alert p{font-size:0.88rem;color:var(--muted);margin-bottom:1rem;}
   .alert form{display:flex;gap:0.6rem;flex-wrap:wrap;}
   .alert input{flex:1 1 220px;font-family:'DM Sans',sans-serif;font-size:0.9rem;
@@ -172,16 +191,37 @@
 <body>
 <header>
   <a href="/" class="logo">SoldBy<span>Street</span></a>
-  <nav class="header-nav">
-    <a href="/" class="nav-link">Search</a>
-    <a href="/sold-prices" class="nav-link">Sold prices</a>
-    <a href="/guides" class="nav-link">Guides</a>
+  <nav class="sbs-nav" aria-label="Main">
+    <button class="sbs-nav-link sbs-menu-btn" type="button" aria-expanded="false" aria-controls="sbsNavPanel">Menu</button>
+    <div class="sbs-nav-panel" id="sbsNavPanel">
+      <a class="sbs-nav-link sbs-nav-search" href="/" data-nav="search"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.6-4.6"/></svg>Search</a>
+      <a class="sbs-nav-link" href="/street-report" data-nav="report">Street report</a>
+      <a class="sbs-nav-link" href="/price-check" data-nav="check">Check a price</a>
+      <a class="sbs-nav-link" href="/sold-prices" data-nav="compare">Compare streets</a>
+      <div class="sbs-tools">
+        <button class="sbs-nav-link sbs-tools-btn" type="button" aria-expanded="false" aria-controls="sbsTools">Tools<span class="sbs-caret">▾</span></button>
+        <div class="sbs-tools-menu" id="sbsTools" hidden>
+          <div>
+            <div class="sbs-col-h">Prices</div>
+            <a href="/street-report" data-nav="tools_report">Street report<span>Every sale on your street since 2008</span></a>
+            <a href="/sold-prices" data-nav="tools_compare">Sold prices by street and district<span>Compare streets district by district</span></a>
+            <a href="/price-check" data-nav="tools_check">Check a price<span>Fair-price range, and your asking price against it</span></a>
+          </div>
+          <div>
+            <div class="sbs-col-h">About the data</div>
+            <a href="/methodology" data-nav="tools_method">How the figures are worked out<span>Sources, exclusions, medians</span></a>
+            <a href="/guides" data-nav="tools_guides">Guides<span>Using sold prices to buy or sell</span></a>
+          </div>
+        </div>
+      </div>
+      <a class="sbs-nav-link" href="/contact" data-nav="contact">Contact</a>
+    </div>
   </nav>
 </header>
 <div class="wrap">
   <div class="breadcrumb"><a href="/">Home</a><span>·</span>Methodology</div>
   <h1>How the sold prices are worked out</h1>
-  <p class="intro">Where the figures come from, what is excluded and how medians, trends and £/m² are calculated for 14,579,371 HM Land Registry sales, 2008–2026. Last updated 29 September 2026.</p>
+  <p class="intro">Where the figures come from, what is excluded and how medians, trends and £/m² are calculated for 14,579,371 HM Land Registry sales, 2008–2026. Last updated 1 October 2026.</p>
   <h2>Source</h2><p>Every sale comes from HM Land Registry Price Paid Data for England and Wales. The pages cover 14,579,371 sales from 1 January 2008 to 28 August 2026.</p><p>Price Paid Data is published under the Open Government Licence v3.0. The address data inside it may be displayed for residential property price information services, which is what these pages are.</p><p>Land Registry releases new data each month, and SoldByStreet reloads the current and previous year on the 3rd of each month. A sale usually takes two to three months to be registered, so the most recent months are always incomplete.</p><h2>What is left out</h2><p>Additional Price Paid entries: repossessions, bulk and portfolio transfers, and sales to companies. They are not ordinary home sales and distort street prices.</p><p>Records Land Registry has deleted, prices below £10,000 or above £15 million, and sales with no street or no valid full postcode.</p><p>Any sale above £1 million that is also more than ten times its postcode district&#x27;s median. These are almost always mislabelled bulk transfers.</p><p>A street whose figures fail a sanity check is not published: a median outside £20,000–£5 million, a top sale more than 60 times the median, a median more than 12 times its district&#x27;s, or yearly medians that swing more than 25-fold.</p><h2>Medians, not averages</h2><p>Every price figure is a median: the middle sale when all sales are lined up by price. One unusually expensive or cheap home cannot move it the way it moves an average. Medians are computed with BigQuery&#x27;s approximate quantiles, which can differ from an exact median by a small amount.</p><p>A property type&#x27;s median for a year is shown only with at least three sales in that year (two in the year-by-year table). A year-on-year change is shown only where that type had at least five sales in both years.</p><p>The headline street price is the median of the last three years, so it reflects today&#x27;s market rather than 2008&#x27;s.</p><h2>Complete years and the current year</h2><p>Comparisons use the latest complete year: the year before the date three months ago, so late registrations have arrived. The current year still appears in tables, marked as a part year with the month it runs to, and is never compared with full years.</p><h2>Streets and postcodes</h2><p>Land Registry often spells one street several ways (St. Vincent Avenue and St Vincent Avenue). Spellings are folded into one street key, so a street has one page, not two.</p><p>A street gets its own page once it has at least ten sales across at least three different years. A postcode district page needs at least 50 sales. Below those numbers a median describes one or two homes, not a street.</p><p>A street often spans several full postcodes, while 98% of postcodes sit on a single street. Postcodes are therefore shown as a table and anchors on the street page, not as separate pages.</p><h2>Floor area and price per square metre</h2><p>Floor area comes from the government&#x27;s Energy Performance Certificate register, matched to each sale by postcode plus house number, or flat number plus building name. Where several certificates match, the one closest in date to the sale is used. A match is kept only when it implies £300–£30,000 per m².</p><p>About 32% of sales have a floor area (42% since 2018). The rest had no certificate that could be matched, so £/m² describes the matched sales only. The certificate&#x27;s floor area may differ from the home&#x27;s size on the day it sold.</p><h2>What these pages are not</h2><p>They are not a valuation. A median sold price says what homes on a street have sold for, not what a particular home is worth today. Condition, size, extensions and timing all move a single price.</p><p>Land Registry does not record every sale (for example some transfers of leases and non-market transactions), and new-build sales can register late.</p>
   <p><a class="backlink" href="/sold-prices">← Sold prices by street</a></p>
 </div>

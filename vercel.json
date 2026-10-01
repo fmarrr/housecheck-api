@@ -12,6 +12,11 @@
       "has": [{ "type": "host", "value": "housecheck.it.com" }],
       "destination": "https://soldbystreet.co.uk/$1",
       "permanent": true
+    },
+    {
+      "source": "/seller-check",
+      "destination": "/price-check",
+      "permanent": false
     }
   ],
   "headers": [

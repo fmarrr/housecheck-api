@@ -64,7 +64,7 @@
   "description": "Last sold \u00a3205,000 on 30 Jul 2026. 77 sales on Kingswood Road, Nuneaton CV10 since 2009, 2025 median \u00a3165,000. Every price, date, type and floor area from HM Land Registry.",
   "url": "https://soldbystreet.co.uk/sold-prices/cv10/kingswood-road",
   "temporalCoverage": "2009/2026",
-  "dateModified": "2026-09-29",
+  "dateModified": "2026-10-01",
   "variableMeasured": [
     {
       "@type": "PropertyValue",
@@ -202,9 +202,28 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site-nav.css">
+<link rel="stylesheet" href="/assets/site-type.css">
+<script src="/assets/site-nav.js" defer></script>
 <style>
   tr:target td{background:var(--cream);}
+  .bands{display:grid;gap:1.2rem;margin:0 0 1rem;}
+  .band{border:1.5px solid var(--ink);background:#fff;padding:1.1rem 1.2rem 1rem;}
+  .band-h{display:flex;align-items:center;gap:.5rem;margin-bottom:.9rem;flex-wrap:wrap;}
+  .band-n{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--muted);margin-left:auto;}
+  .band-bar{position:relative;height:30px;margin:0 0 .7rem;}
+  .band-bar .z{position:absolute;top:8px;height:14px;}
+  .band-bar .z.lo,.band-bar .z.hi{background:var(--cream);}
+  .band-bar .z.mid{border:1.5px solid;}
+  .band-bar .md{position:absolute;top:2px;height:26px;border-left:2px solid var(--ink);}
+  .band-bar .bd{position:absolute;top:12px;width:7px;height:7px;margin-left:-3.5px;border-radius:50%;background:var(--ink);opacity:.55;}
+  .band-k{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:.5rem;font-family:'DM Mono',monospace;font-size:.68rem;color:var(--muted);line-height:1.5;}
+  .band-k b{color:var(--ink);font-weight:500;}.band-k .mid{text-align:center;}.band-k .hi{text-align:right;}
+  .band-go{display:inline-block;margin-top:.8rem;color:#2c55d6;font-weight:600;font-size:.88rem;text-decoration:none;}
+  .band-go:hover{text-decoration:underline;}
+  tr.near td{background:#eef2fd;}
+  .near-note{border-left:3px solid #2c55d6;padding:.5rem .8rem;background:#fff;font-size:.9rem;}
   .qa h3{font-size:1rem;margin:1.2rem 0 .3rem;}
   .qa p{margin:0 0 .4rem;}
   :root{--ink:#0f0e0d;--paper:#f5f2ee;--cream:#ede9e3;--accent:#c8401a;
@@ -214,7 +233,7 @@
   a{color:inherit;}
   header{border-bottom:1.5px solid var(--ink);padding:0 2.5rem;display:flex;align-items:center;
     justify-content:space-between;height:60px;background:var(--paper);position:sticky;top:0;z-index:100;}
-  .logo{font-family:'DM Serif Display',serif;font-size:1.4rem;letter-spacing:-0.02em;
+  .logo{font-family:'Gloock',serif;font-size:1.4rem;letter-spacing:-0.02em;
     text-decoration:none;color:var(--ink);}
   .logo span{color:var(--accent);font-style:italic;}
   .header-nav{display:flex;align-items:center;gap:1.5rem;}
@@ -229,25 +248,25 @@
   .breadcrumb span{margin:0 0.5rem;}
   .tag{font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;
     letter-spacing:0.12em;color:var(--accent);margin-bottom:0.75rem;}
-  h1{font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.1;
+  h1{font-family:'Gloock',serif;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.1;
     letter-spacing:-0.02em;margin-bottom:1.25rem;}
   h1 em{font-style:italic;color:var(--accent);}
   .intro{font-size:1.05rem;line-height:1.7;color:var(--muted);font-weight:300;
     margin-bottom:2.5rem;padding-bottom:2.5rem;border-bottom:1.5px solid var(--ink);}
-  h2{font-family:'DM Serif Display',serif;font-size:1.4rem;letter-spacing:-0.01em;margin:3rem 0 1rem;}
+  h2{font-family:'Gloock',serif;font-size:1.4rem;letter-spacing:-0.01em;margin:3rem 0 1rem;}
   p{font-size:0.95rem;line-height:1.75;color:#2a2826;margin-bottom:1.1rem;font-weight:300;}
   .stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;
     background:var(--border);border:1.5px solid var(--ink);margin:0 0 1rem;}
   .stat{background:white;padding:1.25rem 1.25rem 1.1rem;}
   .stat .label{font-family:'DM Mono',monospace;font-size:0.6rem;text-transform:uppercase;
     letter-spacing:0.1em;color:var(--muted);margin-bottom:0.5rem;}
-  .stat .value{font-family:'DM Serif Display',serif;font-size:1.7rem;line-height:1;}
+  .stat .value{font-family:'Gloock',serif;font-size:1.7rem;line-height:1;}
   .stat .sub{font-family:'DM Mono',monospace;font-size:0.7rem;margin-top:0.4rem;color:var(--muted);}
   .up{color:var(--up);}.down{color:var(--down);}.thin{color:var(--muted);}
   .note{font-family:'DM Mono',monospace;font-size:0.66rem;color:var(--muted);
     line-height:1.6;margin-bottom:2rem;}
   .alert{border:1.5px solid var(--ink);background:white;padding:1.6rem 1.8rem;margin:0 0 1rem;}
-  .alert h3{font-family:'DM Serif Display',serif;font-size:1.25rem;margin-bottom:0.4rem;}
+  .alert h3{font-family:'Gloock',serif;font-size:1.25rem;margin-bottom:0.4rem;}
   .alert p{font-size:0.88rem;color:var(--muted);margin-bottom:1rem;}
   .alert form{display:flex;gap:0.6rem;flex-wrap:wrap;}
   .alert input{flex:1 1 220px;font-family:'DM Sans',sans-serif;font-size:0.9rem;
@@ -304,9 +323,31 @@
 <body>
 <header>
   <a href="/" class="logo">SoldBy<span>Street</span></a>
-  <nav class="header-nav">
-    <a href="/" class="nav-link">Search</a>
-    <a href="/guides" class="nav-link">Guides</a>
+  <nav class="sbs-nav" aria-label="Main">
+    <button class="sbs-nav-link sbs-menu-btn" type="button" aria-expanded="false" aria-controls="sbsNavPanel">Menu</button>
+    <div class="sbs-nav-panel" id="sbsNavPanel">
+      <a class="sbs-nav-link sbs-nav-search" href="/" data-nav="search"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.6-4.6"/></svg>Search</a>
+      <a class="sbs-nav-link" href="/street-report" data-nav="report">Street report</a>
+      <a class="sbs-nav-link" href="/price-check" data-nav="check">Check a price</a>
+      <a class="sbs-nav-link" href="/sold-prices" data-nav="compare">Compare streets</a>
+      <div class="sbs-tools">
+        <button class="sbs-nav-link sbs-tools-btn" type="button" aria-expanded="false" aria-controls="sbsTools">Tools<span class="sbs-caret">▾</span></button>
+        <div class="sbs-tools-menu" id="sbsTools" hidden>
+          <div>
+            <div class="sbs-col-h">Prices</div>
+            <a href="/street-report" data-nav="tools_report">Street report<span>Every sale on your street since 2008</span></a>
+            <a href="/sold-prices" data-nav="tools_compare">Sold prices by street and district<span>Compare streets district by district</span></a>
+            <a href="/price-check" data-nav="tools_check">Check a price<span>Fair-price range, and your asking price against it</span></a>
+          </div>
+          <div>
+            <div class="sbs-col-h">About the data</div>
+            <a href="/methodology" data-nav="tools_method">How the figures are worked out<span>Sources, exclusions, medians</span></a>
+            <a href="/guides" data-nav="tools_guides">Guides<span>Using sold prices to buy or sell</span></a>
+          </div>
+        </div>
+      </div>
+      <a class="sbs-nav-link" href="/contact" data-nav="contact">Contact</a>
+    </div>
   </nav>
 </header>
 <div class="wrap">
@@ -337,6 +378,44 @@
     this street; newer sales take 2–3 months to be registered, so the current year is shown
     as a part year and not compared. <a href="/methodology">How these figures are worked out</a>.</p>
 
+  <h2 id="price-bands">What a typical price looks like on Kingswood Road</h2>
+  <p>The middle half of recent sales for each property type: a quarter of sales went for less
+    than the typical band and a quarter for more. Each dot is one sale; the black line is the
+    middle sale.</p>
+  <div class="bands"><div class="band">
+    <div class="band-h"><span class="sw" style="background:#5a7a9e"></span><b>Flats</b>
+      <span class="band-n">5 sales, 2023–2026</span></div>
+    <div class="band-bar" aria-hidden="true">
+      <div class="z lo" style="left:0;width:84.9%"></div>
+      <div class="z mid" style="left:84.9%;width:3.9%;background:#ced7e2;border-color:#5a7a9e"></div>
+      <div class="z hi" style="left:88.8%;right:0"></div>
+      <i class="md" style="left:84.9%"></i><i class='bd' style='left:5.4%'></i><i class='bd' style='left:84.9%'></i><i class='bd' style='left:84.9%'></i><i class='bd' style='left:88.8%'></i><i class='bd' style='left:94.6%'></i>
+    </div>
+    <div class="band-k">
+      <span>Below typical<br><b>under £160k</b></span>
+      <span class="mid">Typical<br><b>£160k – £160k</b><br>middle sale £160k</span>
+      <span class="hi">Above typical<br><b>over £160k</b></span>
+    </div>
+    <a class="band-go" href="/price-check?street=KINGSWOOD%20ROAD&amp;sector=CV10%208&amp;type=Flat/Maisonette&amp;page=/sold-prices/cv10/kingswood-road">Check an asking price for a flat here →</a></div><div class="band">
+    <div class="band-h"><span class="sw" style="background:#c8401a"></span><b>Terraced</b>
+      <span class="band-n">8 sales, 2023–2026</span></div>
+    <div class="band-bar" aria-hidden="true">
+      <div class="z lo" style="left:0;width:21.0%"></div>
+      <div class="z mid" style="left:21.0%;width:43.2%;background:#eec6ba;border-color:#c8401a"></div>
+      <div class="z hi" style="left:64.2%;right:0"></div>
+      <i class="md" style="left:38.8%"></i><i class='bd' style='left:5.4%'></i><i class='bd' style='left:14.3%'></i><i class='bd' style='left:23.2%'></i><i class='bd' style='left:27.7%'></i><i class='bd' style='left:50.0%'></i><i class='bd' style='left:57.1%'></i><i class='bd' style='left:85.7%'></i><i class='bd' style='left:94.6%'></i>
+    </div>
+    <div class="band-k">
+      <span>Below typical<br><b>under £170k</b></span>
+      <span class="mid">Typical<br><b>£170k – £195k</b><br>middle sale £180k</span>
+      <span class="hi">Above typical<br><b>over £195k</b></span>
+    </div>
+    <a class="band-go" href="/price-check?street=KINGSWOOD%20ROAD&amp;sector=CV10%208&amp;type=Terraced&amp;page=/sold-prices/cv10/kingswood-road">Check an asking price for a terraced house here →</a></div></div>
+  <p class="note">Recent = 2023 to 2026; a type with fewer than five sales uses 2021–2026,
+    and a type with fewer than five even then has no band. Unusually high or low sales are left out once a
+    type has eight or more. Size is not taken into account, so a large home can sit above the band
+    without being overpriced. <a href="/methodology">How these figures are worked out</a>.</p>
+
   <h2 id="postcodes">Postcodes on Kingswood Road</h2>
   <p>Kingswood Road has recorded sales under 8 postcodes: CV10 8PQ, CV10 8QF, CV10 8QG, CV10 8QH, CV10 8QP, CV10 8QQ, CV10 8QR and CV10 8QY. Each sale below shows its full postcode.</p>
   <div class="scroll-x">
@@ -363,10 +442,12 @@
     of which 0 were leasehold. 2024 is shown alongside for
     comparison. A median is only shown where a type had at least three sales in the year,
     and a year-on-year change only where it had at least five in both years.</p>
+  <div class="scroll-x">
   <table><thead><tr><th>Property type</th><th class="num">Sold 2025</th>
     <th class="num">Median 2025</th><th class="num">YoY</th>
     <th class="num">Sold 2024</th><th class="num">Median 2024</th></tr></thead>
     <tbody><tr><td><span class='sw' style='background:#c8401a'></span>Terraced</td><td class='num'>3</td><td class='num'>£165,000</td><td class='num thin'>—</td><td class='num'>2</td><td class='num'>—</td></tr></tbody></table>
+  </div>
 
   <h2>Price by year and property type</h2>
   <p>Median sold price each year, split by property type. Years where a type had only a
@@ -390,6 +471,8 @@
     <th class="num">Price</th><th class="num">Floor area</th><th class="num">£/m²</th></tr></thead>
     <tbody><tr><td class='dt'>30 Jul 2026</td><td>19 WENLOCK COURT</td><td class='dt'>CV10 8PQ</td><td>Terraced</td><td>Freehold</td><td class='num'>£205,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>25 Mar 2026</td><td>4 WENLOCK COURT</td><td class='dt'>CV10 8PQ</td><td>Flat</td><td>Leasehold</td><td class='num'>£117,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>21 Nov 2025</td><td>329</td><td class='dt'>CV10 8QF</td><td>Terraced</td><td>Freehold</td><td class='num'>£160,000</td><td class='num'>88 m²</td><td class='num'>£1,818</td></tr><tr><td class='dt'>25 Sep 2025</td><td>518</td><td class='dt'>CV10 8QQ</td><td>Terraced</td><td>Freehold</td><td class='num'>£165,000</td><td class='num'>89 m²</td><td class='num'>£1,854</td></tr><tr><td class='dt'>25 Jul 2025</td><td>305</td><td class='dt'>CV10 8QR</td><td>Terraced</td><td>Freehold</td><td class='num'>£185,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>06 Dec 2024</td><td>496</td><td class='dt'>CV10 8QQ</td><td>Terraced</td><td>Freehold</td><td class='num'>£172,500</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>28 Jun 2024</td><td>7 STEAM HOUSE</td><td class='dt'>CV10 8QY</td><td>Flat</td><td>Leasehold</td><td class='num'>£163,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>03 Apr 2024</td><td>698</td><td class='dt'>CV10 8QY</td><td>Terraced</td><td>Freehold</td><td class='num'>£188,950</td><td class='num'>73 m²</td><td class='num'>£2,588</td></tr><tr><td class='dt'>01 Dec 2023</td><td>17 WENLOCK COURT</td><td class='dt'>CV10 8PQ</td><td>Terraced</td><td>Freehold</td><td class='num'>£210,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>15 Sep 2023</td><td>1 STEAM HOUSE</td><td class='dt'>CV10 8QY</td><td>Flat</td><td>Leasehold</td><td class='num'>£158,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>11 May 2023</td><td>4 STEAM HOUSE</td><td class='dt'>CV10 8QY</td><td>Flat</td><td>Leasehold</td><td class='num'>£160,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>17 Mar 2023</td><td>692</td><td class='dt'>CV10 8QY</td><td>Terraced</td><td>Freehold</td><td class='num'>£170,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>27 Jan 2023</td><td>7 STEAM HOUSE</td><td class='dt'>CV10 8QY</td><td>Flat</td><td>Leasehold</td><td class='num'>£158,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>09 Dec 2022</td><td>2 STEAM HOUSE</td><td class='dt'>CV10 8QY</td><td>Flat</td><td>Leasehold</td><td class='num'>£150,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>02 Dec 2022</td><td>518</td><td class='dt'>CV10 8QQ</td><td>Terraced</td><td>Freehold</td><td class='num'>£155,000</td><td class='num'>89 m²</td><td class='num'>£1,742</td></tr><tr><td class='dt'>30 Sep 2022</td><td>496</td><td class='dt'>CV10 8QQ</td><td>Terraced</td><td>Freehold</td><td class='num'>£165,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>13 Sep 2022</td><td>319</td><td class='dt'>CV10 8QF</td><td>Terraced</td><td>Freehold</td><td class='num'>£165,000</td><td class='num'>89 m²</td><td class='num'>£1,854</td></tr><tr><td class='dt'>04 Aug 2021</td><td>273</td><td class='dt'>CV10 8QR</td><td>Terraced</td><td>Freehold</td><td class='num'>£155,000</td><td class='num'>89 m²</td><td class='num'>£1,742</td></tr><tr><td class='dt'>23 Jul 2021</td><td>4 WENLOCK COURT</td><td class='dt'>CV10 8PQ</td><td>Flat</td><td>Leasehold</td><td class='num'>£110,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>25 Jun 2021</td><td>704</td><td class='dt'>CV10 8QY</td><td>Terraced</td><td>Freehold</td><td class='num'>£163,000</td><td class='num'>74 m²</td><td class='num'>£2,203</td></tr><tr><td class='dt'>18 Feb 2021</td><td>2 STEAM HOUSE</td><td class='dt'>CV10 8QY</td><td>Flat</td><td>Leasehold</td><td class='num'>£130,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>12 Feb 2021</td><td>578</td><td class='dt'>CV10 8QH</td><td>Terraced</td><td>Freehold</td><td class='num'>£118,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>05 Feb 2021</td><td>3 STEAM HOUSE</td><td class='dt'>CV10 8QY</td><td>Flat</td><td>Leasehold</td><td class='num'>£150,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>23 Oct 2020</td><td>6 STEAM HOUSE</td><td class='dt'>CV10 8QY</td><td>Flat</td><td>Leasehold</td><td class='num'>£140,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>09 Oct 2020</td><td>10 STEAM HOUSE</td><td class='dt'>CV10 8QY</td><td>Flat</td><td>Leasehold</td><td class='num'>£169,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>02 Oct 2020</td><td>9 STEAM HOUSE</td><td class='dt'>CV10 8QY</td><td>Flat</td><td>Leasehold</td><td class='num'>£140,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>25 Sep 2020</td><td>700</td><td class='dt'>CV10 8QY</td><td>Terraced</td><td>Freehold</td><td class='num'>£156,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>18 Sep 2020</td><td>321</td><td class='dt'>CV10 8QF</td><td>Terraced</td><td>Freehold</td><td class='num'>£124,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>07 Jul 2020</td><td>395C</td><td class='dt'>CV10 8QF</td><td>Terraced</td><td>Freehold</td><td class='num'>£167,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>08 Nov 2019</td><td>281</td><td class='dt'>CV10 8QR</td><td>Terraced</td><td>Freehold</td><td class='num'>£129,950</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>08 Nov 2019</td><td>334</td><td class='dt'>CV10 8QP</td><td>Terraced</td><td>Freehold</td><td class='num'>£129,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>25 Oct 2019</td><td>21 WENLOCK COURT</td><td class='dt'>CV10 8PQ</td><td>Terraced</td><td>Freehold</td><td class='num'>£170,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>10 May 2019</td><td>13 WENLOCK COURT</td><td class='dt'>CV10 8PQ</td><td>Terraced</td><td>Freehold</td><td class='num'>£164,950</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>22 Feb 2019</td><td>698</td><td class='dt'>CV10 8QY</td><td>Terraced</td><td>Freehold</td><td class='num'>£150,000</td><td class='num'>73 m²</td><td class='num'>£2,055</td></tr><tr><td class='dt'>14 Dec 2018</td><td>295</td><td class='dt'>CV10 8QR</td><td>Terraced</td><td>Freehold</td><td class='num'>£120,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>30 Nov 2018</td><td>18 WENLOCK COURT</td><td class='dt'>CV10 8PQ</td><td>Terraced</td><td>Freehold</td><td class='num'>£142,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>16 Nov 2018</td><td>560</td><td class='dt'>CV10 8QH</td><td>Terraced</td><td>Freehold</td><td class='num'>£126,500</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>24 Aug 2018</td><td>12 WENLOCK COURT</td><td class='dt'>CV10 8PQ</td><td>Flat</td><td>Leasehold</td><td class='num'>£85,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>20 Jul 2018</td><td>395C</td><td class='dt'>CV10 8QF</td><td>Terraced</td><td>Freehold</td><td class='num'>£157,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>18 Jul 2018</td><td>502</td><td class='dt'>CV10 8QQ</td><td>Terraced</td><td>Freehold</td><td class='num'>£91,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>18 Jun 2018</td><td>287</td><td class='dt'>CV10 8QR</td><td>Terraced</td><td>Freehold</td><td class='num'>£124,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>01 Jun 2018</td><td>680</td><td class='dt'>CV10 8QY</td><td>Terraced</td><td>Freehold</td><td class='num'>£140,000</td><td class='num'>74 m²</td><td class='num'>£1,892</td></tr><tr><td class='dt'>23 Feb 2018</td><td>578</td><td class='dt'>CV10 8QH</td><td>Terraced</td><td>Freehold</td><td class='num'>£100,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>16 Feb 2018</td><td>474</td><td class='dt'>CV10 8QG</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£98,500</td><td class='num'>89 m²</td><td class='num'>£1,107</td></tr><tr><td class='dt'>09 Feb 2018</td><td>496</td><td class='dt'>CV10 8QQ</td><td>Terraced</td><td>Freehold</td><td class='num'>£105,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>26 Jan 2018</td><td>21 WENLOCK COURT</td><td class='dt'>CV10 8PQ</td><td>Terraced</td><td>Freehold</td><td class='num'>£162,500</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>14 Dec 2017</td><td>698</td><td class='dt'>CV10 8QY</td><td>Terraced</td><td>Freehold</td><td class='num'>£138,000</td><td class='num'>73 m²</td><td class='num'>£1,890</td></tr><tr><td class='dt'>01 Dec 2017</td><td>446</td><td class='dt'>CV10 8QG</td><td>Terraced</td><td>Freehold</td><td class='num'>£107,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>25 Aug 2017</td><td>14 WENLOCK COURT</td><td class='dt'>CV10 8PQ</td><td>Terraced</td><td>Freehold</td><td class='num'>£145,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>23 Jun 2017</td><td>520</td><td class='dt'>CV10 8QQ</td><td>Terraced</td><td>Freehold</td><td class='num'>£90,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>12 May 2017</td><td>4 WENLOCK COURT</td><td class='dt'>CV10 8PQ</td><td>Flat</td><td>Leasehold</td><td class='num'>£81,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>22 Apr 2016</td><td>395C</td><td class='dt'>CV10 8QF</td><td>Terraced</td><td>Freehold</td><td class='num'>£139,950</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>14 Apr 2016</td><td>395B</td><td class='dt'>CV10 8QF</td><td>Terraced</td><td>Freehold</td><td class='num'>£90,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>31 Mar 2016</td><td>16 WENLOCK COURT</td><td class='dt'>CV10 8PQ</td><td>Terraced</td><td>Freehold</td><td class='num'>£136,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>22 Feb 2016</td><td>470</td><td class='dt'>CV10 8QG</td><td>Terraced</td><td>Freehold</td><td class='num'>£89,950</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>06 Nov 2015</td><td>706</td><td class='dt'>CV10 8QY</td><td>Terraced</td><td>Freehold</td><td class='num'>£110,500</td><td class='num'>76 m²</td><td class='num'>£1,454</td></tr><tr><td class='dt'>23 Sep 2015</td><td>8 WENLOCK COURT</td><td class='dt'>CV10 8PQ</td><td>Flat</td><td>Leasehold</td><td class='num'>£79,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>22 Jun 2015</td><td>299</td><td class='dt'>CV10 8QR</td><td>Terraced</td><td>Freehold</td><td class='num'>£80,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>15 May 2015</td><td>446</td><td class='dt'>CV10 8QG</td><td>Terraced</td><td>Freehold</td><td class='num'>£95,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>08 May 2015</td><td>680</td><td class='dt'>CV10 8QY</td><td>Terraced</td><td>Freehold</td><td class='num'>£115,000</td><td class='num'>74 m²</td><td class='num'>£1,554</td></tr><tr><td class='dt'>20 Mar 2015</td><td>289</td><td class='dt'>CV10 8QR</td><td>Terraced</td><td>Freehold</td><td class='num'>£95,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>14 Nov 2014</td><td>692</td><td class='dt'>CV10 8QY</td><td>Terraced</td><td>Freehold</td><td class='num'>£115,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>01 Aug 2014</td><td>690</td><td class='dt'>CV10 8QY</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£114,500</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>30 May 2014</td><td>568</td><td class='dt'>CV10 8QH</td><td>Terraced</td><td>Freehold</td><td class='num'>£82,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>25 Apr 2014</td><td>434</td><td class='dt'>CV10 8QG</td><td>Terraced</td><td>Freehold</td><td class='num'>£75,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>26 Feb 2014</td><td>21 WENLOCK COURT</td><td class='dt'>CV10 8PQ</td><td>Terraced</td><td>Freehold</td><td class='num'>£130,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>04 Nov 2013</td><td>468</td><td class='dt'>CV10 8QG</td><td>Terraced</td><td>Freehold</td><td class='num'>£78,000</td><td class='num'>87 m²</td><td class='num'>£897</td></tr><tr><td class='dt'>28 Jun 2013</td><td>512</td><td class='dt'>CV10 8QQ</td><td>Semi-Detached</td><td>Freehold</td><td class='num'>£95,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>30 Apr 2013</td><td>317</td><td class='dt'>CV10 8QF</td><td>Terraced</td><td>Freehold</td><td class='num'>£81,500</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>01 May 2012</td><td>353</td><td class='dt'>CV10 8QF</td><td>Flat</td><td>Leasehold</td><td class='num'>£40,000</td><td class='num'>47 m²</td><td class='num'>£851</td></tr><tr><td class='dt'>20 Dec 2011</td><td>281</td><td class='dt'>CV10 8QR</td><td>Terraced</td><td>Freehold</td><td class='num'>£88,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>01 Apr 2011</td><td>273</td><td class='dt'>CV10 8QR</td><td>Terraced</td><td>Freehold</td><td class='num'>£109,000</td><td class='num'>89 m²</td><td class='num'>£1,225</td></tr><tr><td class='dt'>15 Oct 2010</td><td>684</td><td class='dt'>CV10 8QY</td><td>Terraced</td><td>Freehold</td><td class='num'>£95,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>30 Jul 2010</td><td>694</td><td class='dt'>CV10 8QY</td><td>Terraced</td><td>Freehold</td><td class='num'>£100,000</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>16 Apr 2010</td><td>698</td><td class='dt'>CV10 8QY</td><td>Terraced</td><td>Freehold</td><td class='num'>£104,000</td><td class='num'>73 m²</td><td class='num'>£1,425</td></tr><tr><td class='dt'>30 Nov 2009</td><td>684</td><td class='dt'>CV10 8QY</td><td>Terraced</td><td>Freehold</td><td class='num'>£107,500</td><td class='num'>—</td><td class='num'>—</td></tr><tr><td class='dt'>30 Oct 2009</td><td>448</td><td class='dt'>CV10 8QG</td><td>Terraced</td><td>Freehold</td><td class='num'>£86,000</td><td class='num'>—</td><td class='num'>—</td></tr></tbody></table>
   </div>
+
+  
 
   
 

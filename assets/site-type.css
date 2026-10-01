@@ -1,0 +1,11 @@
+/* Site-wide type and width: Gloock headings, wider pages. Loaded on every page after
+   the page's own styles would be too late for <head> order, so rules use !important. */
+.logo{font-family:'DM Serif Display',serif!important}
+/* Gloock comes in one weight (400): never let the browser fake a bold */
+h1,h2,.metric-value,.stat .value,.street-name,.pc-est{font-weight:400!important;font-synthesis:none}
+.wrap,.browse-inner{max-width:1180px!important}
+.wrap p,.wrap li,.intro,.wrap .note{max-width:72ch}
+.hero{max-width:1220px!important}
+.hero h1{max-width:none!important;font-size:clamp(2.3rem,5.4vw,4.6rem)!important;line-height:1.04!important;letter-spacing:-0.015em}
+.hero h1 em{font-style:normal!important}
+#results{max-width:1180px!important}

@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/7b30e2f2d9316ee4614729dbf30f3c60/script.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9WWR5FF5VK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-9WWR5FF5VK');
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>House Price Check by Street – Fair Price Range and Asking Price Check</title>
+<meta name="description" content="What a home on your street is worth, from recent HM Land Registry sales of the same property type on the same street: a fair-price range, and how any asking price compares, for buyers and sellers. Free.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://soldbystreet.co.uk/price-check">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://soldbystreet.co.uk/price-check">
+<meta property="og:title" content="House Price Check by Street – Fair Price Range and Asking Price Check">
+<meta property="og:description" content="What a home on your street is worth, from recent HM Land Registry sales of the same property type on the same street: a fair-price range, and how any asking price compares, for buyers and sellers. Free.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site-nav.css">
+<link rel="stylesheet" href="/assets/site-type.css">
+<script src="/assets/site-nav.js" defer></script>
+<script src="/sold-prices/search-index.js" defer></script>
+<style>
+  tr:target td{background:var(--cream);}
+  .bands{display:grid;gap:1.2rem;margin:0 0 1rem;}
+  .band{border:1.5px solid var(--ink);background:#fff;padding:1.1rem 1.2rem 1rem;}
+  .band-h{display:flex;align-items:center;gap:.5rem;margin-bottom:.9rem;flex-wrap:wrap;}
+  .band-n{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--muted);margin-left:auto;}
+  .band-bar{position:relative;height:30px;margin:0 0 .7rem;}
+  .band-bar .z{position:absolute;top:8px;height:14px;}
+  .band-bar .z.lo,.band-bar .z.hi{background:var(--cream);}
+  .band-bar .z.mid{border:1.5px solid;}
+  .band-bar .md{position:absolute;top:2px;height:26px;border-left:2px solid var(--ink);}
+  .band-bar .bd{position:absolute;top:12px;width:7px;height:7px;margin-left:-3.5px;border-radius:50%;background:var(--ink);opacity:.55;}
+  .band-k{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:.5rem;font-family:'DM Mono',monospace;font-size:.68rem;color:var(--muted);line-height:1.5;}
+  .band-k b{color:var(--ink);font-weight:500;}.band-k .mid{text-align:center;}.band-k .hi{text-align:right;}
+  .band-go{display:inline-block;margin-top:.8rem;color:#2c55d6;font-weight:600;font-size:.88rem;text-decoration:none;}
+  .band-go:hover{text-decoration:underline;}
+  tr.near td{background:#eef2fd;}
+  .near-note{border-left:3px solid #2c55d6;padding:.5rem .8rem;background:#fff;font-size:.9rem;}
+  .qa h3{font-size:1rem;margin:1.2rem 0 .3rem;}
+  .qa p{margin:0 0 .4rem;}
+  :root{--ink:#0f0e0d;--paper:#f5f2ee;--cream:#ede9e3;--accent:#c8401a;
+    --muted:#7a7570;--border:#d4cfc9;--up:#2d5a3d;--down:#9b2c2c;--psm:#5a7a9e;}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;}
+  a{color:inherit;}
+  header{border-bottom:1.5px solid var(--ink);padding:0 2.5rem;display:flex;align-items:center;
+    justify-content:space-between;height:60px;background:var(--paper);position:sticky;top:0;z-index:100;}
+  .logo{font-family:'Gloock',serif;font-size:1.4rem;letter-spacing:-0.02em;
+    text-decoration:none;color:var(--ink);}
+  .logo span{color:var(--accent);font-style:italic;}
+  .header-nav{display:flex;align-items:center;gap:1.5rem;}
+  .nav-link{font-family:'DM Mono',monospace;font-size:0.65rem;text-transform:uppercase;
+    letter-spacing:0.08em;color:var(--ink);text-decoration:none;border:1px solid var(--border);
+    padding:0.28rem 0.7rem;transition:background .15s,border-color .15s;}
+  .nav-link:hover{background:var(--cream);border-color:var(--ink);}
+  .wrap{max-width:880px;margin:0 auto;padding:3.5rem 2.5rem 5rem;}
+  .breadcrumb{font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;
+    letter-spacing:0.1em;color:var(--muted);margin-bottom:2rem;}
+  .breadcrumb a{text-decoration:none;}.breadcrumb a:hover{color:var(--ink);}
+  .breadcrumb span{margin:0 0.5rem;}
+  .tag{font-family:'DM Mono',monospace;font-size:0.62rem;text-transform:uppercase;
+    letter-spacing:0.12em;color:var(--accent);margin-bottom:0.75rem;}
+  h1{font-family:'Gloock',serif;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.1;
+    letter-spacing:-0.02em;margin-bottom:1.25rem;}
+  h1 em{font-style:italic;color:var(--accent);}
+  .intro{font-size:1.05rem;line-height:1.7;color:var(--muted);font-weight:300;
+    margin-bottom:2.5rem;padding-bottom:2.5rem;border-bottom:1.5px solid var(--ink);}
+  h2{font-family:'Gloock',serif;font-size:1.4rem;letter-spacing:-0.01em;margin:3rem 0 1rem;}
+  p{font-size:0.95rem;line-height:1.75;color:#2a2826;margin-bottom:1.1rem;font-weight:300;}
+  .stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;
+    background:var(--border);border:1.5px solid var(--ink);margin:0 0 1rem;}
+  .stat{background:white;padding:1.25rem 1.25rem 1.1rem;}
+  .stat .label{font-family:'DM Mono',monospace;font-size:0.6rem;text-transform:uppercase;
+    letter-spacing:0.1em;color:var(--muted);margin-bottom:0.5rem;}
+  .stat .value{font-family:'Gloock',serif;font-size:1.7rem;line-height:1;}
+  .stat .sub{font-family:'DM Mono',monospace;font-size:0.7rem;margin-top:0.4rem;color:var(--muted);}
+  .up{color:var(--up);}.down{color:var(--down);}.thin{color:var(--muted);}
+  .note{font-family:'DM Mono',monospace;font-size:0.66rem;color:var(--muted);
+    line-height:1.6;margin-bottom:2rem;}
+  .alert{border:1.5px solid var(--ink);background:white;padding:1.6rem 1.8rem;margin:0 0 1rem;}
+  .alert h3{font-family:'Gloock',serif;font-size:1.25rem;margin-bottom:0.4rem;}
+  .alert p{font-size:0.88rem;color:var(--muted);margin-bottom:1rem;}
+  .alert form{display:flex;gap:0.6rem;flex-wrap:wrap;}
+  .alert input{flex:1 1 220px;font-family:'DM Sans',sans-serif;font-size:0.9rem;
+    padding:0.7rem 0.85rem;border:1.5px solid var(--border);background:var(--paper);color:var(--ink);}
+  .alert input:focus{outline:none;border-color:var(--ink);}
+  .alert button{font-family:'DM Mono',monospace;font-size:0.72rem;text-transform:uppercase;
+    letter-spacing:0.08em;background:var(--ink);color:var(--paper);border:none;
+    padding:0.7rem 1.4rem;cursor:pointer;}
+  .alert button:disabled{opacity:0.5;cursor:default;}
+  .alert .msg{font-family:'DM Mono',monospace;font-size:0.7rem;margin-top:0.8rem;line-height:1.5;}
+  .alert .msg.ok{color:var(--up);}.alert .msg.err{color:var(--down);}
+  .alert .fine{font-family:'DM Mono',monospace;font-size:0.62rem;color:var(--muted);
+    margin:0.8rem 0 0;}
+  .chart-wrap{border:1.5px solid var(--ink);background:white;height:320px;padding:1.2rem 1.2rem 0.5rem;margin:1rem 0 0;}
+  .legend{display:flex;flex-wrap:wrap;gap:1.1rem;border:1.5px solid var(--ink);border-top:none;
+    background:white;padding:0.7rem 1.3rem;font-family:'DM Mono',monospace;
+    font-size:0.64rem;color:var(--muted);margin-bottom:1rem;}
+  .legend i.k{display:inline-block;width:18px;height:0;vertical-align:middle;margin-right:6px;}
+  .sw{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;
+    vertical-align:baseline;}
+  table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:0.85rem;}
+  th,td{text-align:left;padding:0.6rem 0.7rem;border-bottom:1px solid var(--border);}
+  th{font-family:'DM Mono',monospace;font-size:0.6rem;text-transform:uppercase;
+    letter-spacing:0.08em;color:var(--muted);border-bottom:1.5px solid var(--ink);}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
+  tr.hl td{background:var(--cream);font-weight:500;}
+  td.dt{font-family:'DM Mono',monospace;font-size:0.72rem;white-space:nowrap;}
+  .cnt{display:block;font-family:'DM Mono',monospace;font-size:0.58rem;color:var(--muted);
+    margin-top:0.15rem;}
+  .scroll-x{overflow-x:auto;}
+  .scroll-x table{min-width:560px;}
+  .pc{display:block;font-family:'DM Mono',monospace;font-size:0.62rem;color:var(--muted);}
+  .nb{font-family:'DM Mono',monospace;font-size:0.58rem;text-transform:uppercase;
+    letter-spacing:0.06em;color:var(--accent);}
+  tbody tr:hover td{background:var(--cream);}
+  .scroll{max-height:640px;overflow:auto;border:1.5px solid var(--ink);background:white;}
+  .scroll table{margin:0;}
+  .scroll th{position:sticky;top:0;background:white;z-index:2;}
+  .chips{display:flex;flex-wrap:wrap;gap:0.5rem;margin:0.5rem 0 2rem;}
+  .chip{font-family:'DM Mono',monospace;font-size:0.7rem;text-decoration:none;
+    border:1px solid var(--border);padding:0.4rem 0.8rem;transition:background .15s,border-color .15s;}
+  .chip:hover{background:var(--cream);border-color:var(--ink);}
+  .backlink{display:inline-block;font-family:'DM Mono',monospace;font-size:0.68rem;
+    text-transform:uppercase;letter-spacing:0.07em;text-decoration:none;color:var(--accent);
+    border-bottom:1px solid var(--accent);padding-bottom:2px;}
+  footer{border-top:1.5px solid var(--ink);padding:2rem 2.5rem;display:flex;flex-wrap:wrap;gap:1.5rem;
+    font-family:'DM Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.08em;}
+  footer a{text-decoration:none;color:var(--muted);}footer a:hover{color:var(--ink);}
+  @media(max-width:600px){header,.wrap{padding-left:1.2rem;padding-right:1.2rem;}
+    th,td{padding:0.5rem 0.4rem;font-size:0.8rem;}.chart-wrap{height:270px;}
+    .scroll{max-height:520px;}.alert{padding:1.3rem;}}
+
+  .pc-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;
+    background:#fff;border:1.5px solid var(--ink);padding:1.25rem 1.5rem;margin:1.5rem 0}
+  .pc-form label{display:flex;flex-direction:column;gap:.35rem;font-family:'DM Mono',monospace;
+    font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+  .pc-form select,.pc-form input{font:400 1rem 'DM Sans',sans-serif;color:var(--ink);padding:.6rem .7rem;
+    border:1.5px solid var(--border);background:var(--paper);border-radius:6px}
+  .pc-form select:focus,.pc-form input:focus{outline:none;border-color:#2c55d6}
+  .pc-go{align-self:end;min-height:2.75rem;border:0;border-radius:8px;background:#2c55d6;color:#fff;
+    font:600 .95rem 'DM Sans',sans-serif;cursor:pointer}
+  .pc-go:hover{background:#2347b8}
+  .pc-go:focus-visible{outline:2px solid #2c55d6;outline-offset:2px}
+  .pc-result{background:#fff;border:1.5px solid var(--ink);padding:1.5rem;margin:1.5rem 0}
+  .pc-est{font-family:'Gloock',serif;font-size:clamp(2rem,6vw,3rem);line-height:1.1;margin:.2rem 0}
+  .pc-range{font-size:1.05rem;margin:.2rem 0 .8rem}
+  .pc-bar{position:relative;height:14px;border-radius:7px;background:var(--cream);margin:1.4rem 0 2.2rem}
+  .pc-bar .iqr{position:absolute;top:0;bottom:0;background:#c3cff3;border-radius:7px}
+  .pc-bar .dot{position:absolute;top:50%;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;
+    background:#2c55d6;border:2px solid #fff;box-shadow:0 0 0 1px #2c55d6}
+  .pc-bar .ask{position:absolute;top:-6px;bottom:-6px;width:3px;margin-left:-1px;background:var(--accent)}
+  .pc-bar .lbl.up{top:-24px;color:var(--accent);font-weight:500}
+  .pc-recent{margin:.2rem 0 .8rem;font-size:.95rem}
+  .pc-bar .lbl{position:absolute;top:22px;transform:translateX(-50%);font-family:'DM Mono',monospace;
+    font-size:.65rem;color:var(--muted);white-space:nowrap}
+  .pc-badge{display:inline-block;font-family:'DM Mono',monospace;font-size:.68rem;text-transform:uppercase;
+    letter-spacing:.07em;padding:.25rem .55rem;border-radius:4px;background:var(--cream)}
+  .pc-badge.good{background:#e6f1ea;color:#2d5a3d}.pc-badge.fair{background:#f7eedb;color:#8a5a00}
+  .pc-badge.low{background:#f6e4e2;color:#9b2c2c}
+  .pc-ask{border-left:3px solid var(--accent);padding:.6rem .9rem;background:var(--paper);margin:1rem 0}
+  .pc-msg{padding:1rem 1.25rem;border:1.5px dashed var(--border);background:#fff;margin:1.5rem 0}
+  tr.out td{color:var(--muted);text-decoration:line-through}
+  .pc-links{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0}
+  .pc-links a{display:inline-flex;align-items:center;min-height:2.4rem;padding:.5rem 1rem;border-radius:8px;
+    border:1.5px solid #c3cff3;color:#2c55d6;font:600 .88rem 'DM Sans',sans-serif;text-decoration:none;background:#fff}
+  .pc-links a:hover{border-color:#2c55d6;background:#f3f6fe}
+  .pc-limits li{margin-bottom:.45rem}
+  .pc-var{display:inline-block;font:500 .72rem 'DM Mono',monospace;padding:.2rem .5rem;border-radius:4px;margin-right:.5rem}
+  .pc-var.inside{background:#e6f1ea;color:#2d5a3d}.pc-var.above{background:#f6e4e2;color:#9b2c2c}
+  .pc-var.below{background:#f7eedb;color:#8a5a00}
+  .pc-guide{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.8rem;margin:1rem 0 .6rem}
+  .pc-guide>div{border:1.5px solid #c3cff3;background:#f3f6fe;border-radius:8px;padding:.9rem 1.1rem}
+  .pc-guide h3{font:600 .95rem 'DM Sans',sans-serif;margin:0 0 .35rem}.pc-guide p{margin:0;font-size:.95rem}
+  .pc-check{margin:.4rem 0 0;padding-left:1.1rem;font-size:.92rem}.pc-check li{margin-bottom:.3rem}
+  .pc-report{display:inline-block;background:#2c55d6;color:#fff;text-decoration:none;font:600 .92rem 'DM Sans',sans-serif;
+    padding:.7rem 1.1rem;border-radius:8px}.pc-report:hover{background:#2347b8}
+
+</style>
+</head>
+<body>
+<header>
+  <a href="/" class="logo">SoldBy<span>Street</span></a>
+  <nav class="sbs-nav" aria-label="Main">
+    <button class="sbs-nav-link sbs-menu-btn" type="button" aria-expanded="false" aria-controls="sbsNavPanel">Menu</button>
+    <div class="sbs-nav-panel" id="sbsNavPanel">
+      <a class="sbs-nav-link sbs-nav-search" href="/" data-nav="search"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.6-4.6"/></svg>Search</a>
+      <a class="sbs-nav-link" href="/street-report" data-nav="report">Street report</a>
+      <a class="sbs-nav-link" href="/price-check" data-nav="check">Check a price</a>
+      <a class="sbs-nav-link" href="/sold-prices" data-nav="compare">Compare streets</a>
+      <div class="sbs-tools">
+        <button class="sbs-nav-link sbs-tools-btn" type="button" aria-expanded="false" aria-controls="sbsTools">Tools<span class="sbs-caret">▾</span></button>
+        <div class="sbs-tools-menu" id="sbsTools" hidden>
+          <div>
+            <div class="sbs-col-h">Prices</div>
+            <a href="/street-report" data-nav="tools_report">Street report<span>Every sale on your street since 2008</span></a>
+            <a href="/sold-prices" data-nav="tools_compare">Sold prices by street and district<span>Compare streets district by district</span></a>
+            <a href="/price-check" data-nav="tools_check">Check a price<span>Fair-price range, and your asking price against it</span></a>
+          </div>
+          <div>
+            <div class="sbs-col-h">About the data</div>
+            <a href="/methodology" data-nav="tools_method">How the figures are worked out<span>Sources, exclusions, medians</span></a>
+            <a href="/guides" data-nav="tools_guides">Guides<span>Using sold prices to buy or sell</span></a>
+          </div>
+        </div>
+      </div>
+      <a class="sbs-nav-link" href="/contact" data-nav="contact">Contact</a>
+    </div>
+  </nav>
+</header>
+<div class="wrap">
+  <div class="breadcrumb"><a href="/">Home</a><span>·</span>Check a price</div>
+  <h1>What's a home on <em id="pcStreetName">your street</em> worth?</h1>
+  <p class="intro">A fair-price range from what homes of the same type on the same street actually sold for. Add an asking price and you&#x27;ll also see how it compares, and what that means whether you&#x27;re selling or buying. Free, from HM Land Registry records. A guide, not a valuation.</p>
+
+  <section id="pcPick" hidden>
+    <form class="pc-form" id="pcPickForm">
+      <label for="pcPostcode">Your postcode
+        <input id="pcPostcode" name="postcode" placeholder="e.g. SW6 2LE" autocomplete="postal-code" required></label>
+      <button class="pc-go" type="submit">Find my street</button>
+    </form>
+    <div id="pcPickOut"></div>
+  </section>
+
+  <section id="pcTool" hidden>
+    <form class="pc-form" id="pcForm">
+      <label>Street<input value="" id="pcWhere" disabled></label>
+      <label for="pcType">Property type<select id="pcType" name="type"><option value="Flat/Maisonette">Flat or maisonette</option><option value="Terraced">Terraced house</option><option value="Semi-Detached">Semi-detached house</option><option value="Detached">Detached house</option></select></label>
+      <label for="pcAsk">Asking price (optional)<input id="pcAsk" name="asking" inputmode="numeric" placeholder="e.g. 850000"></label>
+      <button class="pc-go" type="submit">Check the price</button>
+    </form>
+    <div id="pcOut"></div>
+    <div class="pc-links">
+      <a id="pcReport" href="#" hidden>Get your street report →</a>
+      <a id="pcNearby" href="/">Compare nearby streets</a>
+      <a href="/methodology">How the site's figures work</a>
+    </div>
+  </section>
+
+  <h2>How the estimate works</h2>
+  <p>It takes every Land Registry sale of the chosen property type on this street (same postcode
+    sector) from the last three full years plus this year so far. With fewer than five, it looks
+    back six years instead. With eight or more sales, prices far outside the usual spread (beyond
+    1.5 times the interquartile range) are left out, which removes most bulk or non-market transfers.
+    The estimate is the <strong>median</strong> of what's left, and the fair-price range is the
+    <strong>middle half</strong> of those sales (25th to 75th percentile), rounded to £5,000.
+    Confidence reflects how many sales it rests on: 15 or more good, 8–14 fair, 5–7 low. Under five,
+    no estimate is shown.</p>
+
+  <h2>Limitations</h2>
+  <ul class="pc-limits">
+    <li><strong>Not a valuation.</strong> Nobody has seen the home. It is not a RICS valuation, a
+      mortgage valuation or an estate agent's appraisal.</li>
+    <li><strong>No size, bedrooms or condition.</strong> Land Registry records only four property
+      types. A two-bed flat and a four-bed maisonette count the same, so size differences can matter
+      more than the street. (Floor area exists for about a third of sales, but not in this tool yet.)</li>
+    <li><strong>Not adjusted for time.</strong> Sales up to three (sometimes six) years old are taken
+      at the price paid. The median-by-year table shows the direction.</li>
+    <li><strong>One street, small numbers.</strong> A handful of sales gives a wide range; unusual
+      homes pull the median.</li>
+    <li><strong>Lag and data quality.</strong> Sales take 2–3 months to be registered, so the latest
+      months are missing. Repossessions and bulk transfers are only removed when they look like
+      outliers; leasehold length, new-build premiums and floor level are not accounted for.</li>
+  </ul>
+  <p><a class="backlink" href="/">← Search another postcode</a></p>
+</div>
+<footer>
+  <a href="/guides">Guides</a>
+  <a href="/privacy">Privacy</a>
+  <a href="/terms">Terms</a>
+  <a href="/methodology">Methodology</a>
+  <div style="flex-basis:100%;text-transform:none;letter-spacing:0.03em;color:var(--muted);">Contains HM Land Registry data © Crown copyright and database right 2026. Licensed under the Open Government Licence v3.0. Trace Lab Studio LTD, registered in England and Wales no. 17340427. Registered office: 128 City Road, London, EC1V 2NX.</div>
+</footer>
+<script>
+
+const API = 'https://housecheck-api-580723587126.europe-west2.run.app';
+const TYPES = {'Flat/Maisonette':'Flat or maisonette','Terraced':'Terraced house',
+               'Semi-Detached':'Semi-detached house','Detached':'Detached house'};
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const gbp = n => '£' + Math.round(n).toLocaleString('en-GB');
+const round5k = n => Math.round(n / 5000) * 5000;
+const title = s => String(s||'').toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+const params = new URLSearchParams(location.search);
+const NOW = new Date(); const CUR = NOW.getFullYear();
+
+function q(sorted, p) {           // linear-interpolated quantile of a sorted array
+  if (!sorted.length) return null;
+  const i = (sorted.length - 1) * p, lo = Math.floor(i), hi = Math.ceil(i);
+  return sorted[lo] + (sorted[hi] - sorted[lo]) * (i - lo);
+}
+
+async function salesFor(street, sector, years) {
+  const res = await Promise.all(years.map(y =>
+    fetch(`${API}/transactions?street=${encodeURIComponent(street)}&sector=${encodeURIComponent(sector)}&year=${y}`)
+      .then(r => r.ok ? r.json() : {transactions: []}).catch(() => ({transactions: []}))));
+  return res.flatMap(r => r.transactions || []).filter(t => t.price >= 10000);
+}
+
+let state = {street: params.get('street') || '', sector: params.get('sector') || '',
+             page: params.get('page') || '', sales: null, years: []};
+
+async function load() {
+  $('pcStreetName').textContent = title(state.street);
+  $('pcWhere').value = `${title(state.street)}, ${state.sector}`;
+  $('pcOut').innerHTML = '<div class="pc-msg">Loading recent sales on this street…</div>';
+  // last 3 complete years + this year so far; widened to 6 years if too few sales
+  state.years = [CUR, CUR - 1, CUR - 2, CUR - 3];
+  state.sales = await salesFor(state.street, state.sector, state.years);
+  // default the type to the street's most common recent type, unless given
+  const counts = {};
+  state.sales.forEach(t => counts[t.property_type] = (counts[t.property_type] || 0) + 1);
+  const want = params.get('type');
+  const best = Object.keys(counts).sort((a, b) => counts[b] - counts[a])[0];
+  $('pcType').value = want && TYPES[want] ? want : (best || 'Flat/Maisonette');
+  const ask = params.get('asking'); if (ask) $('pcAsk').value = ask;
+  // every street has a report: its static page, or the one drawn on /street-report
+  state.report = state.page || `/street-report?street=${encodeURIComponent(state.street)}&sector=${encodeURIComponent(state.sector)}`;
+  $('pcReport').href = state.report; $('pcReport').hidden = false;
+  const oc = state.sector.split(' ')[0].toUpperCase();
+  const hubs = (window.SBS_PAGES && window.SBS_PAGES.hub) || [];
+  $('pcNearby').href = hubs.includes(oc)
+    ? `/sold-prices/${oc.toLowerCase()}#near-${state.sector.toLowerCase().replace(' ', '-')}`
+    : `/?q=${encodeURIComponent(state.sector).replace(/%20/g, '+')}`;
+  run();
+}
+
+async function run() {
+  const type = $('pcType').value;
+  // 4-year window (3 full years + this year) for this type; 6 years only if that gives <5.
+  // The window is decided per type, so the answer never depends on what was clicked before.
+  const ofType = minYear => state.sales.filter(t => t.property_type === type && +t.sale_date.slice(0, 4) >= minYear);
+  let minY = CUR - 3, sales = ofType(minY), widened = false;
+  if (sales.length < 5) {
+    if (!state.years.includes(CUR - 5)) {
+      const extra = [CUR - 4, CUR - 5];
+      state.sales = state.sales.concat(await salesFor(state.street, state.sector, extra));
+      state.years = state.years.concat(extra);
+    }
+    minY = CUR - 5; sales = ofType(minY); widened = true;
+  }
+  gtag('event', 'price_check_run', {street: state.street, sector: state.sector, property_type: type, n: sales.length, has_asking: !!$('pcAsk').value});
+  const label = TYPES[type].toLowerCase();
+  if (sales.length < 5) {
+    $('pcOut').innerHTML = `<div class="pc-msg"><strong>Not enough recent sales for an estimate.</strong>
+      Only ${sales.length} ${label} ${sales.length === 1 ? 'sale has' : 'sales have'} been recorded on
+      ${esc(title(state.street))} since ${minY}. An estimate off fewer than five sales would mostly
+      describe individual homes, not the street. Try another property type, or compare nearby streets.</div>`
+      + compsTable(sales, new Set());
+    return;
+  }
+  // trim statistical outliers (e.g. bulk or non-market transfers) once there are enough sales
+  const prices = sales.map(t => t.price).sort((a, b) => a - b);
+  let q1 = q(prices, .25), q3 = q(prices, .75), out = new Set();
+  if (sales.length >= 8) {
+    const lo = q1 - 1.5 * (q3 - q1), hi = q3 + 1.5 * (q3 - q1);
+    sales.forEach(t => { if (t.price < lo || t.price > hi) out.add(t); });
+  }
+  const kept = sales.filter(t => !out.has(t)).map(t => t.price).sort((a, b) => a - b);
+  const med = q(kept, .5), p25 = q(kept, .25), p75 = q(kept, .75);
+  const n = kept.length;
+  // the market moves: show what the most recent sales say on their own
+  const cutoff = new Date(NOW); cutoff.setMonth(cutoff.getMonth() - 18);
+  const recent = sales.filter(t => !out.has(t) && new Date(t.sale_date) >= cutoff).map(t => t.price).sort((a, b) => a - b);
+  const recMed = recent.length >= 3 ? q(recent, .5) : null;
+  const recGap = recMed ? Math.round((recMed - med) / med * 100) : 0;
+  const recentHtml = recMed ? `<p class="pc-recent">Sales in the last 18 months alone: median <strong>${gbp(round5k(recMed))}</strong>
+      (${recent.length} sales)${Math.abs(recGap) >= 5 ? `, ${Math.abs(recGap)}% ${recGap > 0 ? 'above' : 'below'} the estimate, so prices here have been ${recGap > 0 ? 'rising' : 'falling'}; lean towards this figure` : ', in line with the estimate'}.</p>` : '';
+  const conf = n >= 15 ? ['good', 'Good: ' + n + ' sales'] : n >= 8 ? ['fair', 'Fair: ' + n + ' sales']
+                                                        : ['low', 'Low: only ' + n + ' sales'];
+  // yearly medians so the visitor sees which way the street has moved
+  const byY = {};
+  sales.filter(t => !out.has(t)).forEach(t => (byY[t.sale_date.slice(0, 4)] ||= []).push(t.price));
+  const yrs = Object.keys(byY).sort();
+  const yrRows = yrs.map(y => { const a = byY[y].sort((x, z) => x - z);
+    return `<tr><td>${y}${+y === CUR ? ' <span class="cnt">part year</span>' : ''}</td><td class="num">${a.length}</td>
+            <td class="num">${a.length >= 2 ? gbp(q(a, .5)) : '<span class="thin">1 sale</span>'}</td></tr>`; }).join('');
+  // bar scale: from the lowest to the highest kept sale (and the asking price if outside)
+  const ask = Number(String($('pcAsk').value).replace(/[^0-9.]/g, '')) || null;
+  const lo = Math.min(kept[0], ask || Infinity), hi = Math.max(kept[kept.length - 1], ask || 0);
+  const pos = v => hi === lo ? 50 : (v - lo) / (hi - lo) * 100;
+  // One output for everyone: the fair-price range always; with an asking price, how it
+  // compares plus what that means for a seller and for a buyer (no need to say which you are).
+  let askHtml;
+  if (ask) {
+    const below = kept.filter(v => v < ask).length;
+    const pct = Math.round(below / n * 100);
+    const where = ask < p25 ? 'below' : ask > p75 ? 'above' : 'inside';
+    const verdict = {below: 'below the fair-price range: cheaper than most comparable sales',
+                     above: 'above the fair-price range: dearer than most comparable sales',
+                     inside: 'inside the fair-price range'}[where];
+    const gap = Math.round((ask - med) / med * 100);
+    askHtml = `<div class="pc-ask"><span class="pc-var ${where}">${gap >= 0 ? '+' : '−'}${Math.abs(gap)}% vs typical</span>
+      <strong>Asking ${gbp(ask)} is ${verdict}.</strong> It is higher than
+      ${below} of the ${n} ${label} sales on this street since ${minY} (${pct}%), and
+      ${Math.abs(gap)}% ${gap >= 0 ? 'above' : 'below'} their median. Size, condition and floor level
+      can justify a gap either way.</div>` + askGuide(where, p25, p75, recMed);
+  } else {
+    askHtml = `<div class="pc-ask">Selling, or looking at a listing? Add the asking price above to see how it compares with these sales.</div>`;
+  }
+  $('pcOut').innerHTML = `<div class="pc-result">
+      <div class="label" style="font-family:'DM Mono',monospace;font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)">
+        Estimated price, ${esc(label)} on ${esc(title(state.street))}</div>
+      <div class="pc-est">${gbp(round5k(med))}</div>
+      <div class="pc-range">Fair-price range <strong>${gbp(round5k(p25))} – ${gbp(round5k(p75))}</strong>
+        <span class="thin">(middle half of recent sales)</span></div>
+      ${recentHtml}
+      <span class="pc-badge ${conf[0]}">Confidence ${conf[1]}</span>
+      <div class="pc-bar" aria-hidden="true">
+        <div class="iqr" style="left:${pos(p25)}%;width:${pos(p75) - pos(p25)}%"></div>
+        <div class="dot" style="left:${pos(med)}%"></div>
+        ${ask ? `<div class="ask" style="left:${pos(ask)}%"></div><div class="lbl up" style="left:${pos(ask)}%">asking</div>` : ''}
+        <div class="lbl" style="left:0;transform:none">${gbp(lo)}</div>
+        <div class="lbl" style="left:auto;right:0;transform:none">${gbp(hi)}</div>
+      </div>
+      ${askHtml}
+      <p class="note">Based on ${n} ${esc(label)} ${n === 1 ? 'sale' : 'sales'} on ${esc(title(state.street))}
+        (${esc(state.sector)}) from ${minY} to date${widened ? ', widened from four years to six because recent sales were few' : ''}${out.size ? `; ${out.size} unusual ${out.size === 1 ? 'price was' : 'prices were'} left out as outliers (struck through below)` : ''}.
+        The estimate is the median; the range is the 25th to 75th percentile, rounded to £5,000.</p>
+    </div>
+    <p><a class="pc-report" href="${esc(state.report)}">See the full street report for ${esc(title(state.street))} →</a></p>
+    <h2>Median by year</h2>
+    <table><thead><tr><th>Year</th><th class="num">Sales</th><th class="num">Median</th></tr></thead><tbody>${yrRows}</tbody></table>
+    <p class="note">Sales are not adjusted for price changes since they happened. If the yearly medians
+      are clearly rising or falling, lean towards the most recent year.</p>
+    <h2>The sales used</h2>${compsTable(sales, out)}`;
+}
+
+// What the comparison means for each side. States what the sales show; it does not
+// predict how long a sale will take or what a particular home will fetch.
+function askGuide(where, p25, p75, recMed) {
+  const ref = recMed ? ` Sales in the last 18 months had a median of ${gbp(round5k(recMed))}.` : '';
+  const g = {
+    below: ['That can draw early interest, but check you are not under-pricing: if your home is typical for the street, these sales suggest room to ask more.',
+            'Find out why before you offer: condition, lease length or size often explain it. If the home is typical for the street, an offer close to the asking price is in line with what sold.'],
+    inside: ['Where you land inside the range depends on size, condition and outside space compared with the homes that sold.',
+             `An offer inside ${gbp(round5k(p25))} – ${gbp(round5k(p75))} is in line with what similar homes sold for. Use size and the most recent sales to decide where.`],
+    above: ['Buyers who check sold prices will see this gap. Size, condition, outside space or recent work can justify it, so have that evidence ready. If interest is thin early on, this gap is the first thing to look at.',
+            `Ask what justifies the gap: size, an extension, condition. Without a clear reason, these sales support an offer nearer the top of the range, ${gbp(round5k(p75))}.`]}[where];
+  return `<div class="pc-guide">
+    <div><h3>If you're selling</h3><p>${g[0]}${ref}</p></div>
+    <div><h3>If you're buying</h3><p>${g[1]}</p></div></div>
+    <ul class="pc-check"><li>Compare floor area and bedrooms with the sales listed below; a size difference often explains a price difference.</li>
+    <li>Weigh the most recent sales most: they reflect today's market better than older ones.</li>
+    <li>Ask the agent which of these sales they used as comparables.</li></ul>`;
+}
+
+function compsTable(sales, out) {
+  if (!sales.length) return '';
+  const rows = sales.slice().sort((a, b) => b.sale_date.localeCompare(a.sale_date)).map(t =>
+    `<tr class="${out.has(t) ? 'out' : ''}"><td class="dt">${t.sale_date}</td><td>${esc(title(t.address || ''))}</td>
+       <td class="dt">${esc(t.postcode || '')}</td><td>${esc(t.tenure || '')}</td>
+       <td class="num">${gbp(t.price)}</td></tr>`).join('');
+  return `<div class="scroll"><table><thead><tr><th>Date</th><th>Address</th><th>Postcode</th><th>Tenure</th>
+          <th class="num">Price</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+
+// No street given: ask for a postcode, then let the visitor pick the street.
+async function pickStreet(e) {
+  e.preventDefault();
+  const pc = $('pcPostcode').value.trim();
+  if (!pc) return;
+  $('pcPickOut').innerHTML = '<p class="note">Finding streets…</p>';
+  try {
+    const d = await (await fetch(`${API}/search?q=${encodeURIComponent(pc)}`)).json();
+    const st = d.streets || [];
+    if (!st.length) { $('pcPickOut').innerHTML = '<p class="note">No sales found for that postcode.</p>'; return; }
+    const idx = (window.SBS_PAGES && window.SBS_PAGES.st) || {};
+    $('pcPickOut').innerHTML = '<div class="pc-links">' + st.map(s => {
+      const pg = idx[`${s.postcode_sector}|${String(s.street).toUpperCase()}`] || '';
+      const u = `${location.pathname}?street=${encodeURIComponent(s.street)}&sector=${encodeURIComponent(s.postcode_sector)}${pg ? '&page=' + encodeURIComponent(pg) : ''}`;
+      return `<a href="${u}">${esc(title(s.street))} <span class="thin">&nbsp;${esc(s.postcode_sector)}</span></a>`; }).join('') + '</div>';
+  } catch (err) { $('pcPickOut').innerHTML = '<p class="note">The search did not respond. Try again in a moment.</p>'; }
+}
+
+if (state.street && state.sector) { $('pcTool').hidden = false; load(); }
+else { $('pcPick').hidden = false; }
+$('pcForm').addEventListener('submit', e => { e.preventDefault(); run(); });
+$('pcType').addEventListener('change', run);
+$('pcPickForm').addEventListener('submit', pickStreet);
+
+</script>
+</body>
+</html>
